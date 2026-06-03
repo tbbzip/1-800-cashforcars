@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "Cash For Cars | Instant Cash Offers",
+    "description": "Get a fast cash offer for used, damaged, or unwanted cars with simple pickup and payment."
+  },
+  "navigation": {
+    "homeLabel": "Cash For Cars home",
+    "languageLabel": "Ver sitio en español",
+    "chooseLanguage": "Choose language",
+    "mobileMenu": "Mobile navigation menu",
+    "toggleMenu": "Toggle mobile menu",
+    "callUs": "CALL US",
+    "getOffer": "GET OFFER",
+    "getInstantOffer": "GET INSTANT OFFER",
+    "items": [
+      { "label": "How it Works", "href": "#how-it-works", "hasMenu": true },
+      { "label": "Vehicle Makes", "href": "#vehicle-makes", "hasMenu": true },
+      { "label": "Locations", "href": "#locations", "hasMenu": false },
+      { "label": "Repair Estimate", "href": "#repair-estimate", "hasMenu": true },
+      { "label": "No Insurance Accident", "href": "#no-insurance", "hasMenu": true },
+      { "label": "More", "href": "#more", "hasMenu": true }
+    ]
+  },
+  "hero": {
+    "badge": "San Diego County cash offers",
+    "headline": "Sell your car fast with a local crew.",
+    "body": "Get a quick cash offer, schedule pickup anywhere in San Diego County, and skip the private-buyer hassle.",
+    "primaryCta": "Get Instant Offer",
+    "callCta": "Call 619-830-7005",
+    "proofPoints": [
+      "Same-day pickup windows",
+      "Any condition considered",
+      "Local San Diego County service",
+      "Clear title guidance"
+    ]
+  },
+  "mascot": {
+    "alt": "Cash For Cars mascot",
+    "guideTitle": "Your offer guide",
+    "guideBody": "Quick answers, clear pickup details, and help from quote to handoff."
+  },
+  "offerForm": {
+    "eyebrow": "Instant offer form",
+    "title": "Start with your VIN",
+    "body": "The fastest path to an offer. Plate or make/model can come next.",
+    "button": "GET MY OFFER"
+  },
+  "process": {
+    "eyebrow": "How it works",
+    "title": "Simple like the national platforms, faster because we are local.",
+    "body": "From the first quote to pickup, every step is built for sellers who want the car handled today.",
+    "stepLabel": "Step",
+    "steps": [
+      {
+        "title": "Tell us about the car",
+        "body": "VIN, plate, or basic details. Running, wrecked, high-mileage, or sitting."
+      },
+      {
+        "title": "Get a local offer",
+        "body": "We price around San Diego County demand, pickup distance, and condition."
+      },
+      {
+        "title": "Pickup and get paid",
+        "body": "We come to you, help with simple paperwork, and handle the vehicle."
+      }
+    ]
+  },
+  "locations": {
+    "title": "Built to win San Diego County, city by city.",
+    "body": "We cover the county with city-specific pickup windows, clear title guidance, and straightforward cash offers.",
+    "serviceAreaLabel": "Service area",
+    "areas": [
+      "San Diego",
+      "Chula Vista",
+      "Oceanside",
+      "Escondido",
+      "El Cajon",
+      "National City",
+      "La Mesa",
+      "Poway",
+      "Carlsbad",
+      "Encinitas",
+      "Santee",
+      "Imperial Beach"
+    ]
+  }
+}

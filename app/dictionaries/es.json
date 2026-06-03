@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "title": "Cash For Cars | Ofertas en efectivo al instante",
+    "description": "Recibe una oferta rápida por tu carro usado, dañado o no deseado, con recogida sencilla y pago claro."
+  },
+  "navigation": {
+    "homeLabel": "Inicio de Cash For Cars",
+    "languageLabel": "View site in English",
+    "chooseLanguage": "Cambiar idioma",
+    "mobileMenu": "Menú de navegación móvil",
+    "toggleMenu": "Abrir o cerrar menú móvil",
+    "callUs": "LLÁMANOS",
+    "getOffer": "OFERTA",
+    "getInstantOffer": "OBTÉN OFERTA AL INSTANTE",
+    "items": [
+      { "label": "Cómo funciona", "href": "#how-it-works", "hasMenu": true },
+      { "label": "Marcas de vehículos", "href": "#vehicle-makes", "hasMenu": true },
+      { "label": "Ubicaciones", "href": "#locations", "hasMenu": false },
+      { "label": "Estimado de reparación", "href": "#repair-estimate", "hasMenu": true },
+      { "label": "Accidente sin aseguranza", "href": "#no-insurance", "hasMenu": true },
+      { "label": "Más", "href": "#more", "hasMenu": true }
+    ]
+  },
+  "hero": {
+    "badge": "Ofertas en efectivo en San Diego County",
+    "headline": "Vende tu carro rápido con un equipo local.",
+    "body": "Recibe una oferta rápida, agenda la recogida en cualquier parte de San Diego County y evita la pérdida de tiempo con compradores privados.",
+    "primaryCta": "Obtén oferta al instante",
+    "callCta": "Llama al 619-830-7005",
+    "proofPoints": [
+      "Horarios de recogida el mismo día",
+      "Consideramos cualquier condición",
+      "Servicio local en San Diego County",
+      "Ayuda clara con el título"
+    ]
+  },
+  "mascot": {
+    "alt": "Mascota de Cash For Cars",
+    "guideTitle": "Tu guía de oferta",
+    "guideBody": "Respuestas rápidas, detalles claros de recogida y ayuda desde la cotización hasta la entrega."
+  },
+  "offerForm": {
+    "eyebrow": "Formulario de oferta instantánea",
+    "title": "Empieza con tu VIN",
+    "body": "La forma más rápida de recibir una oferta. La placa o marca/modelo pueden venir después.",
+    "button": "QUIERO MI OFERTA"
+  },
+  "process": {
+    "eyebrow": "Cómo funciona",
+    "title": "Tan simple como las plataformas nacionales, más rápido porque somos locales.",
+    "body": "Desde la primera cotización hasta la recogida, cada paso está hecho para personas que quieren resolver hoy.",
+    "stepLabel": "Paso",
+    "steps": [
+      {
+        "title": "Cuéntanos del carro",
+        "body": "VIN, placa o detalles básicos. Si corre, está chocado, tiene muchas millas o está parado."
+      },
+      {
+        "title": "Recibe una oferta local",
+        "body": "Cotizamos según la demanda en San Diego County, distancia de recogida y condición."
+      },
+      {
+        "title": "Recogida y pago",
+        "body": "Vamos a donde estés, ayudamos con papeleo sencillo y nos encargamos del vehículo."
+      }
+    ]
+  },
+  "locations": {
+    "title": "Listos para ganar San Diego County, ciudad por ciudad.",
+    "body": "Cubrimos el condado con horarios de recogida por ciudad, guía clara de título y ofertas directas en efectivo.",
+    "serviceAreaLabel": "Área de servicio",
+    "areas": [
+      "San Diego",
+      "Chula Vista",
+      "Oceanside",
+      "Escondido",
+      "El Cajon",
+      "National City",
+      "La Mesa",
+      "Poway",
+      "Carlsbad",
+      "Encinitas",
+      "Santee",
+      "Imperial Beach"
+    ]
+  }
+}
