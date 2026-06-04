@@ -26,3 +26,7 @@ export function getAlternateLocale(locale: Locale): Locale {
 export function getLocalePath(locale: Locale): string {
   return locale === "en" ? "/" : `/${locale}`;
 }
+
+export function getOfferPath(locale: Locale): string {
+  return locale === "en" ? "/offer" : "/es/oferta";
+}

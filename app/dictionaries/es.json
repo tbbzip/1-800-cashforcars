@@ -1,73 +1,158 @@
 {
   "meta": {
-    "title": "Cash For Cars | Ofertas en efectivo al instante",
-    "description": "Recibe una oferta rápida por tu carro usado, dañado o no deseado, con recogida sencilla y pago claro."
+    "title": "Cash for Cars San Diego | Vende tu carro por efectivo",
+    "description": "Vende tu carro usado, chocado, para yonke o que no prende en San Diego County. Recibe una oferta rápida; si lo compramos, pasamos por él sin costo."
   },
   "navigation": {
     "homeLabel": "Inicio de Cash For Cars",
-    "languageLabel": "View site in English",
+    "languageLabel": "Ver sitio en inglés",
     "chooseLanguage": "Cambiar idioma",
     "mobileMenu": "Menú de navegación móvil",
     "toggleMenu": "Abrir o cerrar menú móvil",
     "callUs": "LLÁMANOS",
     "getOffer": "OFERTA",
-    "getInstantOffer": "OBTÉN OFERTA AL INSTANTE",
+    "getInstantOffer": "OBTÉN TU OFERTA",
     "items": [
-      { "label": "Cómo funciona", "href": "#how-it-works", "hasMenu": true },
-      { "label": "Marcas de vehículos", "href": "#vehicle-makes", "hasMenu": true },
-      { "label": "Ubicaciones", "href": "#locations", "hasMenu": false },
-      { "label": "Estimado de reparación", "href": "#repair-estimate", "hasMenu": true },
-      { "label": "Accidente sin aseguranza", "href": "#no-insurance", "hasMenu": true },
-      { "label": "Más", "href": "#more", "hasMenu": true }
+      {
+        "label": "Cómo funciona",
+        "href": "#how-it-works",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Recibe tu oferta", "href": "/es/oferta" },
+          { "label": "Oferta local por tu carro", "href": "#local-cash-for-cars" },
+          { "label": "Pasamos por tu carro sin costo", "href": "#how-it-works" },
+          { "label": "Recibe tu pago", "href": "#how-it-works" }
+        ]
+      },
+      {
+        "label": "Carros que compramos",
+        "href": "#cars-we-buy",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Carros para yonke", "href": "#junk-cars" },
+          { "label": "Carros dañados", "href": "#damaged-cars" },
+          { "label": "Carros que no prenden", "href": "#non-running-cars" },
+          { "label": "Trocas y SUVs", "href": "#trucks-suvs" }
+        ]
+      },
+      {
+        "label": "Áreas de San Diego",
+        "href": "#locations",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "San Diego", "href": "#san-diego" },
+          { "label": "Chula Vista", "href": "#chula-vista" },
+          { "label": "Oceanside", "href": "#oceanside" },
+          { "label": "South Bay y North County", "href": "#san-diego-service-areas" },
+          { "label": "Escondido", "href": "#escondido" },
+          { "label": "El Cajon", "href": "#el-cajon" },
+          { "label": "National City", "href": "#national-city" }
+        ]
+      },
+      {
+        "label": "Ayuda con título",
+        "href": "#title-help",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Título perdido", "href": "#lost-title" },
+          { "label": "Problemas con el registro", "href": "#registration-issues" },
+          { "label": "Préstamo o lien", "href": "#loan-lien" },
+          { "label": "Papeleo del DMV", "href": "#dmv-paperwork" }
+        ]
+      },
+      {
+        "label": "Preguntas",
+        "href": "#questions",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "¿Qué documentos necesito?", "href": "#documents-needed" },
+          { "label": "¿Cuándo me pagan?", "href": "#when-paid" },
+          { "label": "¿Me cobran la grúa?", "href": "#free-towing" },
+          { "label": "¿Puedo vender un carro dañado?", "href": "#damaged-car-question" }
+        ]
+      }
     ]
   },
   "hero": {
     "badge": "Ofertas en efectivo en San Diego County",
-    "headline": "Vende tu carro rápido con un equipo local.",
-    "body": "Recibe una oferta rápida, agenda la recogida en cualquier parte de San Diego County y evita la pérdida de tiempo con compradores privados.",
-    "primaryCta": "Obtén oferta al instante",
+    "headline": "Vende tu carro por efectivo en San Diego County.",
+    "body": "Te damos una oferta local por tu carro usado, chocado, para yonke o que no prende. Si lo compramos, pasar por él o mandar grúa estándar va incluido en San Diego County.",
+    "primaryCta": "Obtén tu oferta",
     "callCta": "Llama al 619-830-7005",
     "proofPoints": [
-      "Horarios de recogida el mismo día",
-      "Consideramos cualquier condición",
+      "Pasamos por tu carro sin costo si lo compramos",
+      "Compramos carros chocados, para yonke o que no prenden",
       "Servicio local en San Diego County",
-      "Ayuda clara con el título"
+      "Te orientamos con título y papeleo del DMV"
     ]
   },
   "mascot": {
     "alt": "Mascota de Cash For Cars",
-    "guideTitle": "Tu guía de oferta",
-    "guideBody": "Respuestas rápidas, detalles claros de recogida y ayuda desde la cotización hasta la entrega."
+    "guideTitle": "Tu guía local para vender",
+    "guideBody": "Te ayudamos con la oferta, el título, el horario para pasar por el carro y la entrega."
   },
   "offerForm": {
-    "eyebrow": "Formulario de oferta instantánea",
+    "eyebrow": "Oferta instantánea",
     "title": "Empieza con tu VIN",
-    "body": "La forma más rápida de recibir una oferta. La placa o marca/modelo pueden venir después.",
-    "button": "QUIERO MI OFERTA"
+    "body": "Primero busca el carro. Después vemos condición, título y detalles para preparar tu oferta en San Diego County.",
+    "button": "QUIERO MI OFERTA",
+    "vinLabel": "VIN del carro",
+    "vinPlaceholder": "Escribe el VIN de 17 caracteres",
+    "lookupButton": "BUSCAR CARRO",
+    "lookupLoading": "BUSCANDO CARRO",
+    "lookupFound": "Carro encontrado",
+    "lookupVinError": "Escribe un VIN válido de 17 caracteres.",
+    "lookupGenericError": "No pudimos encontrar ese VIN por ahora.",
+    "lookupCallPrompt": "Si el VIN no aparece, llámanos y lo revisamos contigo:",
+    "lookupNote": "Esto solo decodifica datos del carro con NHTSA vPIC. No revisa título, historial, condición ni valor.",
+    "continueOffer": "CONTINUAR CON MI OFERTA",
+    "trimLabel": "Versión",
+    "bodyLabel": "Carrocería",
+    "typeLabel": "Tipo",
+    "sourceLabel": "Fuente"
+  },
+  "localSeo": {
+    "eyebrow": "Compramos carros en San Diego",
+    "title": "Un comprador local para carros reales, no solo carros perfectos.",
+    "body": "Vender por tu cuenta puede tomar tiempo, y muchas plataformas nacionales no son tan simples cuando el carro está chocado, no prende, tiene partes faltantes, dudas de título o necesita grúa. Cash For Cars se enfoca en vendedores de San Diego County que quieren una oferta clara y una forma sencilla de mover el carro.",
+    "highlights": [
+      {
+        "title": "Ofertas por carros usados",
+        "body": "Dinos qué tienes: año, marca, modelo, VIN, millas y condición. Con eso podemos preparar una oferta local en San Diego."
+      },
+      {
+        "title": "Carros para yonke, chocados o que no prenden",
+        "body": "Podemos considerar carros con daño por choque, problemas mecánicos, smog fallido, muchas millas, partes faltantes o que llevan tiempo parados."
+      },
+      {
+        "title": "Pasamos por el carro sin costo",
+        "body": "Si compramos tu carro, pasar por él o mandar grúa estándar va incluido para que no tengas que buscar una grúa por tu cuenta."
+      }
+    ]
   },
   "process": {
     "eyebrow": "Cómo funciona",
-    "title": "Tan simple como las plataformas nacionales, más rápido porque somos locales.",
-    "body": "Desde la primera cotización hasta la recogida, cada paso está hecho para personas que quieren resolver hoy.",
+    "title": "Tan simple como las plataformas nacionales, pero más rápido porque somos locales.",
+    "body": "Desde la primera oferta hasta que pasamos por el carro, todo está pensado para vendedores en San Diego que no quieren batallar con compradores privados.",
     "stepLabel": "Paso",
     "steps": [
       {
         "title": "Cuéntanos del carro",
-        "body": "VIN, placa o detalles básicos. Si corre, está chocado, tiene muchas millas o está parado."
+        "body": "Comparte VIN, placas o detalles básicos. Si corre, está chocado, tiene muchas millas, está parado o no prende."
       },
       {
         "title": "Recibe una oferta local",
-        "body": "Cotizamos según la demanda en San Diego County, distancia de recogida y condición."
+        "body": "Revisamos demanda local en San Diego County, condición, millas, título y detalles para pasar por el carro."
       },
       {
-        "title": "Recogida y pago",
-        "body": "Vamos a donde estés, ayudamos con papeleo sencillo y nos encargamos del vehículo."
+        "title": "Pasamos por tu carro y te pagamos",
+        "body": "Vamos a donde esté el carro, te ayudamos con papeleo sencillo y, si lo compramos, nos encargamos de moverlo sin cobrarte por pasar."
       }
     ]
   },
   "locations": {
-    "title": "Listos para ganar San Diego County, ciudad por ciudad.",
-    "body": "Cubrimos el condado con horarios de recogida por ciudad, guía clara de título y ofertas directas en efectivo.",
+    "title": "Atendemos San Diego County, ciudad por ciudad.",
+    "body": "Ayudamos a vendedores en todo San Diego County, incluyendo South Bay, East County, comunidades de la costa y North County. Empieza en línea y después revisamos horario, papeleo y opciones para pasar por el carro.",
     "serviceAreaLabel": "Área de servicio",
     "areas": [
       "San Diego",
@@ -83,5 +168,267 @@
       "Santee",
       "Imperial Beach"
     ]
+  },
+  "carsWeBuy": {
+    "eyebrow": "Carros que compramos",
+    "title": "Ofertas locales para carros que otros compradores complican.",
+    "body": "Hablamos como la gente busca: vendo carro para yonke, vendo carro chocado, vendo carro que no prende o necesito comprador de troca cerca de San Diego.",
+    "items": [
+      {
+        "id": "junk-cars",
+        "title": "Carros para yonke",
+        "body": "Carros parados, con problemas de smog, partes faltantes o que cuestan más arreglarlos que venderlos."
+      },
+      {
+        "id": "damaged-cars",
+        "title": "Carros dañados",
+        "body": "Choques, golpes, problemas mecánicos o reparaciones caras pendientes."
+      },
+      {
+        "id": "non-running-cars",
+        "title": "Carros que no prenden",
+        "body": "Carros que no arrancan, no se pueden manejar con seguridad o necesitan que pasemos por ellos en casa, taller, yarda o la calle."
+      },
+      {
+        "id": "trucks-suvs",
+        "title": "Trocas y SUVs",
+        "body": "Trocas, SUVs, vans, carros de trabajo y carros familiares en todo el condado."
+      }
+    ]
+  },
+  "titleHelp": {
+    "eyebrow": "Ayuda con título",
+    "title": "Te orientamos con el papeleo antes de perder tiempo con compradores privados.",
+    "body": "Dudas de título o registro son comunes cuando vendes un carro viejo, chocado o que ya no quieres. Podemos revisar qué documentos tienes y explicarte el siguiente paso de forma clara. No es asesoría legal.",
+    "items": [
+      {
+        "id": "lost-title",
+        "title": "Título perdido",
+        "body": "Te explicamos qué información normalmente se necesita si no encuentras el título."
+      },
+      {
+        "id": "registration-issues",
+        "title": "Problemas con el registro",
+        "body": "Registro vencido, cargos pendientes o dudas del DMV se pueden revisar antes de hacer planes."
+      },
+      {
+        "id": "loan-lien",
+        "title": "Préstamo o lien",
+        "body": "Si el carro tiene préstamo o puede tener un lien, te ayudamos a identificar qué revisar antes de avanzar."
+      },
+      {
+        "id": "dmv-paperwork",
+        "title": "Papeleo del DMV",
+        "body": "Guía sencilla para formularios, aviso de venta, release of liability y detalles de entrega."
+      }
+    ]
+  },
+  "questions": {
+    "eyebrow": "Preguntas",
+    "title": "Preguntas que la gente hace antes de pedir una oferta.",
+    "items": [
+      {
+        "id": "documents-needed",
+        "question": "¿Qué documentos necesito?",
+        "answer": "Empieza con el título o registro, una identificación y detalles del préstamo si aplica."
+      },
+      {
+        "id": "when-paid",
+        "question": "¿Cuándo me pagan?",
+        "answer": "La idea es pagarte cuando pasamos por el carro, después de confirmar el carro y el papeleo."
+      },
+      {
+        "id": "free-towing",
+        "question": "¿Me cobran por la grúa?",
+        "answer": "No. Si compramos tu carro en San Diego County, pasar por él o mandar grúa estándar va incluido."
+      },
+      {
+        "id": "damaged-car-question",
+        "question": "¿Puedo vender un carro dañado?",
+        "answer": "Sí. Podemos considerar carros chocados, con problemas mecánicos, muchas millas o que no prenden."
+      },
+      {
+        "id": "junk-car-question",
+        "question": "¿Compran carros para yonke en San Diego?",
+        "answer": "Sí. Podemos considerar carros para yonke, salvage, con smog fallido o carros que llevan tiempo parados en San Diego County."
+      },
+      {
+        "id": "pickup-question",
+        "question": "¿Pueden pasar por un carro que no prende?",
+        "answer": "Sí. Si compramos el carro, pasar por él o mandar grúa estándar va incluido para vehículos elegibles en San Diego County."
+      }
+    ]
+  },
+  "serviceAreas": {
+    "eyebrow": "Áreas de servicio en San Diego",
+    "title": "Ofertas locales desde South Bay hasta North County.",
+    "body": "Una página local fuerte debe dejar claro dónde trabajamos. Compramos carros usados, para yonke, chocados y que no prenden en San Diego County, con opciones para pasar por el carro según dónde esté ubicado.",
+    "items": [
+      {
+        "title": "San Diego, Chula Vista y South Bay",
+        "body": "Ofertas por carros en San Diego, Chula Vista, National City, Imperial Beach, Otay Mesa y comunidades cercanas del South Bay."
+      },
+      {
+        "title": "El Cajon, La Mesa, Santee y East County",
+        "body": "Podemos revisar carros en East County, ya sea en casa, trabajo, apartamentos, talleres, yardas de grúa o estacionados en la calle."
+      },
+      {
+        "title": "Oceanside, Escondido, Carlsbad y North County",
+        "body": "Vendedores de North County pueden empezar con el VIN en línea y continuar a una oferta local por carros usados, chocados o que no prenden."
+      }
+    ]
+  },
+  "footer": {
+    "eyebrow": "Compramos carros en San Diego County",
+    "headline": "Lo compramos.",
+    "body": "Usado, chocado, con muchas millas, que no prende o simplemente listo para vender. Si el carro está en San Diego County, empieza con una oferta local.",
+    "cta": "Ve cuánto te ofrecemos",
+    "addressLabel": "Oficina local",
+    "phoneLabel": "Llama o manda texto",
+    "navigationLabel": "Navegación del footer",
+    "rights": "Ofertas locales en efectivo y ayuda para pasar por tu carro sin costo en San Diego County.",
+    "backToTop": "Volver arriba",
+    "columns": [
+      {
+        "title": "Vender",
+        "links": [
+          { "label": "Recibe una oferta", "href": "/offer" },
+          { "label": "Oferta local por tu carro", "href": "#local-cash-for-cars" },
+          { "label": "Cómo funciona", "href": "#how-it-works" },
+          { "label": "Carros que compramos", "href": "#cars-we-buy" },
+          { "label": "Ayuda con título", "href": "#title-help" }
+        ]
+      },
+      {
+        "title": "Popular",
+        "links": [
+          { "label": "Carros para yonke", "href": "#junk-cars" },
+          { "label": "Carros dañados", "href": "#damaged-cars" },
+          { "label": "Carros que no prenden", "href": "#non-running-cars" },
+          { "label": "Trocas y SUVs", "href": "#trucks-suvs" }
+        ]
+      },
+      {
+        "title": "Áreas",
+        "links": [
+          { "label": "San Diego", "href": "#san-diego" },
+          { "label": "Chula Vista", "href": "#chula-vista" },
+          { "label": "Oceanside", "href": "#oceanside" },
+          { "label": "El Cajon", "href": "#el-cajon" }
+        ]
+      },
+      {
+        "title": "Ayuda",
+        "links": [
+          { "label": "Preguntas", "href": "#questions" },
+          { "label": "Documentos necesarios", "href": "#documents-needed" },
+          { "label": "Cuándo me pagan", "href": "#when-paid" },
+          { "label": "¿Me cobran la grúa?", "href": "#free-towing" }
+        ]
+      }
+    ]
+  },
+  "offerFlow": {
+    "metaTitle": "Obtén tu oferta | Cash For Cars",
+    "helpLabel": "¿Necesitas ayuda?",
+    "introTitle": "Cuéntanos de tu carro",
+    "introBody": "Preguntas rápidas para preparar una mejor oferta local en San Diego County.",
+    "proof": ["Toma menos de 2 minutos", "Sin obligación", "Pasamos por el carro sin costo"],
+    "backHome": "Volver al sitio",
+    "steps": [
+      { "id": "vehicle", "label": "Información del carro" },
+      { "id": "mechanical", "label": "Mecánica y movilidad" },
+      { "id": "body", "label": "Condición exterior" },
+      { "id": "review", "label": "Revisar" }
+    ],
+    "common": {
+      "yes": "Sí",
+      "no": "No",
+      "next": "Siguiente",
+      "back": "Regresar",
+      "submit": "Enviar ejemplo",
+      "required": "Completa las preguntas marcadas antes de continuar.",
+      "source": "Fuente"
+    },
+    "vehicle": {
+      "title": "Información del carro",
+      "vinLabel": "VIN",
+      "vinPlaceholder": "Escribe el VIN o continúa manualmente",
+      "lookupButton": "Buscar VIN",
+      "lookupLoading": "Buscando",
+      "lookupFound": "Carro encontrado",
+      "manualHint": "Puedes editar estos datos si la búsqueda del VIN sale incompleta.",
+      "year": "Año",
+      "make": "Marca",
+      "model": "Modelo",
+      "trim": "Versión / submodelo",
+      "zip": "ZIP donde está el carro",
+      "phone": "Teléfono",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo",
+      "titleQuestion": "¿Tienes el título del carro?",
+      "paperworkQuestion": "¿Qué documentos tienes?",
+      "paperworkPlaceholder": "Selecciona una opción",
+      "paperworkOptions": [
+        "Registro",
+        "Bill of Sale",
+        "Solicitud de duplicado de título",
+        "Papeleo de subasta",
+        "Lien Sale",
+        "Carta de liberación de lien",
+        "No tengo documentos"
+      ]
+    },
+    "mechanical": {
+      "title": "Condición mecánica y movilidad",
+      "mileageQuestion": "¿Cuántas millas tiene el carro?",
+      "mileagePlaceholder": "Selecciona millaje",
+      "mileageOptions": [
+        "Menos de 50,000",
+        "Menos de 100,000",
+        "Menos de 150,000",
+        "Menos de 200,000",
+        "Menos de 250,000",
+        "Menos de 300,000",
+        "Más de 300,000"
+      ],
+      "drivesQuestion": "¿El carro se puede manejar?",
+      "tiresQuestion": "¿Todas las llantas tienen aire?",
+      "wheelsQuestion": "¿Todas las ruedas están puestas?",
+      "rollsQuestion": "¿El carro puede rodar o moverse?",
+      "catalyticQuestion": "¿Todavía tiene el catalizador?"
+    },
+    "body": {
+      "title": "Condición exterior",
+      "damageQuestion": "¿Cómo está por fuera?",
+      "damageOptions": [
+        "Desgaste normal",
+        "Golpes o rayones menores",
+        "Daño fuerte por fuera",
+        "Daño por choque",
+        "Le faltan partes exteriores"
+      ],
+      "airbagsQuestion": "¿Se activaron las bolsas de aire?",
+      "keysQuestion": "¿Tienes llaves?",
+      "accessQuestion": "¿Dónde está el carro?",
+      "accessOptions": [
+        "Entrada de casa",
+        "Apartamento o comunidad con acceso",
+        "Taller mecánico",
+        "Yarda de grúas",
+        "Estacionado en la calle",
+        "Otro"
+      ]
+    },
+    "review": {
+      "title": "Revisa la información",
+      "body": "Así se verá la información antes de conectarla a tu CRM, correo o base de datos.",
+      "submittedTitle": "Formulario completo",
+      "submittedBody": "El flujo ya está listo para conectarse a tu sistema de leads.",
+      "vehicleSummary": "Carro",
+      "contactSummary": "Contacto",
+      "conditionSummary": "Condición"
+    }
   }
 }

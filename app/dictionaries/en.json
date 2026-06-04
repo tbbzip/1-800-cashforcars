@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Cash For Cars | Instant Cash Offers",
-    "description": "Get a fast cash offer for used, damaged, or unwanted cars with simple pickup and payment."
+    "title": "Cash for Cars San Diego | Sell Your Car for Cash",
+    "description": "Sell your used, junk, damaged, or non-running car in San Diego County. Get a fast cash offer, free pickup or towing, and local title help."
   },
   "navigation": {
     "homeLabel": "Cash For Cars home",
@@ -13,61 +13,146 @@
     "getOffer": "GET OFFER",
     "getInstantOffer": "GET INSTANT OFFER",
     "items": [
-      { "label": "How it Works", "href": "#how-it-works", "hasMenu": true },
-      { "label": "Vehicle Makes", "href": "#vehicle-makes", "hasMenu": true },
-      { "label": "Locations", "href": "#locations", "hasMenu": false },
-      { "label": "Repair Estimate", "href": "#repair-estimate", "hasMenu": true },
-      { "label": "No Insurance Accident", "href": "#no-insurance", "hasMenu": true },
-      { "label": "More", "href": "#more", "hasMenu": true }
+      {
+        "label": "How it Works",
+        "href": "#how-it-works",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Get your offer", "href": "/offer" },
+          { "label": "Local cash offers", "href": "#local-cash-for-cars" },
+          { "label": "Pickup or towing included", "href": "#how-it-works" },
+          { "label": "Get paid", "href": "#how-it-works" }
+        ]
+      },
+      {
+        "label": "Cars We Buy",
+        "href": "#cars-we-buy",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Junk cars", "href": "#junk-cars" },
+          { "label": "Damaged cars", "href": "#damaged-cars" },
+          { "label": "Non-running cars", "href": "#non-running-cars" },
+          { "label": "Trucks & SUVs", "href": "#trucks-suvs" }
+        ]
+      },
+      {
+        "label": "San Diego Areas",
+        "href": "#locations",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "San Diego", "href": "#san-diego" },
+          { "label": "Chula Vista", "href": "#chula-vista" },
+          { "label": "Oceanside", "href": "#oceanside" },
+          { "label": "South Bay & North County", "href": "#san-diego-service-areas" },
+          { "label": "Escondido", "href": "#escondido" },
+          { "label": "El Cajon", "href": "#el-cajon" },
+          { "label": "National City", "href": "#national-city" }
+        ]
+      },
+      {
+        "label": "Title Help",
+        "href": "#title-help",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "Lost title", "href": "#lost-title" },
+          { "label": "Registration issues", "href": "#registration-issues" },
+          { "label": "Loan or lien", "href": "#loan-lien" },
+          { "label": "DMV paperwork", "href": "#dmv-paperwork" }
+        ]
+      },
+      {
+        "label": "Questions",
+        "href": "#questions",
+        "hasMenu": true,
+        "menuItems": [
+          { "label": "What documents do I need?", "href": "#documents-needed" },
+          { "label": "When do I get paid?", "href": "#when-paid" },
+          { "label": "Is towing free?", "href": "#free-towing" },
+          { "label": "Can I sell a damaged car?", "href": "#damaged-car-question" }
+        ]
+      }
     ]
   },
   "hero": {
     "badge": "San Diego County cash offers",
-    "headline": "Sell your car fast with a local crew.",
-    "body": "Get a quick cash offer, schedule pickup anywhere in San Diego County, and skip the private-buyer hassle.",
-    "primaryCta": "Get Instant Offer",
+    "headline": "Sell your car for cash in San Diego County.",
+    "body": "Get a local cash offer for your used, junk, damaged, or non-running car. If we buy it, pickup or standard towing is included anywhere in San Diego County.",
+    "primaryCta": "Get My Cash Offer",
     "callCta": "Call 619-830-7005",
     "proofPoints": [
-      "Same-day pickup windows",
-      "Any condition considered",
+      "Free pickup or towing when we buy",
+      "Junk, damaged, and non-running cars considered",
       "Local San Diego County service",
-      "Clear title guidance"
+      "Title and DMV paperwork guidance"
     ]
   },
   "mascot": {
     "alt": "Cash For Cars mascot",
-    "guideTitle": "Your offer guide",
-    "guideBody": "Quick answers, clear pickup details, and help from quote to handoff."
+    "guideTitle": "Your local offer guide",
+    "guideBody": "Quick answers, clear pickup details, and help from the first cash offer to vehicle handoff."
   },
   "offerForm": {
     "eyebrow": "Instant offer form",
     "title": "Start with your VIN",
-    "body": "The fastest path to an offer. Plate or make/model can come next.",
-    "button": "GET MY OFFER"
+    "body": "Look up the vehicle first. Then we can review condition, title status, and pickup details for your San Diego County offer.",
+    "button": "GET MY OFFER",
+    "vinLabel": "Vehicle VIN",
+    "vinPlaceholder": "Enter 17-character VIN",
+    "lookupButton": "LOOK UP VEHICLE",
+    "lookupLoading": "LOOKING UP VEHICLE",
+    "lookupFound": "Vehicle found",
+    "lookupVinError": "Enter a valid 17-character VIN.",
+    "lookupGenericError": "We could not look up that vehicle right now.",
+    "lookupCallPrompt": "If the VIN is not coming up, call us and we can look it up with you:",
+    "lookupNote": "This only decodes vehicle information from NHTSA vPIC. It does not check title status, history, condition, or value.",
+    "continueOffer": "CONTINUE TO MY OFFER",
+    "trimLabel": "Trim",
+    "bodyLabel": "Body",
+    "typeLabel": "Type",
+    "sourceLabel": "Source"
+  },
+  "localSeo": {
+    "eyebrow": "Local cash for cars service",
+    "title": "A San Diego County car buyer built for real-life vehicles.",
+    "body": "Private buyers can waste your time, and national platforms are not always built for cars with damage, missing parts, title questions, or towing needs. Cash For Cars focuses on local sellers who want a clear offer and a simple way to move the vehicle.",
+    "highlights": [
+      {
+        "title": "Cash offers for used cars",
+        "body": "Tell us what you have, including year, make, model, VIN, mileage, and condition, so we can prepare a San Diego cash offer."
+      },
+      {
+        "title": "Junk, damaged, and non-running cars",
+        "body": "We consider cars with accident damage, mechanical problems, failed smog, high mileage, missing parts, or vehicles that will not start."
+      },
+      {
+        "title": "Pickup or towing included",
+        "body": "If we buy your vehicle, standard pickup or towing is included so you do not have to arrange a tow truck yourself."
+      }
+    ]
   },
   "process": {
     "eyebrow": "How it works",
     "title": "Simple like the national platforms, faster because we are local.",
-    "body": "From the first quote to pickup, every step is built for sellers who want the car handled today.",
+    "body": "From the first quote to pickup, every step is built for San Diego sellers who want the car handled without private-sale headaches.",
     "stepLabel": "Step",
     "steps": [
       {
         "title": "Tell us about the car",
-        "body": "VIN, plate, or basic details. Running, wrecked, high-mileage, or sitting."
+        "body": "Share the VIN, plate, or basic details. Running, wrecked, high-mileage, sitting, or not starting."
       },
       {
         "title": "Get a local offer",
-        "body": "We price around San Diego County demand, pickup distance, and condition."
+        "body": "We review San Diego County demand, vehicle condition, mileage, title status, and pickup details."
       },
       {
         "title": "Pickup and get paid",
-        "body": "We come to you, help with simple paperwork, and handle the vehicle."
+        "body": "We come to the vehicle, help with simple paperwork, and include standard pickup or towing when we buy."
       }
     ]
   },
   "locations": {
-    "title": "Built to win San Diego County, city by city.",
-    "body": "We cover the county with city-specific pickup windows, clear title guidance, and straightforward cash offers.",
+    "title": "Cash for cars across San Diego County.",
+    "body": "We help sellers throughout San Diego County, including South Bay, East County, coastal communities, and North County. Start online, then we can review timing, paperwork, and pickup options.",
     "serviceAreaLabel": "Service area",
     "areas": [
       "San Diego",
@@ -83,5 +168,267 @@
       "Santee",
       "Imperial Beach"
     ]
+  },
+  "carsWeBuy": {
+    "eyebrow": "Cars we buy",
+    "title": "Local offers for the cars national buyers make complicated.",
+    "body": "We help with the searches real sellers make: cash for junk cars, sell a damaged car, sell a car that does not run, and truck or SUV buyers near San Diego.",
+    "items": [
+      {
+        "id": "junk-cars",
+        "title": "Junk cars",
+        "body": "Cars that have been sitting, failed smog, have missing parts, or cost more to fix than they are worth."
+      },
+      {
+        "id": "damaged-cars",
+        "title": "Damaged cars",
+        "body": "Accident damage, body damage, mechanical problems, and cars needing expensive repairs."
+      },
+      {
+        "id": "non-running-cars",
+        "title": "Non-running cars",
+        "body": "Vehicles that will not start, cannot be driven safely, or need pickup from home, work, a repair shop, or a tow yard."
+      },
+      {
+        "id": "trucks-suvs",
+        "title": "Trucks & SUVs",
+        "body": "Pickups, SUVs, vans, commuters, work vehicles, and family cars across the county."
+      }
+    ]
+  },
+  "titleHelp": {
+    "eyebrow": "Title help",
+    "title": "Paperwork help before you waste time with private buyers.",
+    "body": "Title and registration issues are common when selling an older, damaged, or unwanted car. We can help you understand what information may be needed before pickup.",
+    "items": [
+      {
+        "id": "lost-title",
+        "title": "Lost title",
+        "body": "We can explain what information is usually needed when the title is missing."
+      },
+      {
+        "id": "registration-issues",
+        "title": "Registration issues",
+        "body": "Expired registration, unpaid fees, or DMV questions can be reviewed before pickup."
+      },
+      {
+        "id": "loan-lien",
+        "title": "Loan or lien",
+        "body": "If there may be a lien, we can help identify the next step before making plans."
+      },
+      {
+        "id": "dmv-paperwork",
+        "title": "DMV paperwork",
+        "body": "Simple guidance for seller forms, release of liability, and handoff details."
+      }
+    ]
+  },
+  "questions": {
+    "eyebrow": "Questions",
+    "title": "Answers sellers ask before they request an offer.",
+    "items": [
+      {
+        "id": "documents-needed",
+        "question": "What documents do I need?",
+        "answer": "Start with your title or registration, photo ID, and any lien or payoff details if they apply."
+      },
+      {
+        "id": "when-paid",
+        "question": "When do I get paid?",
+        "answer": "The goal is clear payment when we arrive for free pickup, once the vehicle and paperwork are confirmed."
+      },
+      {
+        "id": "free-towing",
+        "question": "Is towing free?",
+        "answer": "Yes. For San Diego County sellers, free pickup or standard towing is included when we buy the vehicle."
+      },
+      {
+        "id": "damaged-car-question",
+        "question": "Can I sell a damaged car?",
+        "answer": "Yes. Damage, mechanical issues, high mileage, and non-running vehicles can still be considered."
+      },
+      {
+        "id": "junk-car-question",
+        "question": "Do you buy junk cars in San Diego?",
+        "answer": "Yes. We consider junk cars, salvage vehicles, failed-smog cars, and vehicles that have been sitting in San Diego County."
+      },
+      {
+        "id": "pickup-question",
+        "question": "Can you pick up a car that does not run?",
+        "answer": "Yes. If we buy the car, standard pickup or towing is included for eligible San Diego County vehicles."
+      }
+    ]
+  },
+  "serviceAreas": {
+    "eyebrow": "San Diego service areas",
+    "title": "Local cash offers from South Bay to North County.",
+    "body": "A strong local homepage should make the service area clear. We buy used, junk, damaged, and non-running vehicles across San Diego County, with pickup options based on where the car is located.",
+    "items": [
+      {
+        "title": "San Diego, Chula Vista & South Bay",
+        "body": "Cash offers for cars in San Diego, Chula Vista, National City, Imperial Beach, Otay Mesa, and nearby South Bay neighborhoods."
+      },
+      {
+        "title": "El Cajon, La Mesa, Santee & East County",
+        "body": "We can review vehicles in East County, including cars at home, work, apartments, repair shops, tow yards, or street parking."
+      },
+      {
+        "title": "Oceanside, Escondido, Carlsbad & North County",
+        "body": "North County sellers can start online with a VIN lookup and continue to a local offer for used, damaged, or non-running vehicles."
+      }
+    ]
+  },
+  "footer": {
+    "eyebrow": "San Diego County car buyers",
+    "headline": "We’ll buy it.",
+    "body": "Used, damaged, non-running, high-mileage, or just ready to go. If the car is in San Diego County, start with a local offer.",
+    "cta": "See what your car is worth",
+    "addressLabel": "Local office",
+    "phoneLabel": "Call or text",
+    "navigationLabel": "Footer navigation",
+    "rights": "Local cash offers and free pickup help for San Diego County sellers.",
+    "backToTop": "Back to top",
+    "columns": [
+      {
+        "title": "Sell",
+        "links": [
+          { "label": "Get an offer", "href": "/offer" },
+          { "label": "Local cash offers", "href": "#local-cash-for-cars" },
+          { "label": "How it works", "href": "#how-it-works" },
+          { "label": "Cars we buy", "href": "#cars-we-buy" },
+          { "label": "Title help", "href": "#title-help" }
+        ]
+      },
+      {
+        "title": "Popular",
+        "links": [
+          { "label": "Junk cars", "href": "#junk-cars" },
+          { "label": "Damaged cars", "href": "#damaged-cars" },
+          { "label": "Non-running cars", "href": "#non-running-cars" },
+          { "label": "Trucks & SUVs", "href": "#trucks-suvs" }
+        ]
+      },
+      {
+        "title": "Service Areas",
+        "links": [
+          { "label": "San Diego", "href": "#san-diego" },
+          { "label": "Chula Vista", "href": "#chula-vista" },
+          { "label": "Oceanside", "href": "#oceanside" },
+          { "label": "El Cajon", "href": "#el-cajon" }
+        ]
+      },
+      {
+        "title": "Help",
+        "links": [
+          { "label": "Questions", "href": "#questions" },
+          { "label": "Documents needed", "href": "#documents-needed" },
+          { "label": "When do I get paid?", "href": "#when-paid" },
+          { "label": "Free towing", "href": "#free-towing" }
+        ]
+      }
+    ]
+  },
+  "offerFlow": {
+    "metaTitle": "Get Your Offer | Cash For Cars",
+    "helpLabel": "Need help?",
+    "introTitle": "Tell us about your car",
+    "introBody": "Quick checks so we can prepare a better San Diego County offer.",
+    "proof": ["Takes less than 2 minutes", "No obligation", "Free local pickup help"],
+    "backHome": "Back to site",
+    "steps": [
+      { "id": "vehicle", "label": "Vehicle information" },
+      { "id": "mechanical", "label": "Mechanical & mobility" },
+      { "id": "body", "label": "Body condition" },
+      { "id": "review", "label": "Review" }
+    ],
+    "common": {
+      "yes": "Yes",
+      "no": "No",
+      "next": "Next Step",
+      "back": "Go Back",
+      "submit": "Submit Example",
+      "required": "Please complete the highlighted questions before continuing.",
+      "source": "Source"
+    },
+    "vehicle": {
+      "title": "Vehicle information",
+      "vinLabel": "VIN",
+      "vinPlaceholder": "Enter VIN or continue manually",
+      "lookupButton": "Look up VIN",
+      "lookupLoading": "Looking up",
+      "lookupFound": "Vehicle found",
+      "manualHint": "You can edit these fields if the VIN lookup is incomplete.",
+      "year": "Year",
+      "make": "Make",
+      "model": "Model",
+      "trim": "Trim / submodel",
+      "zip": "Free pickup ZIP code",
+      "phone": "Phone",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "titleQuestion": "Do you have the vehicle title?",
+      "paperworkQuestion": "What paperwork do you have?",
+      "paperworkPlaceholder": "Select paperwork",
+      "paperworkOptions": [
+        "Registration",
+        "Bill of Sale",
+        "Application for Duplicate Title",
+        "Auction paperwork",
+        "Lien Sale",
+        "Lien Release Letter",
+        "I don't have any paperwork"
+      ]
+    },
+    "mechanical": {
+      "title": "Mechanical & mobility condition",
+      "mileageQuestion": "What is the mileage on the car?",
+      "mileagePlaceholder": "Select mileage",
+      "mileageOptions": [
+        "Under 50,000",
+        "Under 100,000",
+        "Under 150,000",
+        "Under 200,000",
+        "Under 250,000",
+        "Under 300,000",
+        "Over 300,000"
+      ],
+      "drivesQuestion": "Does the car drive?",
+      "tiresQuestion": "Are all tires inflated?",
+      "wheelsQuestion": "Are all wheels attached to the car?",
+      "rollsQuestion": "Can the vehicle roll or be moved?",
+      "catalyticQuestion": "Is the catalytic converter still installed?"
+    },
+    "body": {
+      "title": "Body condition",
+      "damageQuestion": "What best describes the body condition?",
+      "damageOptions": [
+        "Normal wear",
+        "Minor dents or scratches",
+        "Major body damage",
+        "Accident damage",
+        "Missing exterior parts"
+      ],
+      "airbagsQuestion": "Have any airbags deployed?",
+      "keysQuestion": "Do you have keys?",
+      "accessQuestion": "Where is the vehicle located?",
+      "accessOptions": [
+        "Home driveway",
+        "Apartment or gated community",
+        "Repair shop",
+        "Tow yard",
+        "Street parking",
+        "Other"
+      ]
+    },
+    "review": {
+      "title": "Review your example lead",
+      "body": "This example shows how the answers can be collected before sending them to your CRM, email, or database.",
+      "submittedTitle": "Example flow complete",
+      "submittedBody": "The form is ready to connect to your lead system next.",
+      "vehicleSummary": "Vehicle",
+      "contactSummary": "Contact",
+      "conditionSummary": "Condition"
+    }
   }
 }
