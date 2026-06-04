@@ -15,60 +15,60 @@
     "items": [
       {
         "label": "Cómo funciona",
-        "href": "#how-it-works",
+        "href": "/es/como-funciona",
         "hasMenu": true,
         "menuItems": [
           { "label": "Recibe tu oferta", "href": "/es/oferta" },
-          { "label": "Oferta local por tu carro", "href": "#local-cash-for-cars" },
-          { "label": "Pasamos por tu carro sin costo", "href": "#how-it-works" },
-          { "label": "Recibe tu pago", "href": "#how-it-works" }
+          { "label": "Oferta local por tu carro", "href": "/es/como-funciona" },
+          { "label": "Pasamos por tu carro sin costo", "href": "/es/grua-sin-costo" },
+          { "label": "Recibe tu pago", "href": "/es/como-funciona#pickup-payment" }
         ]
       },
       {
         "label": "Carros que compramos",
-        "href": "#cars-we-buy",
+        "href": "/es/carros-que-compramos",
         "hasMenu": true,
         "menuItems": [
-          { "label": "Carros para yonke", "href": "#junk-cars" },
-          { "label": "Carros dañados", "href": "#damaged-cars" },
-          { "label": "Carros que no prenden", "href": "#non-running-cars" },
-          { "label": "Trocas y SUVs", "href": "#trucks-suvs" }
+          { "label": "Carros para yonke", "href": "/es/carros-para-yonke" },
+          { "label": "Carros dañados", "href": "/es/carros-danados" },
+          { "label": "Carros que no prenden", "href": "/es/carros-que-no-prenden" },
+          { "label": "Trocas y SUVs", "href": "/es/trocas-y-suvs" }
         ]
       },
       {
         "label": "Áreas de San Diego",
-        "href": "#locations",
+        "href": "/es/san-diego-county",
         "hasMenu": true,
         "menuItems": [
-          { "label": "San Diego", "href": "#san-diego" },
-          { "label": "Chula Vista", "href": "#chula-vista" },
-          { "label": "Oceanside", "href": "#oceanside" },
-          { "label": "South Bay y North County", "href": "#san-diego-service-areas" },
-          { "label": "Escondido", "href": "#escondido" },
-          { "label": "El Cajon", "href": "#el-cajon" },
-          { "label": "National City", "href": "#national-city" }
+          { "label": "San Diego", "href": "/es/san-diego-county#central-south" },
+          { "label": "Chula Vista", "href": "/es/san-diego-county#central-south" },
+          { "label": "Oceanside", "href": "/es/san-diego-county#north-county" },
+          { "label": "South Bay y North County", "href": "/es/san-diego-county" },
+          { "label": "Escondido", "href": "/es/san-diego-county#north-county" },
+          { "label": "El Cajon", "href": "/es/san-diego-county#east-county" },
+          { "label": "National City", "href": "/es/san-diego-county#central-south" }
         ]
       },
       {
         "label": "Ayuda con título",
-        "href": "#title-help",
+        "href": "/es/ayuda-con-titulo",
         "hasMenu": true,
         "menuItems": [
-          { "label": "Título perdido", "href": "#lost-title" },
-          { "label": "Problemas con el registro", "href": "#registration-issues" },
-          { "label": "Préstamo o lien", "href": "#loan-lien" },
-          { "label": "Papeleo del DMV", "href": "#dmv-paperwork" }
+          { "label": "Título perdido", "href": "/es/ayuda-con-titulo#lost-title" },
+          { "label": "Problemas con el registro", "href": "/es/ayuda-con-titulo#registration-issues" },
+          { "label": "Préstamo o lien", "href": "/es/ayuda-con-titulo#loan-lien" },
+          { "label": "Papeleo del DMV", "href": "/es/ayuda-con-titulo#dmv-paperwork" }
         ]
       },
       {
         "label": "Preguntas",
-        "href": "#questions",
+        "href": "/es/preguntas",
         "hasMenu": true,
         "menuItems": [
-          { "label": "¿Qué documentos necesito?", "href": "#documents-needed" },
-          { "label": "¿Cuándo me pagan?", "href": "#when-paid" },
-          { "label": "¿Me cobran la grúa?", "href": "#free-towing" },
-          { "label": "¿Puedo vender un carro dañado?", "href": "#damaged-car-question" }
+          { "label": "¿Qué documentos necesito?", "href": "/es/preguntas#faqs" },
+          { "label": "¿Cuándo me pagan?", "href": "/es/como-funciona#pickup-payment" },
+          { "label": "¿Me cobran la grúa?", "href": "/es/grua-sin-costo" },
+          { "label": "¿Puedo vender un carro dañado?", "href": "/es/carros-danados" }
         ]
       }
     ]
@@ -293,37 +293,37 @@
         "title": "Vender",
         "links": [
           { "label": "Recibe una oferta", "href": "/offer" },
-          { "label": "Oferta local por tu carro", "href": "#local-cash-for-cars" },
-          { "label": "Cómo funciona", "href": "#how-it-works" },
-          { "label": "Carros que compramos", "href": "#cars-we-buy" },
-          { "label": "Ayuda con título", "href": "#title-help" }
+          { "label": "Oferta local por tu carro", "href": "/es/como-funciona" },
+          { "label": "Cómo funciona", "href": "/es/como-funciona" },
+          { "label": "Carros que compramos", "href": "/es/carros-que-compramos" },
+          { "label": "Ayuda con título", "href": "/es/ayuda-con-titulo" }
         ]
       },
       {
         "title": "Popular",
         "links": [
-          { "label": "Carros para yonke", "href": "#junk-cars" },
-          { "label": "Carros dañados", "href": "#damaged-cars" },
-          { "label": "Carros que no prenden", "href": "#non-running-cars" },
-          { "label": "Trocas y SUVs", "href": "#trucks-suvs" }
+          { "label": "Carros para yonke", "href": "/es/carros-para-yonke" },
+          { "label": "Carros dañados", "href": "/es/carros-danados" },
+          { "label": "Carros que no prenden", "href": "/es/carros-que-no-prenden" },
+          { "label": "Trocas y SUVs", "href": "/es/trocas-y-suvs" }
         ]
       },
       {
         "title": "Áreas",
         "links": [
-          { "label": "San Diego", "href": "#san-diego" },
-          { "label": "Chula Vista", "href": "#chula-vista" },
-          { "label": "Oceanside", "href": "#oceanside" },
-          { "label": "El Cajon", "href": "#el-cajon" }
+          { "label": "San Diego", "href": "/es/san-diego-county#central-south" },
+          { "label": "Chula Vista", "href": "/es/san-diego-county#central-south" },
+          { "label": "Oceanside", "href": "/es/san-diego-county#north-county" },
+          { "label": "El Cajon", "href": "/es/san-diego-county#east-county" }
         ]
       },
       {
         "title": "Ayuda",
         "links": [
-          { "label": "Preguntas", "href": "#questions" },
-          { "label": "Documentos necesarios", "href": "#documents-needed" },
-          { "label": "Cuándo me pagan", "href": "#when-paid" },
-          { "label": "¿Me cobran la grúa?", "href": "#free-towing" }
+          { "label": "Preguntas", "href": "/es/preguntas" },
+          { "label": "Documentos necesarios", "href": "/es/ayuda-con-titulo" },
+          { "label": "Cuándo me pagan", "href": "/es/como-funciona#pickup-payment" },
+          { "label": "¿Me cobran la grúa?", "href": "/es/grua-sin-costo" }
         ]
       }
     ]

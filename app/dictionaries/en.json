@@ -15,60 +15,60 @@
     "items": [
       {
         "label": "How it Works",
-        "href": "#how-it-works",
+        "href": "/how-it-works",
         "hasMenu": true,
         "menuItems": [
           { "label": "Get your offer", "href": "/offer" },
-          { "label": "Local cash offers", "href": "#local-cash-for-cars" },
-          { "label": "Pickup or towing included", "href": "#how-it-works" },
-          { "label": "Get paid", "href": "#how-it-works" }
+          { "label": "Local cash offers", "href": "/how-it-works" },
+          { "label": "Pickup or towing included", "href": "/free-towing" },
+          { "label": "Get paid", "href": "/how-it-works#pickup-payment" }
         ]
       },
       {
         "label": "Cars We Buy",
-        "href": "#cars-we-buy",
+        "href": "/cars-we-buy",
         "hasMenu": true,
         "menuItems": [
-          { "label": "Junk cars", "href": "#junk-cars" },
-          { "label": "Damaged cars", "href": "#damaged-cars" },
-          { "label": "Non-running cars", "href": "#non-running-cars" },
-          { "label": "Trucks & SUVs", "href": "#trucks-suvs" }
+          { "label": "Junk cars", "href": "/junk-cars" },
+          { "label": "Damaged cars", "href": "/damaged-cars" },
+          { "label": "Non-running cars", "href": "/non-running-cars" },
+          { "label": "Trucks & SUVs", "href": "/trucks-suvs" }
         ]
       },
       {
         "label": "San Diego Areas",
-        "href": "#locations",
+        "href": "/san-diego-county",
         "hasMenu": true,
         "menuItems": [
-          { "label": "San Diego", "href": "#san-diego" },
-          { "label": "Chula Vista", "href": "#chula-vista" },
-          { "label": "Oceanside", "href": "#oceanside" },
-          { "label": "South Bay & North County", "href": "#san-diego-service-areas" },
-          { "label": "Escondido", "href": "#escondido" },
-          { "label": "El Cajon", "href": "#el-cajon" },
-          { "label": "National City", "href": "#national-city" }
+          { "label": "San Diego", "href": "/san-diego-county#central-south" },
+          { "label": "Chula Vista", "href": "/san-diego-county#central-south" },
+          { "label": "Oceanside", "href": "/san-diego-county#north-county" },
+          { "label": "South Bay & North County", "href": "/san-diego-county" },
+          { "label": "Escondido", "href": "/san-diego-county#north-county" },
+          { "label": "El Cajon", "href": "/san-diego-county#east-county" },
+          { "label": "National City", "href": "/san-diego-county#central-south" }
         ]
       },
       {
         "label": "Title Help",
-        "href": "#title-help",
+        "href": "/title-help",
         "hasMenu": true,
         "menuItems": [
-          { "label": "Lost title", "href": "#lost-title" },
-          { "label": "Registration issues", "href": "#registration-issues" },
-          { "label": "Loan or lien", "href": "#loan-lien" },
-          { "label": "DMV paperwork", "href": "#dmv-paperwork" }
+          { "label": "Lost title", "href": "/title-help#lost-title" },
+          { "label": "Registration issues", "href": "/title-help#registration-issues" },
+          { "label": "Loan or lien", "href": "/title-help#loan-lien" },
+          { "label": "DMV paperwork", "href": "/title-help#dmv-paperwork" }
         ]
       },
       {
         "label": "Questions",
-        "href": "#questions",
+        "href": "/faq",
         "hasMenu": true,
         "menuItems": [
-          { "label": "What documents do I need?", "href": "#documents-needed" },
-          { "label": "When do I get paid?", "href": "#when-paid" },
-          { "label": "Is towing free?", "href": "#free-towing" },
-          { "label": "Can I sell a damaged car?", "href": "#damaged-car-question" }
+          { "label": "What documents do I need?", "href": "/faq#faqs" },
+          { "label": "When do I get paid?", "href": "/how-it-works#pickup-payment" },
+          { "label": "Is towing free?", "href": "/free-towing" },
+          { "label": "Can I sell a damaged car?", "href": "/damaged-cars" }
         ]
       }
     ]
@@ -293,37 +293,37 @@
         "title": "Sell",
         "links": [
           { "label": "Get an offer", "href": "/offer" },
-          { "label": "Local cash offers", "href": "#local-cash-for-cars" },
-          { "label": "How it works", "href": "#how-it-works" },
-          { "label": "Cars we buy", "href": "#cars-we-buy" },
-          { "label": "Title help", "href": "#title-help" }
+          { "label": "Local cash offers", "href": "/how-it-works" },
+          { "label": "How it works", "href": "/how-it-works" },
+          { "label": "Cars we buy", "href": "/cars-we-buy" },
+          { "label": "Title help", "href": "/title-help" }
         ]
       },
       {
         "title": "Popular",
         "links": [
-          { "label": "Junk cars", "href": "#junk-cars" },
-          { "label": "Damaged cars", "href": "#damaged-cars" },
-          { "label": "Non-running cars", "href": "#non-running-cars" },
-          { "label": "Trucks & SUVs", "href": "#trucks-suvs" }
+          { "label": "Junk cars", "href": "/junk-cars" },
+          { "label": "Damaged cars", "href": "/damaged-cars" },
+          { "label": "Non-running cars", "href": "/non-running-cars" },
+          { "label": "Trucks & SUVs", "href": "/trucks-suvs" }
         ]
       },
       {
         "title": "Service Areas",
         "links": [
-          { "label": "San Diego", "href": "#san-diego" },
-          { "label": "Chula Vista", "href": "#chula-vista" },
-          { "label": "Oceanside", "href": "#oceanside" },
-          { "label": "El Cajon", "href": "#el-cajon" }
+          { "label": "San Diego", "href": "/san-diego-county#central-south" },
+          { "label": "Chula Vista", "href": "/san-diego-county#central-south" },
+          { "label": "Oceanside", "href": "/san-diego-county#north-county" },
+          { "label": "El Cajon", "href": "/san-diego-county#east-county" }
         ]
       },
       {
         "title": "Help",
         "links": [
-          { "label": "Questions", "href": "#questions" },
-          { "label": "Documents needed", "href": "#documents-needed" },
-          { "label": "When do I get paid?", "href": "#when-paid" },
-          { "label": "Free towing", "href": "#free-towing" }
+          { "label": "Questions", "href": "/faq" },
+          { "label": "Documents needed", "href": "/title-help" },
+          { "label": "When do I get paid?", "href": "/how-it-works#pickup-payment" },
+          { "label": "Free towing", "href": "/free-towing" }
         ]
       }
     ]

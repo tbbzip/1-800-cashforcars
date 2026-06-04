@@ -172,7 +172,7 @@ function YesNoQuestion({
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)] sm:flex-row sm:items-center sm:justify-between">
       <p className="text-base font-black text-slate-800">{label}</p>
-      <div className="inline-flex rounded-full bg-slate-100 p-1">
+      <div className="inline-flex w-fit max-w-full self-start rounded-full bg-slate-100 p-1">
         {[
           { label: yesLabel, value: true },
           { label: noLabel, value: false },

@@ -14,6 +14,12 @@ import {
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getOfferPath } from "../dictionaries";
+import {
+  homeCarsWeBuyImages,
+  homeProcessMascots,
+  mascotImages,
+  type SiteImageAsset,
+} from "../image-assets";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 import { VehicleLookupForm } from "./vehicle-lookup-form";
@@ -30,19 +36,23 @@ function toAreaId(area: string) {
 
 function MascotImage({
   alt,
+  asset = mascotImages.homeHero,
   className = "",
+  priority = false,
 }: {
   alt: string;
+  asset?: SiteImageAsset;
   className?: string;
+  priority?: boolean;
 }) {
   return (
     <Image
-      src="/racoon/racoon.svg"
+      src={asset.src}
       alt={alt}
-      width={520}
-      height={520}
+      width={asset.width}
+      height={asset.height}
       className={`h-auto w-full ${className}`}
-      priority
+      priority={priority}
     />
   );
 }
@@ -147,10 +157,11 @@ export function LocalizedHome({
                   {dictionary.mascot.guideBody}
                 </p>
               </div>
-              <div className="relative mx-auto max-w-[380px] px-5 pt-12 sm:max-w-[440px] sm:px-10 lg:max-w-[470px] lg:pt-3">
+              <div className="relative mx-auto max-w-[460px] px-2 pt-12 sm:max-w-[520px] sm:px-4 lg:max-w-[540px] lg:pt-8">
                 <MascotImage
-                  alt={dictionary.mascot.alt}
+                  alt={mascotImages.homeHero.alt[locale]}
                   className="drop-shadow-[0_28px_30px_rgba(15,23,42,0.18)]"
+                  priority
                 />
               </div>
               <div className="absolute bottom-5 right-0 z-20 rounded-[20px] bg-slate-950 px-4 py-3 text-white shadow-[0_16px_36px_rgba(15,23,42,0.22)] sm:right-4 lg:-right-4">
@@ -158,9 +169,6 @@ export function LocalizedHome({
                   {dictionary.locations.serviceAreaLabel}
                 </p>
                 <p className="mt-1 text-sm font-black">San Diego County</p>
-              </div>
-              <div className="absolute left-8 top-16 hidden h-14 w-14 items-center justify-center rounded-2xl bg-[#f3b33d] text-slate-950 shadow-[0_16px_30px_rgba(243,179,61,0.28)] lg:flex">
-                <CarFront aria-hidden="true" className="h-7 w-7" />
               </div>
             </div>
 
@@ -262,6 +270,8 @@ export function LocalizedHome({
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {dictionary.process.steps.map((step, index) => {
               const Icon = processIcons[index] ?? CarFront;
+              const mascotAsset = homeProcessMascots[index] ?? mascotImages.homeHero;
+
               return (
                 <article
                   key={step.title}
@@ -273,7 +283,8 @@ export function LocalizedHome({
                     </div>
                     <div className="h-16 w-16 overflow-hidden rounded-full border border-slate-200 bg-white p-1">
                       <MascotImage
-                        alt={dictionary.mascot.alt}
+                        alt={mascotAsset.alt[locale]}
+                        asset={mascotAsset}
                         className="scale-[1.35]"
                       />
                     </div>
@@ -316,22 +327,40 @@ export function LocalizedHome({
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {dictionary.carsWeBuy.items.map((item, index) => {
               const Icon = carsWeBuyIcons[index] ?? CarFront;
+              const sceneAsset =
+                homeCarsWeBuyImages[index] ?? homeCarsWeBuyImages[0];
 
               return (
                 <article
                   id={item.id}
                   key={item.id}
-                  className="scroll-mt-32 rounded-[20px] border border-slate-200 bg-white p-5 shadow-[0_14px_34px_rgba(15,23,42,0.05)]"
+                  className="scroll-mt-32 overflow-hidden rounded-[20px] border border-slate-200 bg-white shadow-[0_14px_34px_rgba(15,23,42,0.05)]"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#ecfdf1] text-[#228b40]">
-                    <Icon aria-hidden="true" className="h-5 w-5" />
+                  <div className="relative aspect-[4/3] bg-slate-100">
+                    <Image
+                      src={sceneAsset.src}
+                      alt={sceneAsset.alt[locale]}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                      className="object-cover"
+                      style={
+                        sceneAsset.position
+                          ? { objectPosition: sceneAsset.position }
+                          : undefined
+                      }
+                    />
                   </div>
-                  <h3 className="mt-5 text-lg font-black text-slate-950">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
-                    {item.body}
-                  </p>
+                  <div className="p-5">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#ecfdf1] text-[#228b40]">
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                    </div>
+                    <h3 className="mt-5 text-lg font-black text-slate-950">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">
+                      {item.body}
+                    </p>
+                  </div>
                 </article>
               );
             })}
@@ -360,7 +389,8 @@ export function LocalizedHome({
             <div className="grid gap-4 sm:grid-cols-[170px_1fr] sm:items-center">
               <div className="rounded-[20px] bg-[#ecfdf1] p-4">
                 <MascotImage
-                  alt={dictionary.mascot.alt}
+                  alt={mascotImages.locationGuide.alt[locale]}
+                  asset={mascotImages.locationGuide}
                   className="mx-auto max-w-[150px]"
                 />
               </div>
