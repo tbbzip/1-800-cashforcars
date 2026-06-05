@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { getDictionary } from "../../dictionaries";
 import { OfferFlow } from "../../components/offer-flow";
+import { createPageMetadata } from "../../seo";
 
 const dictionary = getDictionary("en");
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
+  locale: "en",
   title: dictionary.offerFlow.metaTitle,
   description: dictionary.meta.description,
+  path: "/offer",
   alternates: {
     canonical: "/offer",
     languages: {
@@ -14,7 +17,7 @@ export const metadata: Metadata = {
       es: "/es/oferta",
     },
   },
-};
+});
 
 export default async function OfferPage({
   searchParams,

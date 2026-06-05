@@ -7,6 +7,7 @@ import {
   getInternalPages,
   getInternalPath,
 } from "../../internal-pages";
+import { createPageMetadata } from "../../seo";
 
 type PageProps = {
   params: Promise<{
@@ -30,20 +31,11 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
+  return createPageMetadata({
+    locale: "en",
     title: page.metaTitle,
     description: page.metaDescription,
-    openGraph: {
-      title: page.metaTitle,
-      description: page.metaDescription,
-      type: "website",
-      locale: "en_US",
-    },
-    twitter: {
-      card: "summary",
-      title: page.metaTitle,
-      description: page.metaDescription,
-    },
+    path: getInternalPath("en", page.key),
     alternates: {
       canonical: getInternalPath("en", page.key),
       languages: {
@@ -51,7 +43,7 @@ export async function generateMetadata({
         es: getInternalPath("es", page.key),
       },
     },
-  };
+  });
 }
 
 export default async function EnglishInternalPage({ params }: PageProps) {

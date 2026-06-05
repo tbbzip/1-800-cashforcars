@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { getDictionary } from "../dictionaries";
+import { createPageMetadata } from "../seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,20 +16,11 @@ const geistMono = Geist_Mono({
 
 const dictionary = getDictionary("en");
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
+  locale: "en",
   title: dictionary.meta.title,
   description: dictionary.meta.description,
-  openGraph: {
-    title: dictionary.meta.title,
-    description: dictionary.meta.description,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary",
-    title: dictionary.meta.title,
-    description: dictionary.meta.description,
-  },
+  path: "/",
   alternates: {
     canonical: "/",
     languages: {
@@ -36,7 +28,7 @@ export const metadata: Metadata = {
       es: "/es",
     },
   },
-};
+});
 
 export default function EnglishRootLayout({
   children,
