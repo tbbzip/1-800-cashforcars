@@ -535,6 +535,7 @@
       "turnstileError": "The security check had an issue. Please try again.",
       "turnstileExpired": "The security check expired. Please try again.",
       "turnstileMissing": "Security verification is not configured yet.",
+      "outsideServiceArea": "We currently serve San Diego County only. For this ZIP code, email referrals@1-800-cashforcars.com or text 619-830-7005 so we can confirm if pickup is possible.",
       "source": "Source"
     },
     "vehicle": {
@@ -549,7 +550,18 @@
       "make": "Make",
       "model": "Model",
       "trim": "Trim / submodel",
+      "pickupAddressTitle": "Pickup address",
+      "pickupAddressBody": "Enter where the vehicle is parked so we can confirm it is inside our San Diego County service area.",
+      "streetAddress": "Street address",
+      "addressLine2": "Apt / unit / space",
+      "city": "City",
+      "state": "State",
       "zip": "Free pickup ZIP code",
+      "zipAccepted": "Great, we service this ZIP code.",
+      "zipRejected": "This ZIP code is outside our current San Diego County service area.",
+      "zipRejectedEmail": "Email referrals@1-800-cashforcars.com",
+      "zipRejectedOr": "or",
+      "zipRejectedText": "text 619-830-7005",
       "phone": "Phone",
       "firstName": "First name",
       "lastName": "Last name",
@@ -599,6 +611,8 @@
       "airbagsQuestion": "Have any airbags deployed?",
       "keysQuestion": "Do you have keys?",
       "accessQuestion": "Where is the vehicle located?",
+      "accessNotes": "Pickup access notes",
+      "accessNotesPlaceholder": "Gate code, cross street, shop name, tow yard release details, parking notes...",
       "accessOptions": [
         "Home driveway",
         "Apartment or gated community",
@@ -615,6 +629,7 @@
       "submittedBody": "We received your details and will review the car, title status, and pickup information.",
       "securityTitle": "Security check",
       "vehicleSummary": "Vehicle",
+      "pickupSummary": "Pickup",
       "contactSummary": "Contact",
       "conditionSummary": "Condition"
     }

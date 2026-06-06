@@ -1,4 +1,10 @@
 import { randomUUID } from "node:crypto";
+import {
+  isServiceAreaZip,
+  normalizeZip,
+  referralEmail,
+  serviceAreaPhone,
+} from "../../service-area";
 
 const RESEND_EMAILS_URL = "https://api.resend.com/emails";
 const TURNSTILE_SITEVERIFY_URL =
@@ -14,6 +20,7 @@ type OfferLead = {
   airbagsDeployed: boolean | null;
   bodyDamage: string;
   catalyticConverter: boolean | null;
+  city: string;
   drives: boolean | null;
   email: string;
   firstName: string;
@@ -26,6 +33,10 @@ type OfferLead = {
   paperwork: string;
   phone: string;
   rolls: boolean | null;
+  addressLine2: string;
+  accessNotes: string;
+  state: string;
+  streetAddress: string;
   tiresInflated: boolean | null;
   trim: string;
   vin: string;
@@ -61,9 +72,12 @@ function normalizeVin(value: unknown) {
 function normalizeLead(input: Partial<OfferLead> | undefined): OfferLead {
   return {
     access: asString(input?.access),
+    accessNotes: asString(input?.accessNotes, 500),
+    addressLine2: asString(input?.addressLine2),
     airbagsDeployed: asBooleanOrNull(input?.airbagsDeployed),
     bodyDamage: asString(input?.bodyDamage),
     catalyticConverter: asBooleanOrNull(input?.catalyticConverter),
+    city: asString(input?.city),
     drives: asBooleanOrNull(input?.drives),
     email: asString(input?.email, 320).toLowerCase(),
     firstName: asString(input?.firstName),
@@ -76,12 +90,14 @@ function normalizeLead(input: Partial<OfferLead> | undefined): OfferLead {
     paperwork: asString(input?.paperwork),
     phone: asString(input?.phone),
     rolls: asBooleanOrNull(input?.rolls),
+    state: asString(input?.state, 2).toUpperCase(),
+    streetAddress: asString(input?.streetAddress),
     tiresInflated: asBooleanOrNull(input?.tiresInflated),
     trim: asString(input?.trim),
     vin: normalizeVin(input?.vin),
     wheelsAttached: asBooleanOrNull(input?.wheelsAttached),
     year: asString(input?.year),
-    zip: asString(input?.zip, 20),
+    zip: normalizeZip(asString(input?.zip, 20)),
   };
 }
 
@@ -92,6 +108,9 @@ function validateLead(lead: OfferLead) {
     "year",
     "make",
     "model",
+    "streetAddress",
+    "city",
+    "state",
     "zip",
     "phone",
     "firstName",
@@ -138,7 +157,17 @@ function validateLead(lead: OfferLead) {
     missing.push("validPhone");
   }
 
+  if (!isServiceAreaZip(lead.zip)) {
+    missing.push("serviceAreaZip");
+  }
+
   return missing;
+}
+
+function serviceAreaError(locale: string) {
+  return locale === "es"
+    ? `Por ahora solo damos servicio en San Diego County. Para este ZIP, manda un correo a ${referralEmail} o un mensaje de texto al ${serviceAreaPhone} y confirmamos si podemos pasar por el carro.`
+    : `We currently serve San Diego County only. For this ZIP code, email ${referralEmail} or text ${serviceAreaPhone} so we can confirm if pickup is possible.`;
 }
 
 function getClientIp(request: Request) {
@@ -227,8 +256,16 @@ function buildTextEmail(lead: OfferLead, locale: string) {
     `Name: ${[lead.firstName, lead.lastName].filter(Boolean).join(" ")}`,
     `Phone: ${lead.phone}`,
     `Email: ${lead.email}`,
-    `ZIP: ${lead.zip}`,
     `Locale: ${locale}`,
+    "",
+    "Pickup address",
+    `Street: ${lead.streetAddress}`,
+    `Apt/unit/space: ${lead.addressLine2 || "Not provided"}`,
+    `City/state/ZIP: ${[lead.city, lead.state, lead.zip]
+      .filter(Boolean)
+      .join(" ")}`,
+    `Access type: ${lead.access}`,
+    `Access notes: ${lead.accessNotes || "Not provided"}`,
     "",
     `Vehicle: ${[lead.year, lead.make, lead.model, lead.trim]
       .filter(Boolean)
@@ -271,8 +308,19 @@ function buildHtmlEmail(lead: OfferLead, locale: string) {
             ${row("Name", name)}
             ${row("Phone", lead.phone)}
             ${row("Email", lead.email)}
-            ${row("Pickup ZIP", lead.zip)}
             ${row("Locale", locale)}
+          </table>
+
+          <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Pickup address</h2>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            ${row("Street", lead.streetAddress)}
+            ${row("Apt / unit / space", lead.addressLine2)}
+            ${row(
+              "City / state / ZIP",
+              [lead.city, lead.state, lead.zip].filter(Boolean).join(" "),
+            )}
+            ${row("Access type", lead.access)}
+            ${row("Access notes", lead.accessNotes)}
           </table>
 
           <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Vehicle</h2>
@@ -294,7 +342,6 @@ function buildHtmlEmail(lead: OfferLead, locale: string) {
             ${row("Body condition", lead.bodyDamage)}
             ${row("Airbags deployed", booleanLabel(lead.airbagsDeployed))}
             ${row("Has keys", booleanLabel(lead.hasKeys))}
-            ${row("Vehicle location", lead.access)}
           </table>
         </div>
       </div>
@@ -356,6 +403,7 @@ export async function POST(request: Request) {
   }
 
   const token = asString(payload.turnstileToken, MAX_TOKEN_LENGTH);
+  const locale = payload.locale === "es" ? "es" : "en";
 
   if (!token) {
     return Response.json(
@@ -368,6 +416,13 @@ export async function POST(request: Request) {
   const missing = validateLead(lead);
 
   if (missing.length > 0) {
+    if (missing.includes("serviceAreaZip")) {
+      return Response.json(
+        { error: serviceAreaError(locale), missing },
+        { status: 400 },
+      );
+    }
+
     return Response.json(
       { error: "Please complete the required offer details.", missing },
       { status: 400 },
@@ -383,7 +438,6 @@ export async function POST(request: Request) {
     );
   }
 
-  const locale = payload.locale === "es" ? "es" : "en";
   const email = await sendOfferEmail(lead, locale);
 
   if (!email.ok) {

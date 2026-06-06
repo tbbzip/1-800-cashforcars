@@ -23,6 +23,14 @@ import {
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getLocalePath } from "../dictionaries";
+import {
+  isServiceAreaZip,
+  normalizeZip,
+  referralEmailHref,
+  serviceAreaPhone,
+  serviceAreaPhoneHref,
+  serviceAreaTextHref,
+} from "../service-area";
 
 type LookupVehicle = {
   bodyClass?: string;
@@ -46,6 +54,7 @@ type FlowData = {
   airbagsDeployed: boolean | null;
   bodyDamage: string;
   catalyticConverter: boolean | null;
+  city: string;
   drives: boolean | null;
   email: string;
   firstName: string;
@@ -58,6 +67,10 @@ type FlowData = {
   paperwork: string;
   phone: string;
   rolls: boolean | null;
+  addressLine2: string;
+  accessNotes: string;
+  state: string;
+  streetAddress: string;
   tiresInflated: boolean | null;
   trim: string;
   vin: string;
@@ -66,8 +79,8 @@ type FlowData = {
   zip: string;
 };
 
-const phoneNumber = "619-830-7005";
-const phoneHref = "tel:16198307005";
+const phoneNumber = serviceAreaPhone;
+const phoneHref = serviceAreaPhoneHref;
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const stepMotion = {
   initial: { opacity: 0, y: 14 },
@@ -104,9 +117,12 @@ function normalizeVin(value: string) {
 function emptyFlowData(initialVin = ""): FlowData {
   return {
     access: "",
+    accessNotes: "",
+    addressLine2: "",
     airbagsDeployed: null,
     bodyDamage: "",
     catalyticConverter: null,
+    city: "",
     drives: null,
     email: "",
     firstName: "",
@@ -119,6 +135,8 @@ function emptyFlowData(initialVin = ""): FlowData {
     paperwork: "",
     phone: "",
     rolls: null,
+    state: "CA",
+    streetAddress: "",
     tiresInflated: null,
     trim: "",
     vin: normalizeVin(initialVin),
@@ -134,22 +152,60 @@ function TextField({
   placeholder,
   type = "text",
   value,
+  autoComplete,
+  className = "",
+  inputMode,
+  maxLength,
 }: {
   label: string;
   onChange: (value: string) => void;
   placeholder?: string;
   type?: string;
   value: string;
+  autoComplete?: string;
+  className?: string;
+  inputMode?: "email" | "numeric" | "search" | "tel" | "text" | "url";
+  maxLength?: number;
 }) {
   return (
-    <label className="grid gap-2">
-      <span className="text-sm font-black text-slate-700">{label}</span>
+    <label className={`grid min-w-0 gap-2 ${className}`}>
+      <span className="break-words text-sm font-black leading-tight text-slate-700">
+        {label}
+      </span>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder ?? label}
         type={type}
-        className="h-14 rounded-xl border border-slate-200 bg-white px-4 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        maxLength={maxLength}
+        className="h-14 min-w-0 rounded-xl border border-slate-200 bg-white px-4 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
+      />
+    </label>
+  );
+}
+
+function TextAreaField({
+  label,
+  onChange,
+  placeholder,
+  value,
+}: {
+  label: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  value: string;
+}) {
+  return (
+    <label className="grid gap-2">
+      <span className="text-sm font-black text-slate-700">{label}</span>
+      <textarea
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        placeholder={placeholder ?? label}
+        rows={4}
+        className="min-h-28 rounded-xl border border-slate-200 bg-white px-4 py-3 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
       />
     </label>
   );
@@ -363,6 +419,8 @@ export function OfferFlow({
   const needsTurnstile = Boolean(turnstileSiteKey);
 
   const setField = <K extends keyof FlowData>(key: K, value: FlowData[K]) => {
+    setValidationError("");
+    setSubmitError("");
     setData((current) => ({ ...current, [key]: value }));
   };
 
@@ -383,7 +441,11 @@ export function OfferFlow({
         data.year &&
           data.make &&
           data.model &&
+          data.streetAddress &&
+          data.city &&
+          data.state &&
           data.zip &&
+          isServiceAreaZip(data.zip) &&
           data.phone &&
           data.firstName &&
           data.email &&
@@ -513,6 +575,15 @@ export function OfferFlow({
 
   async function handleNext() {
     if (!canContinue) {
+      if (
+        stepIndex === 0 &&
+        data.zip.length === 5 &&
+        !isServiceAreaZip(data.zip)
+      ) {
+        setValidationError(flow.common.outsideServiceArea);
+        return;
+      }
+
       setValidationError(flow.common.required);
       return;
     }
@@ -741,6 +812,8 @@ function VehicleStep({
   setField: <K extends keyof FlowData>(key: K, value: FlowData[K]) => void;
 }) {
   const vehicleTitle = [data.year, data.make, data.model].filter(Boolean).join(" ");
+  const zipHasFiveDigits = data.zip.length === 5;
+  const zipIsAllowed = isServiceAreaZip(data.zip);
 
   return (
     <div>
@@ -823,25 +896,120 @@ function VehicleStep({
             onChange={(value) => setField("trim", value)}
             value={data.trim}
           />
-          <TextField
-            label={flow.vehicle.zip}
-            onChange={(value) => setField("zip", value)}
-            value={data.zip}
-          />
+          <section className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)] lg:col-span-2">
+            <div>
+              <h3 className="text-base font-black text-slate-950">
+                {flow.vehicle.pickupAddressTitle}
+              </h3>
+              <p className="mt-1 text-sm font-semibold leading-6 text-slate-600">
+                {flow.vehicle.pickupAddressBody}
+              </p>
+            </div>
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              <TextField
+                label={flow.vehicle.streetAddress}
+                onChange={(value) => setField("streetAddress", value)}
+                value={data.streetAddress}
+                autoComplete="street-address"
+                className="xl:col-span-2"
+              />
+              <TextField
+                label={flow.vehicle.addressLine2}
+                onChange={(value) => setField("addressLine2", value)}
+                value={data.addressLine2}
+                autoComplete="address-line2"
+                className="xl:col-span-2"
+              />
+              <TextField
+                label={flow.vehicle.city}
+                onChange={(value) => setField("city", value)}
+                value={data.city}
+                autoComplete="address-level2"
+                className="md:col-span-2 xl:col-span-2"
+              />
+              <TextField
+                label={flow.vehicle.state}
+                onChange={(value) =>
+                  setField("state", value.toUpperCase().slice(0, 2))
+                }
+                value={data.state}
+                autoComplete="address-level1"
+                maxLength={2}
+              />
+              <TextField
+                label={flow.vehicle.zip}
+                onChange={(value) => setField("zip", normalizeZip(value))}
+                value={data.zip}
+                autoComplete="postal-code"
+                inputMode="numeric"
+                maxLength={5}
+              />
+            </div>
+
+            {zipHasFiveDigits ? (
+              <div
+                className={`flex items-start gap-3 rounded-xl border p-3 text-sm font-bold ${
+                  zipIsAllowed
+                    ? "border-[#bde9c9] bg-[#ecfdf1] text-[#1f7a38]"
+                    : "border-red-200 bg-red-50 text-red-700"
+                }`}
+              >
+                {zipIsAllowed ? (
+                  <CheckCircle2
+                    aria-hidden="true"
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                  />
+                ) : (
+                  <AlertCircle
+                    aria-hidden="true"
+                    className="mt-0.5 h-4 w-4 shrink-0"
+                  />
+                )}
+                <p>
+                  {zipIsAllowed ? (
+                    flow.vehicle.zipAccepted
+                  ) : (
+                    <>
+                      {flow.vehicle.zipRejected}{" "}
+                      <a
+                        href={referralEmailHref}
+                        className="underline decoration-current underline-offset-4"
+                      >
+                        {flow.vehicle.zipRejectedEmail}
+                      </a>
+                      {" "}
+                      {flow.vehicle.zipRejectedOr}{" "}
+                      <a
+                        href={serviceAreaTextHref}
+                        className="underline decoration-current underline-offset-4"
+                      >
+                        {flow.vehicle.zipRejectedText}
+                      </a>
+                      .
+                    </>
+                  )}
+                </p>
+              </div>
+            ) : null}
+          </section>
           <TextField
             label={flow.vehicle.phone}
             onChange={(value) => setField("phone", value)}
             value={data.phone}
+            autoComplete="tel"
+            inputMode="tel"
           />
           <TextField
             label={flow.vehicle.firstName}
             onChange={(value) => setField("firstName", value)}
             value={data.firstName}
+            autoComplete="given-name"
           />
           <TextField
             label={flow.vehicle.lastName}
             onChange={(value) => setField("lastName", value)}
             value={data.lastName}
+            autoComplete="family-name"
           />
           <div className="lg:col-span-2">
             <TextField
@@ -849,6 +1017,8 @@ function VehicleStep({
               onChange={(value) => setField("email", value)}
               type="email"
               value={data.email}
+              autoComplete="email"
+              inputMode="email"
             />
           </div>
         </div>
@@ -1018,6 +1188,12 @@ function BodyStep({
           placeholder={flow.body.accessQuestion}
           value={data.access}
         />
+        <TextAreaField
+          label={flow.body.accessNotes}
+          onChange={(value) => setField("accessNotes", value)}
+          placeholder={flow.body.accessNotesPlaceholder}
+          value={data.accessNotes}
+        />
       </div>
     </div>
   );
@@ -1050,7 +1226,7 @@ function ReviewStep({
         {flow.review.body}
       </p>
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-3">
+      <div className="mt-8 grid gap-4 lg:grid-cols-4">
         <SummaryCard title={flow.review.vehicleSummary}>
           <p>
             {[data.year, data.make, data.model, data.trim].filter(Boolean).join(" ") ||
@@ -1058,6 +1234,14 @@ function ReviewStep({
           </p>
           <p>{data.zip}</p>
           <p>{data.hasTitle ? flow.common.yes : data.paperwork}</p>
+        </SummaryCard>
+        <SummaryCard title={flow.review.pickupSummary}>
+          <p>{data.streetAddress}</p>
+          {data.addressLine2 ? <p>{data.addressLine2}</p> : null}
+          <p>
+            {[data.city, data.state, data.zip].filter(Boolean).join(" ")}
+          </p>
+          {data.accessNotes ? <p>{data.accessNotes}</p> : null}
         </SummaryCard>
         <SummaryCard title={flow.review.contactSummary}>
           <p>{[data.firstName, data.lastName].filter(Boolean).join(" ")}</p>
