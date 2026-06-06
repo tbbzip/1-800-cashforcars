@@ -214,9 +214,22 @@ export function SiteFooter({
         </div>
 
         <div className="flex flex-col gap-4 pt-8 text-xs font-bold text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © {year} Cash For Cars. {dictionary.footer.rights}
-          </p>
+          <div className="grid gap-2">
+            <p>
+              © {year} Cash For Cars. {dictionary.footer.rights}
+            </p>
+            <p>
+              done with {"<3"} by{" "}
+              <a
+                href="https://www.thebrandingbull.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-slate-300 transition hover:text-[#6ee28d]"
+              >
+                TBB
+              </a>
+            </p>
+          </div>
           <Link
             href={getLocalePath(locale)}
             className="inline-flex w-fit items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-slate-300 transition hover:border-[#6ee28d]/50 hover:text-white"

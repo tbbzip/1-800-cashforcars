@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
+import { sendGTMEvent } from "@next/third-parties/google";
 import {
   FormEvent,
   useCallback,
@@ -496,6 +497,11 @@ export function OfferFlow({
 
       setSubmitStatus("success");
       setTurnstileToken("");
+      sendGTMEvent({
+        event: "offer_form_submit_success",
+        form_name: "cash_offer",
+        language: locale,
+      });
     } catch (error) {
       setSubmitStatus("error");
       setSubmitError(

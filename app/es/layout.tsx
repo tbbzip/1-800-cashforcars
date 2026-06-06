@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 import "../globals.css";
 import { getDictionary } from "../dictionaries";
 import { createPageMetadata } from "../seo";
+import { GtmPhoneClickEvents } from "../components/gtm-events";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,6 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 const dictionary = getDictionary("es");
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-TR3NQ5M8";
 
 export const metadata: Metadata = createPageMetadata({
   locale: "es",
@@ -40,7 +43,20 @@ export default function SpanishRootLayout({
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <GoogleTagManager gtmId={gtmId} />
+      <body className="min-h-full flex flex-col">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+          />
+        </noscript>
+        <GtmPhoneClickEvents />
+        {children}
+      </body>
     </html>
   );
 }
