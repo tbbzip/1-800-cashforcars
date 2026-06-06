@@ -7,7 +7,7 @@ import {
   PhoneCall,
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getOfferPath } from "../dictionaries";
+import { getLocalePath, getOfferPath } from "../dictionaries";
 import {
   internalPageImages,
   mascotImages,
@@ -16,9 +16,16 @@ import {
 import {
   getInternalPage,
   getInternalPath,
-  type ImagePlaceholder,
+  type PageImage,
   type InternalPageContent,
 } from "../internal-pages";
+import {
+  createBreadcrumbJsonLd,
+  createFaqJsonLd,
+  createLocalBusinessJsonLd,
+  createSchemaGraph,
+  jsonLdScriptProps,
+} from "../structured-data";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 
@@ -28,10 +35,6 @@ const PHONE_HREF = "tel:16198307005";
 function labelsFor(locale: Locale) {
   return locale === "es"
     ? {
-        appliedImage: "Imagen aplicada",
-        imageLabel: "Imagen recomendada",
-        imageNotes: "Notas de imagen",
-        altLabel: "Texto alt",
         quickFacts: "Puntos rápidos",
         onThisPage: "En esta página",
         faqs: "Preguntas frecuentes",
@@ -43,10 +46,6 @@ function labelsFor(locale: Locale) {
           "Empieza con una oferta en línea o llámanos para revisar los detalles antes de avanzar.",
       }
     : {
-        appliedImage: "Image in use",
-        imageLabel: "Recommended image",
-        imageNotes: "Image notes",
-        altLabel: "Alt text",
         quickFacts: "Quick facts",
         onThisPage: "On this page",
         faqs: "Frequently asked questions",
@@ -66,14 +65,10 @@ function PageImageCard({
   locale,
 }: {
   asset?: SiteImageAsset;
-  image: ImagePlaceholder;
+  image: PageImage;
   compact?: boolean;
   locale: Locale;
 }) {
-  const labels = labelsFor(locale);
-  const imageTitle = asset ? asset.title[locale] : image.title;
-  const imageDescription = asset ? asset.description[locale] : image.description;
-
   return (
     <aside
       className={`overflow-hidden rounded-[22px] border bg-white shadow-[0_14px_34px_rgba(15,23,42,0.05)] ${
@@ -105,31 +100,11 @@ function PageImageCard({
         </div>
       ) : (
         <div className="bg-[#ecfdf1] p-5">
-          <div className="flex h-28 items-center justify-center rounded-2xl border border-dashed border-[#bde9c9] bg-white text-center text-sm font-black text-[#228b40]">
-            {labels.imageLabel}
+          <div className="flex h-28 items-center justify-center rounded-2xl border border-[#bde9c9] bg-white text-center text-sm font-black text-[#228b40]">
+            Cash for Cars San Diego
           </div>
         </div>
       )}
-
-      <div className={compact ? "p-4" : "p-5"}>
-        <p className="text-xs font-black uppercase text-[#228b40]">
-          {asset ? labels.appliedImage : labels.imageLabel}
-        </p>
-        <h3 className="mt-1 text-base font-black text-slate-950">
-          {imageTitle}
-        </h3>
-        <p className="mt-3 text-sm leading-6 text-slate-700">
-          {imageDescription}
-        </p>
-        <div className="mt-4 rounded-2xl border border-[#bde9c9] bg-[#ecfdf1] p-3">
-          <p className="text-xs font-black uppercase text-slate-500">
-            {asset ? labels.imageNotes : labels.altLabel}
-          </p>
-          <p className="mt-1 text-sm font-semibold leading-6 text-slate-800">
-            {image.alt}
-          </p>
-        </div>
-      </div>
     </aside>
   );
 }
@@ -180,9 +155,32 @@ export function InternalPageTemplate({
 }) {
   const labels = labelsFor(locale);
   const imageSet = internalPageImages[page.key];
+  const pagePath = getInternalPath(locale, page.key);
+  const structuredData = createSchemaGraph([
+    createLocalBusinessJsonLd({
+      description: page.metaDescription,
+      locale,
+      path: pagePath,
+    }),
+    createBreadcrumbJsonLd([
+      {
+        name: locale === "es" ? "Inicio" : "Home",
+        path: getLocalePath(locale),
+      },
+      {
+        name: page.title,
+        path: pagePath,
+      },
+    ]),
+    createFaqJsonLd(page.faqs),
+  ]);
 
   return (
     <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
+      />
       <SiteNavigation dictionary={dictionary} locale={locale} />
 
       <section className="border-b border-slate-200 bg-white">

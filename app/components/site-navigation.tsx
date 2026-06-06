@@ -8,11 +8,13 @@ import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { ChevronDown, Globe2, Menu, Phone, X } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getLocalePath, getOfferPath } from "../dictionaries";
+import { getIncorporatedCitiesPath, getLocationPath } from "../location-paths";
 
 const phoneNumber = "619-830-7005";
 const phoneHref = "tel:16198307005";
 
 type NavigationItem = Dictionary["navigation"]["items"][number];
+type AreaGroup = Dictionary["serviceAreas"]["items"][number];
 
 const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -45,6 +47,185 @@ const listItemMotion = {
   exit: { opacity: 0, y: 4 },
   transition: { duration: 0.16, ease: smoothEase },
 };
+
+function isAreasMenu(item: NavigationItem) {
+  return "areasMenu" in item && item.areasMenu === true;
+}
+
+function CompactAreaGroup({
+  group,
+  getHref,
+  onNavigate,
+}: {
+  group: AreaGroup;
+  getHref: (area: string) => string;
+  onNavigate: () => void;
+}) {
+  return (
+    <div>
+      <p className="text-[11px] font-black uppercase tracking-normal text-slate-500">
+        {group.title}
+      </p>
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {group.areas.map((area) => (
+          <Link
+            key={`${group.title}-${area}`}
+            href={getHref(area)}
+            onClick={onNavigate}
+            className="rounded-full border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
+          >
+            {area}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AreasDesktopMenu({
+  dictionary,
+  item,
+  locale,
+  onNavigate,
+}: {
+  dictionary: Dictionary;
+  item: NavigationItem;
+  locale: Locale;
+  onNavigate: () => void;
+}) {
+  return (
+    <div className="grid gap-4">
+      <div className="flex flex-wrap gap-2 border-b border-slate-100 pb-3">
+        {item.menuItems.map((menuItem) => (
+          <Link
+            key={`${item.label}-${menuItem.label}`}
+            href={menuItem.href}
+            onClick={onNavigate}
+            className="rounded-full border border-slate-200 bg-[#f8fafc] px-3 py-2 text-xs font-black text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
+          >
+            {menuItem.label}
+          </Link>
+        ))}
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-[1fr_1.12fr]">
+        <section className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-black uppercase text-[#2fad50]">
+                {dictionary.serviceAreas.eyebrow}
+              </p>
+              <h3 className="mt-1 text-base font-black text-slate-950">
+                {dictionary.locations.cityPageCta}
+              </h3>
+            </div>
+            <Link
+              href={getIncorporatedCitiesPath(locale)}
+              onClick={onNavigate}
+              className="shrink-0 rounded-full bg-[#2fad50] px-3 py-2 text-[11px] font-black text-white transition hover:bg-[#279746]"
+            >
+              {locale === "es" ? "Ver" : "View"}
+            </Link>
+          </div>
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {dictionary.serviceAreas.items.map((group) => (
+              <CompactAreaGroup
+                key={group.title}
+                group={group}
+                getHref={(area) => getLocationPath(locale, area)}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-slate-200 bg-white p-4">
+          <div>
+            <p className="text-xs font-black uppercase text-[#2fad50]">
+              {dictionary.sanDiegoAreas.eyebrow}
+            </p>
+            <h3 className="mt-1 text-base font-black text-slate-950">
+              {dictionary.sanDiegoAreas.title}
+            </h3>
+          </div>
+
+          <div className="mt-4 grid gap-3">
+            {dictionary.sanDiegoAreas.groups.map((group) => (
+              <CompactAreaGroup
+                key={group.title}
+                group={group}
+                getHref={(area) => getLocationPath(locale, area)}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
+
+function AreasMobileMenu({
+  dictionary,
+  item,
+  locale,
+  onNavigate,
+}: {
+  dictionary: Dictionary;
+  item: NavigationItem;
+  locale: Locale;
+  onNavigate: () => void;
+}) {
+  return (
+    <div className="grid gap-4 px-1 pb-3 pt-1 text-left">
+      <div className="grid gap-2">
+        {item.menuItems.map((menuItem) => (
+          <Link
+            key={`${item.label}-${menuItem.label}`}
+            href={menuItem.href}
+            onClick={onNavigate}
+            className="rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-center text-sm font-black text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
+          >
+            {menuItem.label}
+          </Link>
+        ))}
+      </div>
+
+      <section className="rounded-2xl border border-slate-200 bg-[#f8fafc] p-4">
+        <p className="text-xs font-black uppercase text-[#2fad50]">
+          {dictionary.locations.cityPageCta}
+        </p>
+        <div className="mt-4 grid gap-4">
+          {dictionary.serviceAreas.items.map((group) => (
+            <CompactAreaGroup
+              key={group.title}
+              group={group}
+              getHref={(area) => getLocationPath(locale, area)}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="rounded-2xl border border-slate-200 bg-white p-4">
+        <p className="text-xs font-black uppercase text-[#2fad50]">
+          {dictionary.sanDiegoAreas.eyebrow}
+        </p>
+        <div className="mt-4 grid gap-4">
+          {dictionary.sanDiegoAreas.groups.map((group) => (
+            <CompactAreaGroup
+              key={group.title}
+              group={group}
+              getHref={(area) => getLocationPath(locale, area)}
+              onNavigate={onNavigate}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
 
 function Logo({
   dictionary,
@@ -101,23 +282,6 @@ function FlagMark({ locale }: { locale: Locale }) {
     >
       {locale === "es" ? "🇪🇸" : "🇺🇸"}
     </span>
-  );
-}
-
-function DropdownPlaceholders({ mobile = false }: { mobile?: boolean }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={
-        mobile
-          ? "grid gap-2 px-3 pb-2"
-          : "mt-2 grid gap-2 rounded-xl border border-dashed border-slate-200 bg-[#f8fafc] p-3"
-      }
-    >
-      <div className="h-2.5 w-24 rounded-full bg-slate-200" />
-      <div className="h-2.5 w-full rounded-full bg-slate-200/80" />
-      <div className="h-2.5 w-2/3 rounded-full bg-slate-200/80" />
-    </div>
   );
 }
 
@@ -209,22 +373,27 @@ function LanguageMenu({
 }
 
 function DesktopNavItem({
+  dictionary,
   item,
   index,
   isOpen,
+  locale,
   onOpen,
   onClose,
   onNavigate,
 }: {
+  dictionary: Dictionary;
   item: NavigationItem;
   index: number;
   isOpen: boolean;
+  locale: Locale;
   onOpen: () => void;
   onClose: () => void;
   onNavigate: () => void;
 }) {
   const hasDropdown = item.hasMenu && item.menuItems.length > 0;
   const menuId = `desktop-nav-menu-${index}`;
+  const hasAreasMegaMenu = isAreasMenu(item);
 
   if (!hasDropdown) {
     return (
@@ -269,27 +438,41 @@ function DesktopNavItem({
           <motion.div
             id={menuId}
             {...dropdownMotion}
-            className="absolute left-1/2 top-full z-[60] w-72 origin-top rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.16)]"
+            className={`absolute left-1/2 top-full z-[60] origin-top rounded-2xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] ${
+              hasAreasMegaMenu
+                ? "max-h-[calc(100vh-150px)] w-[min(1040px,calc(100vw-32px))] overflow-y-auto p-4"
+                : "w-72 p-2"
+            }`}
           >
-            <motion.div variants={listMotion} initial="initial" animate="animate">
-              {item.menuItems.map((menuItem) => (
-                <motion.div
-                  key={`${item.label}-${menuItem.label}`}
-                  variants={listItemMotion}
-                >
-                  <Link
-                    href={menuItem.href}
-                    onClick={onNavigate}
-                    className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-[#ecfdf1] hover:text-slate-950"
+            {hasAreasMegaMenu ? (
+              <AreasDesktopMenu
+                dictionary={dictionary}
+                item={item}
+                locale={locale}
+                onNavigate={onNavigate}
+              />
+            ) : (
+              <motion.div
+                variants={listMotion}
+                initial="initial"
+                animate="animate"
+              >
+                {item.menuItems.map((menuItem) => (
+                  <motion.div
+                    key={`${item.label}-${menuItem.label}`}
+                    variants={listItemMotion}
                   >
-                    {menuItem.label}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div variants={listItemMotion}>
-                <DropdownPlaceholders />
+                    <Link
+                      href={menuItem.href}
+                      onClick={onNavigate}
+                      className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-[#ecfdf1] hover:text-slate-950"
+                    >
+                      {menuItem.label}
+                    </Link>
+                  </motion.div>
+                ))}
               </motion.div>
-            </motion.div>
+            )}
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -298,20 +481,25 @@ function DesktopNavItem({
 }
 
 function MobileNavItem({
+  dictionary,
   item,
   index,
   isOpen,
+  locale,
   onToggle,
   onNavigate,
 }: {
+  dictionary: Dictionary;
   item: NavigationItem;
   index: number;
   isOpen: boolean;
+  locale: Locale;
   onToggle: () => void;
   onNavigate: () => void;
 }) {
   const hasDropdown = item.hasMenu && item.menuItems.length > 0;
   const menuId = `mobile-nav-menu-${index}`;
+  const hasAreasMegaMenu = isAreasMenu(item);
 
   if (!hasDropdown) {
     return (
@@ -360,23 +548,31 @@ function MobileNavItem({
               animate="animate"
               className="grid gap-2 px-3 pb-2 pt-1"
             >
-              {item.menuItems.map((menuItem) => (
-                <motion.div
-                  key={`${item.label}-${menuItem.label}`}
-                  variants={listItemMotion}
-                >
-                  <Link
-                    href={menuItem.href}
-                    onClick={onNavigate}
-                    className="block rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
-                  >
-                    {menuItem.label}
-                  </Link>
+              {hasAreasMegaMenu ? (
+                <motion.div variants={listItemMotion}>
+                  <AreasMobileMenu
+                    dictionary={dictionary}
+                    item={item}
+                    locale={locale}
+                    onNavigate={onNavigate}
+                  />
                 </motion.div>
-              ))}
-              <motion.div variants={listItemMotion}>
-                <DropdownPlaceholders mobile />
-              </motion.div>
+              ) : (
+                item.menuItems.map((menuItem) => (
+                  <motion.div
+                    key={`${item.label}-${menuItem.label}`}
+                    variants={listItemMotion}
+                  >
+                    <Link
+                      href={menuItem.href}
+                      onClick={onNavigate}
+                      className="block rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
+                    >
+                      {menuItem.label}
+                    </Link>
+                  </motion.div>
+                ))
+              )}
             </motion.div>
           </motion.div>
         ) : null}
@@ -484,10 +680,12 @@ export function SiteNavigation({
 
               return (
                 <DesktopNavItem
+                  dictionary={dictionary}
                   key={item.label}
                   item={item}
                   index={index}
                   isOpen={isOpen}
+                  locale={locale}
                   onOpen={() => setOpenDesktopMenu(item.label)}
                   onClose={() => setOpenDesktopMenu(null)}
                   onNavigate={closeNavigation}
@@ -603,9 +801,11 @@ export function SiteNavigation({
                     className="flex w-full justify-center"
                   >
                     <MobileNavItem
+                      dictionary={dictionary}
                       item={item}
                       index={index}
                       isOpen={openMobileMenu === item.label}
+                      locale={locale}
                       onToggle={() =>
                         setOpenMobileMenu((current) =>
                           current === item.label ? null : item.label,

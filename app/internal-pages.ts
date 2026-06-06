@@ -9,10 +9,11 @@ export type InternalPageKey =
   | "trucksSuvs"
   | "titleHelp"
   | "sanDiegoCounty"
+  | "incorporatedCities"
   | "freeTowing"
   | "faq";
 
-export type ImagePlaceholder = {
+export type PageImage = {
   title: string;
   description: string;
   alt: string;
@@ -24,7 +25,7 @@ export type InternalPageSection = {
   title: string;
   body: string[];
   bullets?: string[];
-  image?: ImagePlaceholder;
+  image?: PageImage;
 };
 
 export type InternalPageContent = {
@@ -35,7 +36,7 @@ export type InternalPageContent = {
   eyebrow: string;
   title: string;
   intro: string;
-  heroImage: ImagePlaceholder;
+  heroImage: PageImage;
   quickFacts: string[];
   sections: InternalPageSection[];
   faqs: {
@@ -57,9 +58,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Selling a car should not turn into weeks of private messages, no-shows, tow quotes, and paperwork confusion. Our process is built for San Diego County sellers who want a clear local offer, practical title guidance, and a simple handoff when the vehicle is ready.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Local pickup handoff",
       description:
-        "Add a wide photo of a local pickup handoff in San Diego County: a tow truck or buyer meeting a seller near a driveway, apartment lot, repair shop, or curbside vehicle.",
+        "A local pickup moment for a San Diego County seller ready to move on from an unwanted vehicle.",
       alt: "Local cash for cars pickup handoff in San Diego County",
     },
     quickFacts: [
@@ -84,9 +85,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "Title, registration, lien, or payoff details",
         ],
         image: {
-          title: "Vehicle details image placeholder",
+          title: "Vehicle details review",
           description:
-            "Add a close-up photo of a VIN plate, odometer, or seller checking car details on a phone. This supports the first-step explanation visually.",
+            "Checking the VIN, mileage, condition, and location before reviewing a cash offer.",
           alt: "Seller entering VIN and vehicle details for a San Diego cash offer",
         },
       },
@@ -114,9 +115,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "At pickup, the vehicle, keys, title or available paperwork, and seller information are confirmed. The process is designed to be straightforward whether the car is at home, a workplace, a repair shop, a tow yard, an apartment lot, or street parking.",
         ],
         image: {
-          title: "Pickup image placeholder",
+          title: "Pickup and payment",
           description:
-            "Add a local towing or pickup photo showing a vehicle being loaded or handed off. Use a real San Diego County background if possible.",
+            "A simple vehicle handoff with pickup or standard towing included when we buy.",
           alt: "Vehicle pickup and payment for a cash car sale in San Diego",
         },
       },
@@ -151,9 +152,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Not every car fits the clean online marketplace model. Some cars have accident damage, mechanical problems, failed smog, title questions, missing parts, or simply too many miles to sell easily to a private buyer. This page explains the types of vehicles we can review for a local San Diego County cash offer.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Vehicles we review",
       description:
-        "Add a collage-style photo showing several vehicle types: sedan, truck, SUV, damaged car, and non-running vehicle. Keep it real and inspection-friendly, not stock-looking.",
+        "Sedans, trucks, SUVs, vans, damaged vehicles, and non-running cars can all be reviewed for a local offer.",
       alt: "Types of used junk damaged and non-running cars bought in San Diego",
     },
     quickFacts: [
@@ -171,9 +172,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "The more detail you provide, the easier it is to understand what kind of buyer the car would attract locally. Mileage, trim, maintenance history, smog status, and title status all help shape the offer.",
         ],
         image: {
-          title: "Used car image placeholder",
+          title: "Used car offer",
           description:
-            "Add a clean but realistic used car photo in a San Diego driveway, apartment parking lot, or curbside location.",
+            "A used vehicle that still runs but may be easier to sell through a local cash offer.",
           alt: "Used car ready for cash offer in San Diego County",
         },
       },
@@ -230,9 +231,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "A junk car does not always mean the same thing to every seller. For some people it is a car that will not pass smog. For others it is a vehicle sitting in the driveway, a salvage car, a car missing parts, or an older vehicle that costs more to fix than it is worth. This page explains what matters when requesting a junk car offer in San Diego.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Junk car cash offer",
       description:
-        "Add a realistic photo of an older car parked at a curb, driveway, or side yard. The vehicle should look unwanted but not overly staged.",
+        "An older or unwanted vehicle that may still qualify for a cash offer and included pickup.",
       alt: "Junk car sitting in San Diego ready to sell for cash",
     },
     quickFacts: [
@@ -250,9 +251,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "Common examples include cars with expired registration, failed smog, major mechanical repairs, blown engines, transmission issues, missing catalytic converters, damaged interiors, or years of sitting unused.",
         ],
         image: {
-          title: "Junk condition image placeholder",
+          title: "Junk car condition",
           description:
-            "Add a close-up image of a worn tire, dusty windshield, old registration sticker, or car sitting unused to visually support the junk car topic.",
+            "Condition details like missing parts, old tags, flat tires, or years of sitting unused can affect the offer.",
           alt: "Older junk car details before cash offer review",
         },
       },
@@ -309,9 +310,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "A damaged car can be hard to price and even harder to sell privately. Buyers ask for discounts, repair estimates can grow, and the vehicle may not be safe or legal to drive. We review damaged vehicles as they are, so you can decide whether a local cash offer makes more sense than paying for repairs.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Damaged car offer",
       description:
-        "Add a clear photo of a car with visible body damage, such as a dented quarter panel, bumper damage, or side damage. Avoid overly dramatic crash imagery.",
+        "A damaged vehicle can be reviewed as-is, without paying for repairs before requesting an offer.",
       alt: "Damaged car in San Diego being reviewed for a cash offer",
     },
     quickFacts: [
@@ -343,9 +344,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "A cash offer gives you another option. Instead of spending more money to chase a private sale, you can compare the offer with the repair estimate and decide what makes the most practical sense.",
         ],
         image: {
-          title: "Repair estimate image placeholder",
+          title: "Repair or sell decision",
           description:
-            "Add a photo of a repair estimate clipboard, body shop exterior, or damaged vehicle parked at a repair shop.",
+            "Compare the cost of repairs with a local cash offer before spending more money on the car.",
           alt: "Damaged car repair estimate before selling for cash",
         },
       },
@@ -388,9 +389,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "A non-running car creates a different problem than a normal used car sale. You cannot easily meet buyers, test drives are impossible, and towing can cost money before you even know if the buyer is serious. We help sellers start with the vehicle details first, then plan pickup if we buy the car.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Non-running car pickup",
       description:
-        "Add a photo of a non-running car being prepared for tow, with flatbed or wheel-lift equipment visible in a realistic local setting.",
+        "A car that does not start can still be reviewed for a local offer and pickup plan.",
       alt: "Non-running car pickup in San Diego County",
     },
     quickFacts: [
@@ -422,9 +423,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "If the car is blocked in, has flat tires, missing keys, or cannot roll, say so early. That does not automatically stop the process, but it affects planning.",
         ],
         image: {
-          title: "Access image placeholder",
+          title: "Pickup access review",
           description:
-            "Add an image showing a car in a driveway, apartment lot, or tow-access situation to explain why vehicle access matters.",
+            "Location details help plan pickup for a car parked in a driveway, apartment lot, garage, or tight space.",
           alt: "Non-running car access details for pickup planning",
         },
       },
@@ -467,9 +468,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Trucks and SUVs can hold value even when they are old, damaged, high-mileage, or expensive to repair. Whether you have a commuter SUV, a work truck, a van, or a family vehicle that no longer fits your needs, we can review the details for a local offer.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Truck and SUV offer",
       description:
-        "Add a photo of a pickup truck, SUV, or work van in a San Diego County setting. Show the actual vehicle type clearly.",
+        "Larger vehicles like trucks, SUVs, vans, and work vehicles can be reviewed for a local cash offer.",
       alt: "Truck or SUV being sold for cash in San Diego County",
     },
     quickFacts: [
@@ -495,9 +496,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "Tell us whether the vehicle was used for work, commuting, family transportation, towing, or fleet service. That context can help explain mileage, wear, and condition.",
         ],
         image: {
-          title: "Work vehicle image placeholder",
+          title: "Work vehicle review",
           description:
-            "Add an image of a work truck or van with realistic wear, parked at a job site, home, or shop.",
+            "Work trucks and vans can still have value even with mileage, damage, or repair needs.",
           alt: "Used work truck or van in San Diego ready for a cash offer",
         },
       },
@@ -540,9 +541,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Paperwork questions stop many sellers before they even request an offer. Maybe the title is missing, registration is expired, there may be a lien, or the car belonged to a family member. We cannot give legal advice, but we can help you understand what information may need review before pickup.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Title and paperwork review",
       description:
-        "Add a photo of car title paperwork, DMV forms, keys, and a phone on a clean table. Avoid showing private personal details.",
+        "Title, registration, lien, and seller details can be reviewed before planning the handoff.",
       alt: "Car title and DMV paperwork for selling a car in San Diego",
     },
     quickFacts: [
@@ -568,9 +569,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "Tell us what you know about the registration status. If you are not sure, we can still start with the vehicle and seller details you have available.",
         ],
         image: {
-          title: "Registration image placeholder",
+          title: "Registration details",
           description:
-            "Add an image of a registration card or DMV paperwork with all personal information blurred or recreated as a sample.",
+            "Registration status, old tags, and DMV paperwork can affect the sale plan.",
           alt: "Vehicle registration paperwork for a San Diego car sale",
         },
       },
@@ -607,22 +608,22 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     slug: "san-diego-county",
     metaTitle: "Cash for Cars San Diego County | Local Service Areas",
     metaDescription:
-      "Cash for cars across San Diego County, including San Diego, Chula Vista, Oceanside, Escondido, El Cajon, National City, La Mesa, Santee, and more.",
+      "Cash for cars across the San Diego County areas we serve, from Camp Pendleton and Oceanside south, and from Alpine west toward the coast.",
     eyebrow: "Service areas",
     title: "Cash for cars across San Diego County.",
     intro:
-      "San Diego County is large, and pickup planning depends on where the vehicle is located. This page explains the local areas we reference when reviewing offers, from South Bay and Central San Diego to East County, North County, and the coast.",
+      "San Diego County is large, so we keep the service area simple for sellers. Our regular pickup area runs from Camp Pendleton and Oceanside south, and from Alpine west toward the coast. Mountain and desert routes farther east may need a call first.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "San Diego County service area",
       description:
-        "Add a San Diego County map-style image or real local image that hints at multiple service areas without looking like a generic stock skyline.",
+        "A clear local service-area view for sellers across San Diego County.",
       alt: "San Diego County cash for cars service area map",
     },
     quickFacts: [
       "San Diego, Chula Vista, National City, and South Bay",
-      "El Cajon, La Mesa, Santee, Poway, and East County",
+      "El Cajon, La Mesa, Santee, Poway, and Alpine-area routes",
       "Oceanside, Escondido, Carlsbad, Encinitas, and North County",
-      "Pickup details depend on vehicle access and location",
+      "Call first for Borrego Springs, Julian, Campo, Pine Valley, Descanso, or far-east backcountry routes",
     ],
     sections: [
       {
@@ -633,9 +634,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "If the car is parked in a shared lot, behind a gate, or on the street, tell us before pickup is scheduled.",
         ],
         image: {
-          title: "South Bay image placeholder",
+          title: "South Bay pickup area",
           description:
-            "Add a local South Bay or San Diego neighborhood vehicle photo, ideally near a driveway, curb, or apartment lot.",
+            "South Bay and central San Diego sellers can start online with vehicle details and pickup location.",
           alt: "Cash for cars service in San Diego and South Bay",
         },
       },
@@ -643,15 +644,15 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
         id: "east-county",
         title: "East County and inland communities.",
         body: [
-          "El Cajon, La Mesa, Santee, Poway, and nearby areas can include longer pickup routes, sloped driveways, and vehicles stored at homes, shops, or yards. Those details help us plan the right timing and equipment.",
-          "If the vehicle does not run, include whether it rolls, has tires, and can be accessed by a tow truck.",
+          "El Cajon, La Mesa, Santee, Poway, and Alpine-area routes can be reviewed. Routes farther east, including Borrego Springs, Julian, Campo, Pine Valley, Descanso, and similar mountain or desert areas, should be confirmed by phone first.",
+          "If the vehicle does not run, include whether it rolls, has tires, and can be accessed by a tow truck. Location details matter more as routes move inland.",
         ],
       },
       {
         id: "north-county",
         title: "North County and coastal areas.",
         body: [
-          "Oceanside, Escondido, Carlsbad, Encinitas, and surrounding North County communities are also part of the local service area. Sellers can start online with a VIN lookup and continue with the same offer process.",
+          "Oceanside, Camp Pendleton-area routes, Escondido, Carlsbad, Encinitas, and surrounding North County communities are part of the local service area. Sellers can start online with a VIN lookup and continue with the same offer process.",
           "Vehicle location, title status, and pickup timing can all be reviewed before scheduling.",
         ],
       },
@@ -660,7 +661,12 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
       {
         question: "Do you buy cars outside the city of San Diego?",
         answer:
-          "Yes. We review vehicles across San Diego County, not only inside the city limits.",
+          "Yes. We review vehicles across the practical San Diego County service area, not only inside the city limits.",
+      },
+      {
+        question: "What San Diego County areas should I call to confirm?",
+        answer:
+          "Call first for Borrego Springs, Julian, Campo, Pine Valley, Descanso, or far-east backcountry areas so we can review the route before you count on pickup.",
       },
       {
         question: "Does location affect the offer?",
@@ -673,7 +679,96 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "Often yes, but gate access, parking rules, and tow access should be discussed before pickup.",
       },
     ],
-    related: ["howItWorks", "freeTowing", "carsWeBuy"],
+    related: ["incorporatedCities", "howItWorks", "freeTowing"],
+  },
+  incorporatedCities: {
+    key: "incorporatedCities",
+    slug: "incorporated-cities",
+    metaTitle: "Cash for Cars in San Diego County Cities | Local Offers",
+    metaDescription:
+      "See the incorporated San Diego County cities we serve, grouped by North County, Central San Diego, East County, and South Bay.",
+    eyebrow: "Incorporated cities",
+    title: "Cash for cars in San Diego County’s incorporated cities.",
+    intro:
+      "We keep the city list organized by region so sellers can quickly see where we usually work. The practical boundary is Camp Pendleton and Oceanside south, and Alpine west toward the coast.",
+    heroImage: {
+      title: "San Diego County city service area image",
+      description:
+        "A clean local service-area view for city-to-city coverage across San Diego County.",
+      alt: "Cash for cars service area for incorporated cities in San Diego County",
+    },
+    quickFacts: [
+      "All 18 incorporated cities are included",
+      "Coverage runs from Oceanside and Camp Pendleton south",
+      "Alpine is a practical eastern reference point before longer inland routes",
+      "Call first for Borrego Springs, Julian, Campo, Pine Valley, Descanso, and far-east areas",
+    ],
+    sections: [
+      {
+        id: "north-county-coastal",
+        eyebrow: "North County coastal",
+        title: "Oceanside, Carlsbad, Encinitas, Solana Beach, and Del Mar.",
+        body: [
+          "North County coastal sellers can start with a VIN, condition details, and pickup location. These cities are inside the normal local coverage area from Camp Pendleton and Oceanside south.",
+          "Coastal pickups can include apartment lots, driveway parking, repair shops, street parking, and vehicles stored near work or school.",
+        ],
+        bullets: ["Oceanside", "Carlsbad", "Encinitas", "Solana Beach", "Del Mar"],
+      },
+      {
+        id: "north-county-inland",
+        eyebrow: "North County inland",
+        title: "Vista, San Marcos, Escondido, and Poway.",
+        body: [
+          "North County inland cities are part of the regular service area. Pickup planning depends on whether the vehicle runs, rolls, has keys, and can be accessed by a tow truck if needed.",
+          "This group keeps larger inland cities together without mixing them into the coastal list.",
+        ],
+        bullets: ["Vista", "San Marcos", "Escondido", "Poway"],
+      },
+      {
+        id: "central-metro",
+        eyebrow: "Central and metro",
+        title: "San Diego, La Mesa, Lemon Grove, and Coronado.",
+        body: [
+          "Central and metro cities often have tighter pickup details: street parking, gated lots, apartment rules, repair shops, or business parking. Sharing location details early helps avoid delays.",
+          "San Diego neighborhoods are handled separately on the homepage so this page stays focused on incorporated cities.",
+        ],
+        bullets: ["San Diego", "La Mesa", "Lemon Grove", "Coronado"],
+      },
+      {
+        id: "east-south-county",
+        eyebrow: "East and South County",
+        title: "El Cajon, Santee, Chula Vista, National City, and Imperial Beach.",
+        body: [
+          "East and South County cities are included, with Alpine treated as the practical eastern reference point for regular service. Routes farther into mountain or desert areas should be confirmed by phone first.",
+          "South Bay sellers can start online or call if the vehicle is damaged, non-running, parked in a tight location, or needs pickup planning.",
+        ],
+        bullets: [
+          "El Cajon",
+          "Santee",
+          "Chula Vista",
+          "National City",
+          "Imperial Beach",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Do you serve all incorporated cities in San Diego County?",
+        answer:
+          "Yes. The incorporated city list is included, with service planning based on vehicle location, access, condition, and timing.",
+      },
+      {
+        question: "Which areas should I call to confirm?",
+        answer:
+          "Call first for Borrego Springs, Julian, Campo, Pine Valley, Descanso, or far-east backcountry routes so the pickup route can be reviewed.",
+      },
+      {
+        question: "What is the easiest way to check a city?",
+        answer:
+          "Start with the VIN and ZIP code, or call 619-830-7005 if you want to confirm the route before filling out the form.",
+      },
+    ],
+    related: ["sanDiegoCounty", "freeTowing", "howItWorks"],
   },
   freeTowing: {
     key: "freeTowing",
@@ -686,9 +781,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "For many sellers, removing the vehicle is the hardest part of selling it. A car that does not run, has flat tires, is at a shop, or is parked in a tight location can be expensive to move. If we buy your vehicle, standard pickup or towing is included for eligible San Diego County vehicles.",
     heroImage: {
-      title: "Hero image placeholder",
+      title: "Pickup or towing included",
       description:
-        "Add a real or staged local image of a tow truck loading a car, with enough space to show access and pickup context.",
+        "Standard pickup or towing is included when we buy an eligible San Diego County vehicle.",
       alt: "Free towing included for a car bought in San Diego County",
     },
     quickFacts: [
@@ -714,9 +809,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
           "If the car is at a business, shop, or tow yard, there may be release requirements. Sharing that early prevents delays.",
         ],
         image: {
-          title: "Towing access image placeholder",
+          title: "Towing access",
           description:
-            "Add a photo showing a tow truck with a clear path to a car, or a vehicle in a tight access situation.",
+            "Driveways, apartments, garages, shops, and tow yards can all require different pickup details.",
           alt: "Vehicle access details for towing pickup in San Diego",
         },
       },
@@ -759,9 +854,9 @@ const englishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Before requesting an offer, most sellers want to know what documents they need, whether damaged cars qualify, if towing is included, and how payment works. This FAQ brings the main answers together so you can decide the next step with less back-and-forth.",
     heroImage: {
-      title: "FAQ image placeholder",
+      title: "Seller questions",
       description:
-        "Add a friendly image of a phone call, seller texting vehicle details, or keys and paperwork on a table.",
+        "Answers to common seller questions about offers, title details, pickup, towing, and payment.",
       alt: "Seller questions about cash for cars in San Diego",
     },
     quickFacts: [
@@ -831,9 +926,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Vender un carro no debería convertirse en semanas de mensajes, personas que no llegan, costos de grúa y dudas de papeleo. Nuestro proceso está hecho para vendedores de San Diego County que quieren una oferta clara, orientación práctica y una entrega sencilla.",
     heroImage: {
-      title: "Placeholder de imagen principal",
+      title: "Pickup local del carro",
       description:
-        "Agrega una foto amplia de una entrega local en San Diego County: una grúa o comprador recibiendo el carro en casa, apartamento, taller o calle.",
+        "Un pickup local y sencillo para vendedores de San Diego County que quieren avanzar sin complicarse.",
       alt: "Entrega local de un carro vendido por efectivo en San Diego County",
     },
     quickFacts: [
@@ -858,9 +953,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Título, registro, lien o detalles de préstamo",
         ],
         image: {
-          title: "Placeholder de datos del carro",
+          title: "Revisión de datos del carro",
           description:
-            "Agrega una foto de un VIN, odómetro o una persona revisando datos del carro en el celular.",
+            "VIN, millas, condición y ubicación ayudan a revisar una oferta más clara.",
           alt: "Vendedor ingresando VIN y datos del carro para una oferta en San Diego",
         },
       },
@@ -888,9 +983,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "En la entrega se revisa el carro, llaves, título o documentos disponibles e información del vendedor. El proceso busca ser claro aunque el carro esté en casa, trabajo, taller, yarda, apartamento o estacionado en la calle.",
         ],
         image: {
-          title: "Placeholder de pickup",
+          title: "Pickup y pago",
           description:
-            "Agrega una foto local de una grúa o entrega de carro en San Diego County.",
+            "Si compramos el carro, pasar por él o mandar grúa estándar va incluido.",
           alt: "Pickup de carro y pago por una venta en San Diego",
         },
       },
@@ -924,9 +1019,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "No todos los carros encajan en una venta privada normal. Algunos tienen daños, problemas mecánicos, smog fallido, dudas de título, partes faltantes o demasiadas millas. Esta página explica qué tipos de carros podemos revisar para una oferta local en San Diego County.",
     heroImage: {
-      title: "Placeholder de tipos de carros",
+      title: "Carros que revisamos",
       description:
-        "Agrega una imagen tipo collage con sedán, troca, SUV, carro chocado y carro que no prende.",
+        "Podemos revisar sedanes, trocas, SUVs, vans, carros chocados y carros que no prenden.",
       alt: "Carros usados para yonke chocados y que no prenden en San Diego",
     },
     quickFacts: [
@@ -944,9 +1039,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Mientras más claro seas con millas, versión, mantenimiento, smog y título, más fácil es revisar una oferta local realista.",
         ],
         image: {
-          title: "Placeholder de carro usado",
+          title: "Oferta por carro usado",
           description:
-            "Agrega una foto realista de un carro usado en una entrada, calle o estacionamiento de San Diego.",
+            "Un carro usado que todavía corre puede ser más fácil de vender con una oferta local.",
           alt: "Carro usado listo para oferta en efectivo en San Diego",
         },
       },
@@ -1002,9 +1097,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Un carro para yonke puede ser un carro que no pasa smog, está parado, tiene salvage, le faltan partes o cuesta más arreglarlo que venderlo. Aquí explicamos qué revisamos cuando pides una oferta por un carro para yonke en San Diego.",
     heroImage: {
-      title: "Placeholder de carro para yonke",
+      title: "Oferta por carro para yonke",
       description:
-        "Agrega una foto realista de un carro viejo o parado en una entrada, calle o yarda.",
+        "Un carro viejo, parado o incompleto todavía puede calificar para una oferta.",
       alt: "Carro para yonke en San Diego listo para vender por efectivo",
     },
     quickFacts: [
@@ -1022,9 +1117,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Ejemplos comunes incluyen registro vencido, smog fallido, motor dañado, transmisión mala, catalizador faltante, interior dañado o años parado.",
         ],
         image: {
-          title: "Placeholder de condición para yonke",
+          title: "Condición del carro para yonke",
           description:
-            "Agrega una imagen de llanta gastada, sticker viejo de registro, polvo o detalles de un carro parado.",
+            "Partes faltantes, llantas, registro, llaves y acceso pueden afectar la oferta.",
           alt: "Detalles de carro para yonke antes de una oferta",
         },
       },
@@ -1080,9 +1175,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Un carro chocado puede ser difícil de vender. Los compradores piden descuento, los estimados suben y tal vez el carro no es seguro para manejar. Revisamos carros dañados como están, para que compares si una oferta local tiene más sentido que pagar reparaciones.",
     heroImage: {
-      title: "Placeholder de carro chocado",
+      title: "Oferta por carro chocado",
       description:
-        "Agrega una foto clara de daño en defensa, puerta, costado o parte trasera sin usar una imagen demasiado dramática.",
+        "Un carro chocado puede revisarse como está, sin arreglarlo antes de pedir una oferta.",
       alt: "Carro chocado en San Diego revisado para oferta en efectivo",
     },
     quickFacts: [
@@ -1114,9 +1209,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Una oferta en efectivo te da otra opción antes de gastar más dinero en reparaciones.",
         ],
         image: {
-          title: "Placeholder de estimado de reparación",
+          title: "Reparar o vender",
           description:
-            "Agrega una foto de un estimado, taller o carro dañado en un body shop.",
+            "Compara el costo de reparación con una oferta local antes de invertir más dinero.",
           alt: "Estimado de reparación antes de vender un carro chocado",
         },
       },
@@ -1158,9 +1253,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Un carro que no prende es más difícil de vender. No hay test drive, moverlo cuesta dinero y muchos compradores no son serios. Nosotros empezamos con los datos del carro y después revisamos cómo pasar por él si lo compramos.",
     heroImage: {
-      title: "Placeholder de carro que no prende",
+      title: "Pickup para carro que no prende",
       description:
-        "Agrega una foto de un carro preparándose para grúa o pickup en un ambiente local.",
+        "Un carro que no prende todavía puede revisarse para una oferta y un plan de pickup.",
       alt: "Pickup de carro que no prende en San Diego County",
     },
     quickFacts: [
@@ -1192,9 +1287,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Si está bloqueado, tiene llantas ponchadas, no hay llaves o no rueda, dilo desde el inicio.",
         ],
         image: {
-          title: "Placeholder de acceso",
+          title: "Revisión de acceso",
           description:
-            "Agrega una imagen de un carro en driveway, apartamento o situación donde se vea el acceso para grúa.",
+            "El acceso importa cuando el carro está en driveway, apartamento, garage, taller o yarda.",
           alt: "Detalles de acceso para pickup de carro que no prende",
         },
       },
@@ -1236,9 +1331,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Trocas y SUVs pueden tener valor aunque estén viejas, dañadas, con muchas millas o caras de reparar. Si tienes una SUV familiar, work truck, van o troca que ya no necesitas, podemos revisar los datos para una oferta local.",
     heroImage: {
-      title: "Placeholder de troca o SUV",
+      title: "Oferta por troca o SUV",
       description:
-        "Agrega una foto clara de una pickup, SUV o van en un ambiente de San Diego County.",
+        "Trocas, SUVs, vans y vehículos de trabajo pueden revisarse para una oferta local.",
       alt: "Troca o SUV vendida por efectivo en San Diego County",
     },
     quickFacts: [
@@ -1264,9 +1359,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Dinos si era de trabajo, familia, towing, commuting o fleet para entender mejor el desgaste.",
         ],
         image: {
-          title: "Placeholder de vehículo de trabajo",
+          title: "Revisión de vehículo de trabajo",
           description:
-            "Agrega una foto de una troca o van de trabajo con uso real, en casa, taller o job site.",
+            "Trocas y vans de trabajo pueden tener valor aunque tengan millas, desgaste o daños.",
           alt: "Troca o van de trabajo usada lista para oferta en San Diego",
         },
       },
@@ -1308,9 +1403,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Las dudas de papeleo detienen a muchos vendedores. Tal vez no encuentras el título, el registro está vencido, hay un lien o el carro era de un familiar. No damos asesoría legal, pero sí podemos ayudarte a entender qué información puede necesitar revisión antes del pickup.",
     heroImage: {
-      title: "Placeholder de papeleo",
+      title: "Revisión de título y papeleo",
       description:
-        "Agrega una foto de documentos de carro, llaves y celular en una mesa, sin datos personales visibles.",
+        "Título, registro, lien y datos del vendedor pueden revisarse antes de planear la entrega.",
       alt: "Título y papeleo del DMV para vender un carro en San Diego",
     },
     quickFacts: [
@@ -1336,9 +1431,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Dinos qué sabes del registro. Si no estás seguro, podemos empezar con los datos del carro y vendedor.",
         ],
         image: {
-          title: "Placeholder de registro",
+          title: "Detalles de registro",
           description:
-            "Agrega una imagen de registro o formulario DMV con datos personales borrosos o de muestra.",
+            "Registro vencido, tags viejos, fees o smog pueden afectar el plan de entrega.",
           alt: "Papeleo de registro para vender un carro en San Diego",
         },
       },
@@ -1374,22 +1469,22 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     slug: "san-diego-county",
     metaTitle: "Compramos carros en San Diego County | Áreas de servicio",
     metaDescription:
-      "Compramos carros en San Diego County: San Diego, Chula Vista, Oceanside, Escondido, El Cajon, National City, La Mesa, Santee y más.",
+      "Compramos carros en las áreas de San Diego County que atendemos, desde Camp Pendleton y Oceanside hacia el sur, y desde Alpine hacia la costa.",
     eyebrow: "Áreas de servicio",
     title: "Compramos carros en todo San Diego County.",
     intro:
-      "San Diego County es grande, y pasar por el carro depende de dónde esté ubicado. Esta página explica las áreas que revisamos: South Bay, Central San Diego, East County, North County y la costa.",
+      "San Diego County es grande, por eso mantenemos el área de servicio clara. Nuestra ruta regular va desde Camp Pendleton y Oceanside hacia el sur, y desde Alpine hacia la costa. Para rutas más al este, en montaña o desierto, conviene llamar primero.",
     heroImage: {
-      title: "Placeholder de mapa local",
+      title: "Área de servicio en San Diego County",
       description:
-        "Agrega una imagen tipo mapa de San Diego County o una foto local que represente varias áreas.",
+        "Una vista clara del área local donde revisamos carros en San Diego County.",
       alt: "Mapa de áreas de servicio para comprar carros en San Diego County",
     },
     quickFacts: [
       "San Diego, Chula Vista, National City y South Bay",
-      "El Cajon, La Mesa, Santee, Poway y East County",
+      "El Cajon, La Mesa, Santee, Poway y rutas cercanas a Alpine",
       "Oceanside, Escondido, Carlsbad, Encinitas y North County",
-      "Pickup depende de ubicación y acceso",
+      "Llama primero para Borrego Springs, Julian, Campo, Pine Valley, Descanso o rutas muy al este",
     ],
     sections: [
       {
@@ -1400,9 +1495,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Si el carro está en lote compartido, detrás de reja o estacionado en la calle, dilo antes de agendar.",
         ],
         image: {
-          title: "Placeholder de South Bay",
+          title: "Área de pickup en South Bay",
           description:
-            "Agrega una foto local de un carro en South Bay o San Diego, en calle, driveway o apartamento.",
+            "Vendedores en South Bay y San Diego pueden empezar con datos del carro y ubicación.",
           alt: "Servicio cash for cars en San Diego y South Bay",
         },
       },
@@ -1410,15 +1505,15 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
         ...englishPages.sanDiegoCounty.sections[1],
         title: "East County y comunidades inland.",
         body: [
-          "El Cajon, La Mesa, Santee, Poway y áreas cercanas pueden tener rutas más largas, driveways inclinados o carros guardados en casas, talleres o yardas.",
-          "Si el carro no prende, dinos si rueda, tiene llantas y si una grúa puede llegar.",
+          "El Cajon, La Mesa, Santee, Poway y rutas cercanas a Alpine se pueden revisar. Para rutas más al este, incluyendo Borrego Springs, Julian, Campo, Pine Valley, Descanso y zonas similares de montaña o desierto, llama primero para confirmar.",
+          "Si el carro no prende, dinos si rueda, tiene llantas y si una grúa puede llegar. Mientras más inland esté, más importan los detalles de ubicación.",
         ],
       },
       {
         ...englishPages.sanDiegoCounty.sections[2],
         title: "North County y la costa.",
         body: [
-          "Oceanside, Escondido, Carlsbad, Encinitas y comunidades cercanas también son parte del área local. Puedes empezar con VIN en línea y seguir el mismo proceso.",
+          "Oceanside, rutas cerca de Camp Pendleton, Escondido, Carlsbad, Encinitas y comunidades cercanas también son parte del área local. Puedes empezar con VIN en línea y seguir el mismo proceso.",
           "Ubicación, título y horario se revisan antes de agendar.",
         ],
       },
@@ -1427,7 +1522,12 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
       {
         question: "¿Compran carros fuera de la ciudad de San Diego?",
         answer:
-          "Sí. Revisamos carros en San Diego County, no solo dentro de la ciudad.",
+          "Sí. Revisamos carros dentro del área práctica de San Diego County, no solo dentro de la ciudad.",
+      },
+      {
+        question: "¿Qué áreas conviene confirmar por teléfono?",
+        answer:
+          "Llama primero para Borrego Springs, Julian, Campo, Pine Valley, Descanso o rutas muy al este, así podemos revisar la ruta antes de que cuentes con el pickup.",
       },
       {
         question: "¿La ubicación afecta la oferta?",
@@ -1441,6 +1541,85 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
       },
     ],
   },
+  incorporatedCities: {
+    ...englishPages.incorporatedCities,
+    slug: "ciudades-incorporadas",
+    metaTitle: "Compramos carros en ciudades de San Diego County",
+    metaDescription:
+      "Consulta las ciudades incorporadas de San Diego County que atendemos, organizadas por North County, zona central, East County y South Bay.",
+    eyebrow: "Ciudades incorporadas",
+    title: "Compramos carros en las ciudades incorporadas de San Diego County.",
+    intro:
+      "Organizamos las ciudades por región para que sea fácil confirmar dónde trabajamos normalmente. La cobertura práctica es desde Camp Pendleton y Oceanside hacia el sur, y desde Alpine hacia la costa.",
+    heroImage: {
+      title: "Imagen de área de servicio por ciudades",
+      description:
+        "Una vista clara del área local por ciudades, sin convertir la página en una lista pesada.",
+      alt: "Área de servicio para comprar carros en ciudades de San Diego County",
+    },
+    quickFacts: [
+      "Incluimos las 18 ciudades incorporadas",
+      "Cobertura desde Oceanside y Camp Pendleton hacia el sur",
+      "Alpine es el límite este práctico antes de rutas más lejanas",
+      "Llama primero para Borrego Springs, Julian, Campo, Pine Valley, Descanso y zonas muy al este",
+    ],
+    sections: [
+      {
+        ...englishPages.incorporatedCities.sections[0],
+        eyebrow: "North County costa",
+        title: "Oceanside, Carlsbad, Encinitas, Solana Beach y Del Mar.",
+        body: [
+          "Vendedores en la costa de North County pueden empezar con VIN, condición del carro y ubicación. Estas ciudades entran dentro del área normal desde Camp Pendleton y Oceanside hacia el sur.",
+          "El pickup puede ser en apartamentos, driveway, taller, calle o cerca del trabajo.",
+        ],
+      },
+      {
+        ...englishPages.incorporatedCities.sections[1],
+        eyebrow: "North County inland",
+        title: "Vista, San Marcos, Escondido y Poway.",
+        body: [
+          "Estas ciudades inland de North County son parte del área regular. El plan depende de si el carro prende, rueda, tiene llaves y si una grúa puede llegar.",
+          "Este grupo mantiene las ciudades inland separadas de la costa para que la lista sea más fácil de leer.",
+        ],
+      },
+      {
+        ...englishPages.incorporatedCities.sections[2],
+        eyebrow: "Central y metro",
+        title: "San Diego, La Mesa, Lemon Grove y Coronado.",
+        body: [
+          "Las ciudades centrales suelen tener detalles de acceso: calle, rejas, reglas de apartamento, talleres o estacionamientos de negocios. Compartir la ubicación desde el principio ayuda a evitar retrasos.",
+          "Las áreas dentro de la ciudad de San Diego van en una sección separada en la página principal para no mezclar ciudades con vecindarios.",
+        ],
+      },
+      {
+        ...englishPages.incorporatedCities.sections[3],
+        eyebrow: "East y South County",
+        title: "El Cajon, Santee, Chula Vista, National City e Imperial Beach.",
+        body: [
+          "East y South County están incluidos, usando Alpine como referencia práctica hacia el este. Para zonas más lejos en montaña o desierto, conviene llamar primero y confirmar la ruta.",
+          "En South Bay puedes empezar en línea o llamar si el carro está chocado, no prende, está en un lugar complicado o necesita planeación de pickup.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "¿Atienden todas las ciudades incorporadas de San Diego County?",
+        answer:
+          "Sí. La lista de ciudades incorporadas está incluida, y el plan depende de ubicación, acceso, condición y horario.",
+      },
+      {
+        question: "¿Qué áreas conviene confirmar por teléfono?",
+        answer:
+          "Llama primero para Borrego Springs, Julian, Campo, Pine Valley, Descanso o rutas muy al este, para revisar si el pickup se puede coordinar.",
+      },
+      {
+        question: "¿Cuál es la forma más fácil de confirmar una ciudad?",
+        answer:
+          "Empieza con VIN y ZIP, o llama al 619-830-7005 si quieres confirmar la ruta antes de llenar el formulario.",
+      },
+    ],
+    related: ["sanDiegoCounty", "freeTowing", "howItWorks"],
+  },
   freeTowing: {
     ...englishPages.freeTowing,
     slug: "grua-sin-costo",
@@ -1452,9 +1631,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Para muchos vendedores, mover el carro es lo más difícil. Un carro que no prende, tiene llantas ponchadas, está en taller o está estacionado en un lugar complicado puede costar moverlo. Si compramos tu carro, pickup o grúa estándar va incluido para vehículos elegibles en San Diego County.",
     heroImage: {
-      title: "Placeholder de grúa",
+      title: "Pickup o grúa incluida",
       description:
-        "Agrega una foto local de una grúa cargando un carro o llegando a recogerlo.",
+        "Si compramos un carro elegible en San Diego County, pickup o grúa estándar va incluido.",
       alt: "Grúa incluida para carro comprado en San Diego County",
     },
     quickFacts: [
@@ -1480,9 +1659,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
           "Si el carro está en taller o yarda, puede necesitar autorización de salida.",
         ],
         image: {
-          title: "Placeholder de acceso de grúa",
+          title: "Acceso para grúa",
           description:
-            "Agrega una foto donde se vea una grúa con camino libre o un carro en acceso complicado.",
+            "Apartamentos, garages, calles angostas, rejas y yardas pueden necesitar instrucciones diferentes.",
           alt: "Detalles de acceso para grúa en San Diego",
         },
       },
@@ -1524,9 +1703,9 @@ const spanishPages: Record<InternalPageKey, InternalPageContent> = {
     intro:
       "Antes de pedir una oferta, la mayoría quiere saber qué documentos necesita, si aceptamos carros chocados, si la grúa va incluida y cómo funciona el pago. Esta página junta las respuestas principales para que avances con más claridad.",
     heroImage: {
-      title: "Placeholder de preguntas",
+      title: "Preguntas de vendedores",
       description:
-        "Agrega una imagen de una llamada, una persona mandando datos del carro por celular o llaves con documentos.",
+        "Respuestas rápidas sobre ofertas, título, pickup, grúa, pago y condición del carro.",
       alt: "Preguntas sobre vender un carro por efectivo en San Diego",
     },
     quickFacts: [

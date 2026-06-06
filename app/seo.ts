@@ -24,6 +24,36 @@ export const socialImage = {
   alt: "Cash For Cars San Diego County cash offer mascot",
 };
 
+export function absoluteUrl(path = "/") {
+  return new URL(path, metadataBase).toString();
+}
+
+function normalizeLanguageAlternates(
+  alternates: NonNullable<Metadata["alternates"]>,
+) {
+  const languages = alternates.languages;
+
+  if (!languages) {
+    return alternates;
+  }
+
+  const englishPath = languages.en ?? languages["en-US"];
+  const spanishPath = languages.es ?? languages["es-US"];
+
+  if (!englishPath || !spanishPath) {
+    return alternates;
+  }
+
+  return {
+    ...alternates,
+    languages: {
+      "en-US": englishPath,
+      "es-US": spanishPath,
+      "x-default": englishPath,
+    },
+  };
+}
+
 export function createPageMetadata({
   locale,
   title,
@@ -61,6 +91,17 @@ export function createPageMetadata({
         },
       ],
     },
-    alternates,
+    alternates: normalizeLanguageAlternates(alternates),
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
   };
 }

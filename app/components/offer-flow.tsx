@@ -2,7 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import Script from "next/script";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   AlertCircle,
@@ -59,12 +67,34 @@ type FlowData = {
 
 const phoneNumber = "619-830-7005";
 const phoneHref = "tel:16198307005";
+const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 const stepMotion = {
   initial: { opacity: 0, y: 14 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
   transition: { duration: 0.22, ease: [0.22, 1, 0.36, 1] as const },
 };
+
+declare global {
+  interface Window {
+    turnstile?: {
+      ready?: (callback: () => void) => void;
+      remove: (widgetId: string) => void;
+      render: (
+        container: HTMLElement,
+        options: {
+          "error-callback"?: (errorCode?: string) => void;
+          "expired-callback"?: () => void;
+          callback?: (token: string) => void;
+          sitekey: string;
+          size?: "normal" | "compact" | "flexible";
+          theme?: "auto" | "light" | "dark";
+        },
+      ) => string;
+      reset: (widgetId: string) => void;
+    };
+  }
+}
 
 function normalizeVin(value: string) {
   return value.toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 17);
@@ -212,6 +242,95 @@ function SummaryCard({
   );
 }
 
+function TurnstileChallenge({
+  errorLabel,
+  expiredLabel,
+  onError,
+  onTokenChange,
+  resetSignal,
+  siteKey,
+}: {
+  errorLabel: string;
+  expiredLabel: string;
+  onError: (message: string) => void;
+  onTokenChange: (token: string) => void;
+  resetSignal: number;
+  siteKey: string;
+}) {
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (
+      !scriptLoaded ||
+      !containerRef.current ||
+      !window.turnstile ||
+      widgetIdRef.current
+    ) {
+      return;
+    }
+
+    const renderWidget = () => {
+      if (!containerRef.current || !window.turnstile || widgetIdRef.current) {
+        return;
+      }
+
+      widgetIdRef.current = window.turnstile.render(containerRef.current, {
+        sitekey: siteKey,
+        theme: "light",
+        size: "flexible",
+        callback: (token) => onTokenChange(token),
+        "expired-callback": () => {
+          onTokenChange("");
+          onError(expiredLabel);
+        },
+        "error-callback": () => {
+          onTokenChange("");
+          onError(errorLabel);
+        },
+      });
+    };
+
+    renderWidget();
+
+    return () => {
+      if (widgetIdRef.current) {
+        window.turnstile?.remove(widgetIdRef.current);
+        widgetIdRef.current = null;
+      }
+    };
+  }, [
+    errorLabel,
+    expiredLabel,
+    onError,
+    onTokenChange,
+    scriptLoaded,
+    siteKey,
+  ]);
+
+  useEffect(() => {
+    if (resetSignal > 0 && widgetIdRef.current) {
+      window.turnstile?.reset(widgetIdRef.current);
+      onTokenChange("");
+    }
+  }, [onTokenChange, resetSignal]);
+
+  return (
+    <>
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        strategy="afterInteractive"
+        onLoad={() => setScriptLoaded(true)}
+      />
+      <div
+        ref={containerRef}
+        className="min-h-[65px] w-full overflow-hidden rounded-xl bg-white"
+      />
+    </>
+  );
+}
+
 export function OfferFlow({
   dictionary,
   initialVin = "",
@@ -229,14 +348,33 @@ export function OfferFlow({
   >("idle");
   const [lookupError, setLookupError] = useState("");
   const [validationError, setValidationError] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   const lookedUpInitialVin = useRef(false);
 
   const currentStep = flow.steps[stepIndex];
+  const submitted = submitStatus === "success";
+  const isFinalStep = stepIndex === flow.steps.length - 1;
+  const needsTurnstile = Boolean(turnstileSiteKey);
 
   const setField = <K extends keyof FlowData>(key: K, value: FlowData[K]) => {
     setData((current) => ({ ...current, [key]: value }));
   };
+
+  const handleTurnstileTokenChange = useCallback((token: string) => {
+    setTurnstileToken(token);
+    setSubmitError("");
+    setValidationError("");
+  }, []);
+
+  const handleTurnstileError = useCallback((message: string) => {
+    setTurnstileToken("");
+    setSubmitError(message);
+  }, []);
 
   const canContinue = useMemo(() => {
     if (stepIndex === 0) {
@@ -327,7 +465,47 @@ export function OfferFlow({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.vin]);
 
-  function handleNext() {
+  async function submitOffer() {
+    if (needsTurnstile && !turnstileToken) {
+      setValidationError(flow.common.turnstileRequired);
+      return;
+    }
+
+    setSubmitStatus("loading");
+    setSubmitError("");
+
+    try {
+      const response = await fetch("/api/offer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lead: data,
+          locale,
+          turnstileToken,
+        }),
+      });
+      const result = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        throw new Error(result?.error ?? flow.common.submitError);
+      }
+
+      setSubmitStatus("success");
+      setTurnstileToken("");
+    } catch (error) {
+      setSubmitStatus("error");
+      setSubmitError(
+        error instanceof Error ? error.message : flow.common.submitError,
+      );
+      setTurnstileResetSignal((current) => current + 1);
+    }
+  }
+
+  async function handleNext() {
     if (!canContinue) {
       setValidationError(flow.common.required);
       return;
@@ -335,22 +513,23 @@ export function OfferFlow({
 
     setValidationError("");
 
-    if (stepIndex < flow.steps.length - 1) {
+    if (!isFinalStep) {
       setStepIndex((current) => current + 1);
       return;
     }
 
-    setSubmitted(true);
+    await submitOffer();
   }
 
   function handleBack() {
     setValidationError("");
+    setSubmitError("");
     setStepIndex((current) => Math.max(0, current - 1));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleNext();
+    void handleNext();
   }
 
   return (
@@ -468,10 +647,32 @@ export function OfferFlow({
             </motion.section>
           </AnimatePresence>
 
-          {validationError ? (
+          {isFinalStep && !submitted ? (
+            <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
+              <p className="mb-3 text-sm font-black text-slate-700">
+                {flow.review.securityTitle}
+              </p>
+              {turnstileSiteKey ? (
+                <TurnstileChallenge
+                  errorLabel={flow.common.turnstileError}
+                  expiredLabel={flow.common.turnstileExpired}
+                  onError={handleTurnstileError}
+                  onTokenChange={handleTurnstileTokenChange}
+                  resetSignal={turnstileResetSignal}
+                  siteKey={turnstileSiteKey}
+                />
+              ) : (
+                <p className="text-sm font-bold text-red-700">
+                  {flow.common.turnstileMissing}
+                </p>
+              )}
+            </div>
+          ) : null}
+
+          {validationError || submitError ? (
             <div className="mt-6 flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 p-3 text-sm font-bold text-red-700">
               <AlertCircle aria-hidden="true" className="mt-0.5 h-4 w-4" />
-              <p>{validationError}</p>
+              <p>{validationError || submitError}</p>
             </div>
           ) : null}
 
@@ -488,11 +689,25 @@ export function OfferFlow({
               ) : null}
               <button
                 type="submit"
-                className="h-11 rounded-lg bg-[#2fad50] px-5 text-sm font-black text-white shadow-[0_12px_24px_rgba(47,173,80,0.22)] transition hover:bg-[#279746]"
+                disabled={
+                  submitStatus === "loading" ||
+                  (isFinalStep && (!turnstileSiteKey || !turnstileToken))
+                }
+                className="h-11 rounded-lg bg-[#2fad50] px-5 text-sm font-black text-white shadow-[0_12px_24px_rgba(47,173,80,0.22)] transition hover:bg-[#279746] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500"
               >
-                {stepIndex === flow.steps.length - 1
-                  ? flow.common.submit
-                  : flow.common.next}
+                {submitStatus === "loading" ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Loader2
+                      aria-hidden="true"
+                      className="h-4 w-4 animate-spin"
+                    />
+                    {flow.common.submitting}
+                  </span>
+                ) : isFinalStep ? (
+                  flow.common.submit
+                ) : (
+                  flow.common.next
+                )}
               </button>
             </div>
           ) : null}

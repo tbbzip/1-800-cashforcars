@@ -13,22 +13,31 @@ import {
   Wrench,
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getOfferPath } from "../dictionaries";
+import { getLocalePath, getOfferPath } from "../dictionaries";
 import {
   homeCarsWeBuyImages,
-  homeProcessMascots,
   mascotImages,
   type SiteImageAsset,
 } from "../image-assets";
+import { getInternalPath } from "../internal-pages";
+import { getLocationPath } from "../location-paths";
+import {
+  createLocalBusinessJsonLd,
+  createSchemaGraph,
+  createWebSiteJsonLd,
+  jsonLdScriptProps,
+} from "../structured-data";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
+import { CashForCarsShowcase } from "./cash-for-cars-showcase";
+import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 import { VehicleLookupForm } from "./vehicle-lookup-form";
 
 const processIcons = [CarFront, BadgeDollarSign, Truck];
 const localSeoIcons = [BadgeDollarSign, Wrench, Truck];
 const carsWeBuyIcons = [CarFront, Wrench, Truck, ShieldCheck];
 const titleHelpIcons = [FileText, FileCheck2, BadgeDollarSign, ShieldCheck];
-const serviceAreaIcons = [MapPin, ShieldCheck, CarFront];
+const serviceAreaIcons = [MapPin, ShieldCheck, CarFront, Truck];
 
 function toAreaId(area: string) {
   return area.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -65,45 +74,41 @@ export function LocalizedHome({
   locale: Locale;
 }) {
   const offerPath = getOfferPath(locale);
-  const businessStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Cash For Cars",
-    description: dictionary.meta.description,
-    telephone: "+1-619-830-7005",
-    priceRange: "$$",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "552 Alta Rd #4",
-      addressLocality: "San Diego",
-      addressRegion: "CA",
-      postalCode: "92154",
-      addressCountry: "US",
-    },
-    areaServed: [
-      {
-        "@type": "AdministrativeArea",
-        name: "San Diego County",
-      },
-      ...dictionary.locations.areas.map((area) => ({
-        "@type": "City",
-        name: area,
-      })),
-    ],
-    availableLanguage:
-      locale === "es" ? ["Spanish", "English"] : ["English", "Spanish"],
-  };
+  const structuredData = createSchemaGraph([
+    createLocalBusinessJsonLd({
+      description: dictionary.meta.description,
+      locale,
+      path: getLocalePath(locale),
+      areaServed: [
+        {
+          "@type": "AdministrativeArea",
+          name: "San Diego County",
+        },
+        ...dictionary.serviceAreas.items.flatMap((group) =>
+          group.areas.map((area) => ({
+            "@type": "City",
+            name: area,
+          })),
+        ),
+        ...dictionary.sanDiegoAreas.groups.flatMap((group) =>
+          group.areas.map((area) => ({
+            "@type": "Place",
+            name: `${area}, San Diego`,
+          })),
+        ),
+      ],
+    }),
+    createWebSiteJsonLd({
+      description: dictionary.meta.description,
+      locale,
+    }),
+  ]);
 
   return (
     <main className="min-h-screen bg-[#f6f8fb] text-slate-950">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(businessStructuredData).replace(
-            /</g,
-            "\\u003c",
-          ),
-        }}
+        dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
       />
       <SiteNavigation dictionary={dictionary} locale={locale} />
 
@@ -204,6 +209,8 @@ export function LocalizedHome({
         </div>
       </section>
 
+      <VehicleShowcaseMarquee dictionary={dictionary} locale={locale} />
+
       <section
         id="local-cash-for-cars"
         className="scroll-mt-32 border-y border-slate-200 bg-white"
@@ -248,6 +255,12 @@ export function LocalizedHome({
         </div>
       </section>
 
+      <CashForCarsShowcase
+        dictionary={dictionary}
+        locale={locale}
+        offerPath={offerPath}
+      />
+
       <section
         id="how-it-works"
         className="scroll-mt-32 border-y border-slate-200 bg-white"
@@ -270,34 +283,54 @@ export function LocalizedHome({
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
             {dictionary.process.steps.map((step, index) => {
               const Icon = processIcons[index] ?? CarFront;
-              const mascotAsset = homeProcessMascots[index] ?? mascotImages.homeHero;
+              const isFeatured = index === 1;
+              const stepNumber = String(index + 1).padStart(2, "0");
 
               return (
                 <article
                   key={step.title}
-                  className="rounded-[20px] border border-slate-200 bg-[#f8fafc] p-5"
+                  className={`group relative overflow-hidden rounded-[24px] border p-6 shadow-[0_18px_46px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.1)] ${
+                    isFeatured
+                      ? "border-[#bde9c9] bg-[#ecfdf1]"
+                      : "border-slate-200 bg-white"
+                  }`}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-950 text-white">
+                  <div className="relative z-10 flex items-start justify-between gap-4">
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                        isFeatured
+                          ? "bg-[#2fad50] text-white"
+                          : "bg-slate-950 text-white"
+                      }`}
+                    >
                       <Icon aria-hidden="true" className="h-5 w-5" />
                     </div>
-                    <div className="h-16 w-16 overflow-hidden rounded-full border border-slate-200 bg-white p-1">
-                      <MascotImage
-                        alt={mascotAsset.alt[locale]}
-                        asset={mascotAsset}
-                        className="scale-[1.35]"
-                      />
-                    </div>
+                    <span className="text-5xl font-black leading-none text-slate-950/10">
+                      {stepNumber}
+                    </span>
                   </div>
-                  <p className="mt-5 text-xs font-black uppercase text-[#2fad50]">
+
+                  <p className="relative z-10 mt-8 text-xs font-black uppercase tracking-[0.12em] text-[#2fad50]">
                     {dictionary.process.stepLabel} {index + 1}
                   </p>
-                  <h3 className="mt-2 text-xl font-black text-slate-950">
+                  <h3 className="relative z-10 mt-2 text-2xl font-black leading-tight text-slate-950">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                  <p className="relative z-10 mt-3 text-sm font-semibold leading-6 text-slate-600">
                     {step.body}
                   </p>
+
+                  <div className="relative z-10 mt-6 flex items-center gap-2">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${
+                        isFeatured ? "bg-[#2fad50]" : "bg-slate-950"
+                      }`}
+                    />
+                    <span className="h-px flex-1 bg-slate-200" />
+                    <span className="text-xs font-black text-slate-400">
+                      {stepNumber}/03
+                    </span>
+                  </div>
                 </article>
               );
             })}
@@ -370,40 +403,56 @@ export function LocalizedHome({
 
       <section
         id="locations"
-        className="mx-auto max-w-[1160px] scroll-mt-32 px-5 py-14 sm:px-8 lg:py-16"
+        className="scroll-mt-32 border-y border-slate-200 bg-white px-5 py-14 sm:px-8 lg:py-16"
       >
-        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-          <div>
-            <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f3b33d] text-slate-950">
-              <ShieldCheck aria-hidden="true" className="h-6 w-6" />
-            </div>
-            <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
-              {dictionary.locations.title}
-            </h2>
-            <p className="mt-4 text-base leading-7 text-slate-600">
-              {dictionary.locations.body}
-            </p>
-          </div>
-
-          <div className="rounded-[24px] border border-slate-200 bg-white p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
-            <div className="grid gap-4 sm:grid-cols-[170px_1fr] sm:items-center">
-              <div className="rounded-[20px] bg-[#ecfdf1] p-4">
-                <MascotImage
-                  alt={mascotImages.locationGuide.alt[locale]}
-                  asset={mascotImages.locationGuide}
-                  className="mx-auto max-w-[150px]"
-                />
+        <div className="mx-auto max-w-[1160px]">
+          <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+            <div>
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f3b33d] text-slate-950">
+                <ShieldCheck aria-hidden="true" className="h-6 w-6" />
               </div>
-              <div>
-                <p className="text-sm font-black uppercase text-[#2fad50]">
-                  {dictionary.locations.serviceAreaLabel}
+              <h2 className="mt-5 text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
+                {dictionary.locations.title}
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-600">
+                {dictionary.locations.body}
+              </p>
+              <Link
+                href={getInternalPath(locale, "incorporatedCities")}
+                className="mt-6 inline-flex h-11 items-center justify-center rounded-xl bg-[#2fad50] px-5 text-sm font-black text-white shadow-[0_14px_28px_rgba(47,173,80,0.24)] transition hover:bg-[#279746]"
+              >
+                {dictionary.locations.cityPageCta}
+              </Link>
+            </div>
+
+            <div className="rounded-[24px] border border-slate-200 bg-[#f8fafc] p-5 shadow-[0_18px_50px_rgba(15,23,42,0.06)]">
+              <div className="grid gap-4 sm:grid-cols-[150px_1fr] sm:items-center">
+                <div className="rounded-[20px] bg-[#ecfdf1] p-4">
+                  <MascotImage
+                    alt={mascotImages.locationGuide.alt[locale]}
+                    asset={mascotImages.locationGuide}
+                    className="mx-auto max-w-[132px]"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-black uppercase text-[#2fad50]">
+                    {dictionary.locations.summaryTitle}
+                  </p>
+                  <p className="mt-2 text-base font-semibold leading-7 text-slate-700">
+                    {dictionary.locations.summaryBody}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 rounded-[18px] border border-[#f3b33d]/40 bg-[#fff8e8] p-4">
+                <p className="text-xs font-black uppercase text-slate-700">
+                  {dictionary.locations.notServedLabel}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  {dictionary.locations.areas.map((area) => (
+                  {dictionary.locations.notServed.map((area) => (
                     <span
-                      id={toAreaId(area)}
                       key={area}
-                      className="scroll-mt-32 rounded-full border border-slate-200 bg-[#f8fafc] px-3 py-2 text-sm font-bold text-slate-700"
+                      className="rounded-full border border-[#f3b33d]/50 bg-white px-3 py-1.5 text-xs font-black text-slate-700"
                     >
                       {area}
                     </span>
@@ -412,36 +461,90 @@ export function LocalizedHome({
               </div>
             </div>
           </div>
+
+          <div className="mt-9">
+            <p className="text-sm font-extrabold uppercase text-[#2fad50]">
+              {dictionary.serviceAreas.eyebrow}
+            </p>
+            <div className="mt-2 grid gap-4 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+              <h3 className="text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
+                {dictionary.serviceAreas.title}
+              </h3>
+              <p className="text-base leading-7 text-slate-600">
+                {dictionary.serviceAreas.body}
+              </p>
+            </div>
+
+            <div className="mt-7 grid gap-4 md:grid-cols-2">
+              {dictionary.serviceAreas.items.map((item, index) => {
+                const Icon = serviceAreaIcons[index] ?? MapPin;
+
+                return (
+                  <article
+                    key={item.title}
+                    className="rounded-[22px] border border-slate-200 bg-white p-5 shadow-[0_14px_34px_rgba(15,23,42,0.05)]"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#ecfdf1] text-[#228b40]">
+                        <Icon aria-hidden="true" className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-black text-slate-950">
+                          {item.title}
+                        </h4>
+                        <p className="mt-2 text-sm font-semibold leading-6 text-slate-600">
+                          {item.body}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {item.areas.map((area) => (
+                        <Link
+                          id={toAreaId(area)}
+                          key={area}
+                          href={getLocationPath(locale, area)}
+                          className="scroll-mt-32 rounded-full border border-slate-200 bg-[#f8fafc] px-3 py-2 text-sm font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-[#228b40]"
+                        >
+                          {area}
+                        </Link>
+                      ))}
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 
       <section
-        id="san-diego-service-areas"
+        id="san-diego-areas"
         className="scroll-mt-32 bg-slate-950 px-5 py-14 text-white sm:px-8 lg:py-16"
       >
         <div className="mx-auto max-w-[1160px]">
           <div className="grid gap-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <div>
               <p className="text-sm font-extrabold uppercase text-[#6ee28d]">
-                {dictionary.serviceAreas.eyebrow}
+                {dictionary.sanDiegoAreas.eyebrow}
               </p>
               <h2 className="mt-2 text-3xl font-black leading-tight sm:text-4xl">
-                {dictionary.serviceAreas.title}
+                {dictionary.sanDiegoAreas.title}
               </h2>
             </div>
             <p className="text-base leading-7 text-slate-300">
-              {dictionary.serviceAreas.body}
+              {dictionary.sanDiegoAreas.body}
             </p>
           </div>
 
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {dictionary.serviceAreas.items.map((item, index) => {
+          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {dictionary.sanDiegoAreas.groups.map((item, index) => {
               const Icon = serviceAreaIcons[index] ?? MapPin;
 
               return (
                 <article
+                  id={toAreaId(item.title)}
                   key={item.title}
-                  className="rounded-[20px] border border-white/10 bg-white/[0.06] p-5 shadow-[0_16px_34px_rgba(0,0,0,0.16)]"
+                  className="scroll-mt-32 rounded-[20px] border border-white/10 bg-white/[0.06] p-5 shadow-[0_16px_34px_rgba(0,0,0,0.16)]"
                 >
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3b33d] text-slate-950">
                     <Icon aria-hidden="true" className="h-5 w-5" />
@@ -452,6 +555,17 @@ export function LocalizedHome({
                   <p className="mt-2 text-sm leading-6 text-slate-300">
                     {item.body}
                   </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {item.areas.map((area) => (
+                      <Link
+                        key={area}
+                        href={getLocationPath(locale, area)}
+                        className="rounded-full border border-white/10 bg-white/[0.08] px-3 py-1.5 text-xs font-black text-slate-200"
+                      >
+                        {area}
+                      </Link>
+                    ))}
+                  </div>
                 </article>
               );
             })}

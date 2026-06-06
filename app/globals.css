@@ -42,3 +42,91 @@ a {
   color: #2fad50;
   box-shadow: 0 0 0 4px rgba(47, 173, 80, 0.12);
 }
+
+.vehicle-showcase-marquee {
+  --vehicle-showcase-duration: 72s;
+  display: flex;
+  overflow: hidden;
+  padding-block: 0.5rem 1.5rem;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.vehicle-showcase-marquee-track {
+  animation: vehicle-showcase-scroll var(--vehicle-showcase-duration) linear
+    infinite;
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.vehicle-showcase-marquee:hover .vehicle-showcase-marquee-track {
+  animation-play-state: paused;
+}
+
+.vehicle-showcase-card {
+  height: 430px;
+  width: 300px;
+}
+
+.vehicle-showcase-card-media {
+  flex: 0 0 178px;
+  height: 178px;
+}
+
+.vehicle-showcase-card-title {
+  min-height: 2.75rem;
+}
+
+.vehicle-showcase-card-quote {
+  display: -webkit-box;
+  min-height: 4.5rem;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@media (min-width: 640px) {
+  .vehicle-showcase-card {
+    width: 332px;
+  }
+}
+
+@keyframes vehicle-showcase-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(calc(-50% - 0.5rem), 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .vehicle-showcase-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .vehicle-showcase-marquee-track {
+    animation: none;
+  }
+}

@@ -3,6 +3,11 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin, PhoneCall } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getLocalePath, getOfferPath } from "../dictionaries";
+import {
+  getIncorporatedCitiesPath,
+  getLocationPath,
+  getSanDiegoCountyPath,
+} from "../location-paths";
 
 const phoneNumber = "619-830-7005";
 const phoneHref = "tel:16198307005";
@@ -124,6 +129,88 @@ export function SiteFooter({
               </div>
             ))}
           </nav>
+        </div>
+
+        <div className="grid gap-5 border-b border-white/10 py-10 lg:grid-cols-[0.92fr_1.08fr]">
+          <section className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h3 className="text-base font-black text-white">
+                  {dictionary.footer.incorporatedCitiesTitle}
+                </h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-400">
+                  {dictionary.footer.incorporatedCitiesBody}
+                </p>
+              </div>
+              <Link
+                href={getIncorporatedCitiesPath(locale)}
+                className="inline-flex w-fit shrink-0 rounded-full bg-[#2fad50] px-4 py-2 text-xs font-black text-white transition hover:bg-[#279746]"
+              >
+                {dictionary.footer.viewAllCities}
+              </Link>
+            </div>
+
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              {dictionary.serviceAreas.items.map((group) => (
+                <div key={group.title}>
+                  <p className="text-xs font-black uppercase text-[#6ee28d]">
+                    {group.title}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {group.areas.map((area) => (
+                      <Link
+                        key={`${group.title}-${area}`}
+                        href={getLocationPath(locale, area)}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-slate-300 transition hover:border-[#6ee28d]/50 hover:text-white"
+                      >
+                        {area}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="rounded-[22px] border border-white/10 bg-white/[0.04] p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h3 className="text-base font-black text-white">
+                  {dictionary.footer.sanDiegoAreasTitle}
+                </h3>
+                <p className="mt-2 text-sm font-semibold leading-6 text-slate-400">
+                  {dictionary.footer.sanDiegoAreasBody}
+                </p>
+              </div>
+              <Link
+                href={getSanDiegoCountyPath(locale)}
+                className="inline-flex w-fit shrink-0 rounded-full border border-white/10 px-4 py-2 text-xs font-black text-slate-200 transition hover:border-[#6ee28d]/50 hover:text-white"
+              >
+                {dictionary.footer.viewCounty}
+              </Link>
+            </div>
+
+            <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              {dictionary.sanDiegoAreas.groups.map((group) => (
+                <div key={group.title}>
+                  <p className="text-xs font-black uppercase text-[#6ee28d]">
+                    {group.title}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {group.areas.map((area) => (
+                      <Link
+                        key={`${group.title}-${area}`}
+                        href={getLocationPath(locale, area)}
+                        className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-bold text-slate-300 transition hover:border-[#6ee28d]/50 hover:text-white"
+                      >
+                        {area}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
 
         <div className="flex flex-col gap-4 pt-8 text-xs font-bold text-slate-500 sm:flex-row sm:items-center sm:justify-between">

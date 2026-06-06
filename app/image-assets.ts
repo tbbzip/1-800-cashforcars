@@ -386,6 +386,160 @@ export const homeProcessMascots = [
   mascotImages.wavingTool,
 ] satisfies SiteImageAsset[];
 
+function vehicleShowcase(
+  src: string,
+  width: number,
+  height: number,
+  title: LocalizedText,
+  alt: LocalizedText,
+  position = "center",
+): SiteImageAsset {
+  return {
+    alt,
+    description: title,
+    fit: "cover",
+    height,
+    kind: "scene",
+    position,
+    src,
+    title,
+    width,
+  };
+}
+
+export const vehicleShowcaseImages = [
+  vehicleShowcase(
+    "/vehicles-showcase/black-bmw-x5-suv-front-bumper-scuffs-wide.jpeg",
+    5120,
+    3840,
+    {
+      en: "BMW SUV with front bumper scuffs",
+      es: "SUV BMW con raspón en la defensa",
+    },
+    {
+      en: "Black BMW X5 SUV with visible front bumper scuffs",
+      es: "SUV BMW X5 negra con raspón visible en la defensa delantera",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/black-honda-accord-front-end-collision-damage.png",
+    444,
+    333,
+    {
+      en: "Honda Accord with front damage",
+      es: "Honda Accord con daño frontal",
+    },
+    {
+      en: "Black Honda Accord with front-end collision damage",
+      es: "Honda Accord negro con daño de choque en el frente",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/black-hyundai-veloster-purchased-vehicle.png",
+    420,
+    333,
+    {
+      en: "Hyundai Veloster ready for sale",
+      es: "Hyundai Veloster listo para venta",
+    },
+    {
+      en: "Black Hyundai Veloster photographed after purchase review",
+      es: "Hyundai Veloster negro fotografiado después de revisar la compra",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/black-mercedes-benz-s-class-sedan.png",
+    426,
+    333,
+    {
+      en: "Mercedes-Benz sedan",
+      es: "Sedán Mercedes-Benz",
+    },
+    {
+      en: "Black Mercedes-Benz S-Class sedan",
+      es: "Sedán Mercedes-Benz Clase S negro",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/blue-bmw-x5-suv-rear-quarter.png",
+    400,
+    333,
+    {
+      en: "Blue BMW X5 SUV",
+      es: "SUV BMW X5 azul",
+    },
+    {
+      en: "Blue BMW X5 SUV shown from the rear quarter",
+      es: "SUV BMW X5 azul vista desde la parte trasera lateral",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/blue-toyota-corolla-rear-bumper-damage-wide.jpeg",
+    5120,
+    3840,
+    {
+      en: "Toyota Corolla with rear bumper damage",
+      es: "Toyota Corolla con daño trasero",
+    },
+    {
+      en: "Blue Toyota Corolla with rear bumper damage",
+      es: "Toyota Corolla azul con daño en la defensa trasera",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/gray-honda-accord-front-end-collision-damage.png",
+    414,
+    333,
+    {
+      en: "Gray Honda Accord collision damage",
+      es: "Honda Accord gris con daño de choque",
+    },
+    {
+      en: "Gray Honda Accord with front-end collision damage",
+      es: "Honda Accord gris con daño de choque en el frente",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/white-chevrolet-express-work-van.png",
+    420,
+    333,
+    {
+      en: "Chevrolet Express work van",
+      es: "Van Chevrolet Express de trabajo",
+    },
+    {
+      en: "White Chevrolet Express work van",
+      es: "Van Chevrolet Express blanca de trabajo",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/white-chrysler-town-country-minivan-wide.jpeg",
+    4284,
+    4284,
+    {
+      en: "Chrysler Town & Country minivan",
+      es: "Minivan Chrysler Town & Country",
+    },
+    {
+      en: "White Chrysler Town and Country minivan",
+      es: "Minivan Chrysler Town and Country blanca",
+    },
+  ),
+  vehicleShowcase(
+    "/vehicles-showcase/white-honda-accord-side-rear-collision-damage-wide.jpeg",
+    5120,
+    3840,
+    {
+      en: "Honda Accord side and rear damage",
+      es: "Honda Accord con daño lateral y trasero",
+    },
+    {
+      en: "White Honda Accord with side and rear collision damage",
+      es: "Honda Accord blanco con daño lateral y trasero por choque",
+    },
+  ),
+] satisfies SiteImageAsset[];
+
 type InternalPageImageSet = {
   hero: SiteImageAsset;
   sections: Partial<Record<string, SiteImageAsset>>;
@@ -454,6 +608,15 @@ export const internalPageImages: Record<InternalPageKey, InternalPageImageSet> =
       "central-south": sceneImages.muddyParkedCars,
       "east-county": sceneImages.aerialSalvage,
       "north-county": sceneImages.blueVanDent,
+    },
+  },
+  incorporatedCities: {
+    hero: mascotImages.locationGuide,
+    sections: {
+      "north-county-coastal": sceneImages.towSuv,
+      "north-county-inland": sceneImages.aerialSalvage,
+      "central-metro": sceneImages.muddyParkedCars,
+      "east-south-county": sceneImages.blueVanDent,
     },
   },
   freeTowing: {

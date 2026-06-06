@@ -39,14 +39,11 @@
         "label": "San Diego Areas",
         "href": "/san-diego-county",
         "hasMenu": true,
+        "areasMenu": true,
         "menuItems": [
-          { "label": "San Diego", "href": "/san-diego-county#central-south" },
-          { "label": "Chula Vista", "href": "/san-diego-county#central-south" },
-          { "label": "Oceanside", "href": "/san-diego-county#north-county" },
-          { "label": "South Bay & North County", "href": "/san-diego-county" },
-          { "label": "Escondido", "href": "/san-diego-county#north-county" },
-          { "label": "El Cajon", "href": "/san-diego-county#east-county" },
-          { "label": "National City", "href": "/san-diego-county#central-south" }
+          { "label": "All incorporated cities", "href": "/incorporated-cities" },
+          { "label": "City of San Diego areas", "href": "/#san-diego-areas" },
+          { "label": "San Diego County overview", "href": "/san-diego-county" }
         ]
       },
       {
@@ -130,6 +127,110 @@
       }
     ]
   },
+  "vehicleShowcase": {
+    "eyebrow": "Recently reviewed vehicles",
+    "title": "Real cars. Real situations. Local five-star help.",
+    "body": "Damaged, clean, high-mileage, running, or stuck in the driveway. These are the kinds of vehicles San Diego sellers ask us to review every week.",
+    "ratingLabel": "Five star review",
+    "testimonials": [
+      {
+        "name": "Maria G.",
+        "area": "Chula Vista",
+        "quote": "They understood the bumper damage right away and gave me a clear next step without wasting my afternoon."
+      },
+      {
+        "name": "Elena M.",
+        "area": "San Diego",
+        "quote": "My Accord had front-end damage and I did not want to deal with private buyers. This was much easier."
+      },
+      {
+        "name": "Jose L.",
+        "area": "El Cajon",
+        "quote": "They reviewed my small hatchback quickly and explained what mattered for the offer."
+      },
+      {
+        "name": "Anthony S.",
+        "area": "La Mesa",
+        "quote": "I had a clean sedan but needed it gone fast. The call was short and the details were clear."
+      },
+      {
+        "name": "Nora P.",
+        "area": "Carlsbad",
+        "quote": "They treated my SUV like a real vehicle, not just a generic online estimate."
+      },
+      {
+        "name": "Carlos T.",
+        "area": "Otay Mesa",
+        "quote": "Rear bumper damage made selling it stressful. They made the review feel normal."
+      },
+      {
+        "name": "Miguel A.",
+        "area": "Oceanside",
+        "quote": "The front damage looked bad, but they still walked me through the options."
+      },
+      {
+        "name": "Rachel B.",
+        "area": "Santee",
+        "quote": "Our work van was sitting too long. They helped us understand what information they needed."
+      },
+      {
+        "name": "Luis F.",
+        "area": "Escondido",
+        "quote": "The minivan had high miles, but the process was still respectful and practical."
+      },
+      {
+        "name": "Brandon W.",
+        "area": "Encinitas",
+        "quote": "I showed the side damage and got a clear explanation of how it affected the offer."
+      }
+    ]
+  },
+  "cashForCarsProof": {
+    "eyebrow": "Built for real sellers",
+    "title": "Six ways we make selling an unwanted car feel simple.",
+    "body": "Most sellers do not have a perfect car, perfect paperwork, and unlimited time. This is built for the real situations people bring us in San Diego County.",
+    "ctaBody": "Start with the VIN or call us. We can review the car, condition, paperwork, and pickup details before you waste time with private buyers.",
+    "cta": "Start My Offer",
+    "callCta": "Call 619-830-7005",
+    "cards": [
+      {
+        "kicker": "Vehicle details",
+        "title": "VIN first, guesswork second.",
+        "body": "A VIN lookup helps confirm year, make, model, trim, and body style before we talk condition and pickup.",
+        "stat": "Fast lookup"
+      },
+      {
+        "kicker": "Any condition",
+        "title": "Not just clean daily drivers.",
+        "body": "Junk, damaged, high-mileage, failed-smog, missing-part, and non-running cars can still be reviewed.",
+        "stat": "Real car problems"
+      },
+      {
+        "kicker": "Cash offer",
+        "title": "A local offer, not a vague estimate.",
+        "body": "We look at the vehicle, San Diego County demand, title status, and pickup details to keep the next step clear.",
+        "stat": "Local pricing"
+      },
+      {
+        "kicker": "Pickup included",
+        "title": "You do not need to find a tow truck.",
+        "body": "If we buy it, standard pickup or towing is included for eligible vehicles across San Diego County.",
+        "stat": "$0 standard pickup"
+      },
+      {
+        "kicker": "San Diego County",
+        "title": "Built around local logistics.",
+        "body": "Home, apartment lot, shop, tow yard, workplace, or street parking. We plan around where the car actually is.",
+        "stat": "Countywide"
+      },
+      {
+        "kicker": "Paperwork help",
+        "title": "Title questions do not have to stop you.",
+        "body": "Lost title, registration questions, lien concerns, or DMV paperwork can be reviewed before pickup is scheduled.",
+        "stat": "Ask first"
+      }
+    ]
+  },
   "process": {
     "eyebrow": "How it works",
     "title": "Simple like the national platforms, faster because we are local.",
@@ -152,21 +253,54 @@
   },
   "locations": {
     "title": "Cash for cars across San Diego County.",
-    "body": "We help sellers throughout San Diego County, including South Bay, East County, coastal communities, and North County. Start online, then we can review timing, paperwork, and pickup options.",
+    "body": "We serve San Diego County from Camp Pendleton and Oceanside south, and from Alpine west toward the coast. Start online, then we can review timing, paperwork, and pickup options.",
     "serviceAreaLabel": "Service area",
+    "summaryTitle": "Simple coverage rule",
+    "summaryBody": "Camp Pendleton and Oceanside south. Alpine west to the coast. For longer mountain or desert routes, call first so we can confirm pickup.",
+    "notServedLabel": "Call first for these routes",
+    "notServed": ["Borrego Springs", "Julian", "Campo", "Pine Valley", "Descanso", "Far-east backcountry"],
+    "cityPageCta": "View all incorporated cities",
     "areas": [
       "San Diego",
       "Chula Vista",
       "Oceanside",
       "Escondido",
+      "Carlsbad",
       "El Cajon",
+      "Vista",
+      "San Marcos",
+      "Encinitas",
       "National City",
       "La Mesa",
       "Poway",
-      "Carlsbad",
-      "Encinitas",
       "Santee",
-      "Imperial Beach"
+      "Imperial Beach",
+      "Lemon Grove",
+      "Coronado",
+      "Solana Beach",
+      "Del Mar"
+    ],
+    "groups": [
+      {
+        "title": "North County Coastal",
+        "body": "From Camp Pendleton and Oceanside down the coast.",
+        "areas": ["Oceanside", "Carlsbad", "Encinitas", "Solana Beach", "Del Mar"]
+      },
+      {
+        "title": "North County Inland",
+        "body": "Large inland communities that stay inside the practical local route.",
+        "areas": ["Vista", "San Marcos", "Escondido", "Poway"]
+      },
+      {
+        "title": "Central / Metro",
+        "body": "Dense metro areas where pickup access details matter.",
+        "areas": ["San Diego", "La Mesa", "Lemon Grove", "Coronado"]
+      },
+      {
+        "title": "East / South County",
+        "body": "East and South County cities, with Alpine as the practical east-side edge.",
+        "areas": ["El Cajon", "Santee", "Chula Vista", "National City", "Imperial Beach"]
+      }
     ]
   },
   "carsWeBuy": {
@@ -261,20 +395,60 @@
   },
   "serviceAreas": {
     "eyebrow": "San Diego service areas",
-    "title": "Local cash offers from South Bay to North County.",
-    "body": "A strong local homepage should make the service area clear. We buy used, junk, damaged, and non-running vehicles across San Diego County, with pickup options based on where the car is located.",
+    "title": "Incorporated cities, grouped so the page stays clean.",
+    "body": "Instead of listing every city as a giant wall of cards, we group the incorporated cities by region and link to a dedicated city page.",
     "items": [
       {
-        "title": "San Diego, Chula Vista & South Bay",
-        "body": "Cash offers for cars in San Diego, Chula Vista, National City, Imperial Beach, Otay Mesa, and nearby South Bay neighborhoods."
+        "title": "North County Coastal",
+        "body": "Oceanside and coastal cities south from Camp Pendleton.",
+        "areas": ["Oceanside", "Carlsbad", "Encinitas", "Solana Beach", "Del Mar"]
       },
       {
-        "title": "El Cajon, La Mesa, Santee & East County",
-        "body": "We can review vehicles in East County, including cars at home, work, apartments, repair shops, tow yards, or street parking."
+        "title": "North County Inland",
+        "body": "Inland cities that still fit the normal service route.",
+        "areas": ["Vista", "San Marcos", "Escondido", "Poway"]
       },
       {
-        "title": "Oceanside, Escondido, Carlsbad & North County",
-        "body": "North County sellers can start online with a VIN lookup and continue to a local offer for used, damaged, or non-running vehicles."
+        "title": "Central / Metro",
+        "body": "Core metro cities with fast local pickup planning.",
+        "areas": ["San Diego", "La Mesa", "Lemon Grove", "Coronado"]
+      },
+      {
+        "title": "East / South County",
+        "body": "East and South County cities with clear pickup planning for inland routes.",
+        "areas": ["El Cajon", "Santee", "Chula Vista", "National City", "Imperial Beach"]
+      }
+    ]
+  },
+  "sanDiegoAreas": {
+    "eyebrow": "City of San Diego areas",
+    "title": "San Diego neighborhoods without turning the page into a directory.",
+    "body": "These are City of San Diego areas we can reference for local pickup planning, grouped so the page stays easy to scan.",
+    "groups": [
+      {
+        "title": "Coastal / Bay",
+        "body": "Beach and bay areas where parking and access details can affect pickup.",
+        "areas": ["La Jolla", "Pacific Beach", "Mission Beach", "Ocean Beach", "Point Loma", "Mission Bay"]
+      },
+      {
+        "title": "Urban Core",
+        "body": "Dense central areas where street parking, garages, and timing matter.",
+        "areas": ["Downtown", "Little Italy", "Gaslamp", "East Village", "Barrio Logan"]
+      },
+      {
+        "title": "Central Neighborhoods",
+        "body": "Core neighborhoods with apartments, driveways, repair shops, and street parking.",
+        "areas": ["North Park", "South Park", "Hillcrest", "University Heights", "Normal Heights", "Mission Hills", "Bankers Hill"]
+      },
+      {
+        "title": "North / Inland San Diego",
+        "body": "North city neighborhoods and employment areas with wider pickup routes.",
+        "areas": ["Mira Mesa", "Sorrento Valley", "UTC", "Carmel Valley", "Rancho Peñasquitos", "Rancho Bernardo", "Scripps Ranch", "Tierrasanta"]
+      },
+      {
+        "title": "Southeast / South Metro",
+        "body": "South metro neighborhoods inside the City of San Diego service conversation.",
+        "areas": ["Skyline", "Encanto", "Paradise Hills", "Otay Mesa"]
       }
     ]
   },
@@ -288,6 +462,12 @@
     "navigationLabel": "Footer navigation",
     "rights": "Local cash offers and free pickup help for San Diego County sellers.",
     "backToTop": "Back to top",
+    "incorporatedCitiesTitle": "Incorporated cities",
+    "incorporatedCitiesBody": "All 18 incorporated cities, grouped by region for quick scanning.",
+    "sanDiegoAreasTitle": "City of San Diego areas",
+    "sanDiegoAreasBody": "Neighborhood and area links grouped for cleaner local pickup planning.",
+    "viewAllCities": "View all cities",
+    "viewCounty": "San Diego County overview",
     "columns": [
       {
         "title": "Sell",
@@ -311,10 +491,10 @@
       {
         "title": "Service Areas",
         "links": [
-          { "label": "San Diego", "href": "/san-diego-county#central-south" },
+          { "label": "All incorporated cities", "href": "/incorporated-cities" },
+          { "label": "San Diego County", "href": "/san-diego-county" },
           { "label": "Chula Vista", "href": "/san-diego-county#central-south" },
-          { "label": "Oceanside", "href": "/san-diego-county#north-county" },
-          { "label": "El Cajon", "href": "/san-diego-county#east-county" }
+          { "label": "Oceanside", "href": "/san-diego-county#north-county" }
         ]
       },
       {
@@ -329,7 +509,8 @@
     ]
   },
   "offerFlow": {
-    "metaTitle": "Get Your Offer | Cash For Cars",
+    "metaTitle": "Get a Cash Offer for Your Car | Cash For Cars San Diego",
+    "metaDescription": "Start your San Diego County cash offer online. Enter your VIN or vehicle details, answer condition and title questions, and call 619-830-7005 for help.",
     "helpLabel": "Need help?",
     "introTitle": "Tell us about your car",
     "introBody": "Quick checks so we can prepare a better San Diego County offer.",
@@ -346,8 +527,14 @@
       "no": "No",
       "next": "Next Step",
       "back": "Go Back",
-      "submit": "Submit Example",
+      "submit": "Send My Offer Request",
+      "submitting": "Sending",
       "required": "Please complete the highlighted questions before continuing.",
+      "submitError": "We could not send your offer request right now. Please call us or try again.",
+      "turnstileRequired": "Complete the security check before sending your request.",
+      "turnstileError": "The security check had an issue. Please try again.",
+      "turnstileExpired": "The security check expired. Please try again.",
+      "turnstileMissing": "Security verification is not configured yet.",
       "source": "Source"
     },
     "vehicle": {
@@ -422,10 +609,11 @@
       ]
     },
     "review": {
-      "title": "Review your example lead",
-      "body": "This example shows how the answers can be collected before sending them to your CRM, email, or database.",
-      "submittedTitle": "Example flow complete",
-      "submittedBody": "The form is ready to connect to your lead system next.",
+      "title": "Review your offer request",
+      "body": "Check the details before sending them to our local offer team.",
+      "submittedTitle": "Offer request sent",
+      "submittedBody": "We received your details and will review the car, title status, and pickup information.",
+      "securityTitle": "Security check",
       "vehicleSummary": "Vehicle",
       "contactSummary": "Contact",
       "conditionSummary": "Condition"

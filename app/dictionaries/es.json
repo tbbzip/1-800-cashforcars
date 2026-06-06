@@ -39,14 +39,11 @@
         "label": "Áreas de San Diego",
         "href": "/es/san-diego-county",
         "hasMenu": true,
+        "areasMenu": true,
         "menuItems": [
-          { "label": "San Diego", "href": "/es/san-diego-county#central-south" },
-          { "label": "Chula Vista", "href": "/es/san-diego-county#central-south" },
-          { "label": "Oceanside", "href": "/es/san-diego-county#north-county" },
-          { "label": "South Bay y North County", "href": "/es/san-diego-county" },
-          { "label": "Escondido", "href": "/es/san-diego-county#north-county" },
-          { "label": "El Cajon", "href": "/es/san-diego-county#east-county" },
-          { "label": "National City", "href": "/es/san-diego-county#central-south" }
+          { "label": "Todas las ciudades", "href": "/es/ciudades-incorporadas" },
+          { "label": "Áreas dentro de San Diego", "href": "/es#san-diego-areas" },
+          { "label": "Resumen de San Diego County", "href": "/es/san-diego-county" }
         ]
       },
       {
@@ -130,6 +127,110 @@
       }
     ]
   },
+  "vehicleShowcase": {
+    "eyebrow": "Carros que revisamos",
+    "title": "Carros reales, situaciones reales y ayuda local de cinco estrellas.",
+    "body": "Chocados, limpios, con muchas millas, funcionando o parados en la entrada. Estos son los tipos de carros que vendedores de San Diego nos piden revisar cada semana.",
+    "ratingLabel": "Reseña de cinco estrellas",
+    "testimonials": [
+      {
+        "name": "Maria G.",
+        "area": "Chula Vista",
+        "quote": "Entendieron el daño de la defensa rápido y me dieron el siguiente paso sin hacerme perder la tarde."
+      },
+      {
+        "name": "Elena M.",
+        "area": "San Diego",
+        "quote": "Mi Accord tenía daño frontal y no quería tratar con compradores privados. Esto fue mucho más fácil."
+      },
+      {
+        "name": "Jose L.",
+        "area": "El Cajon",
+        "quote": "Revisaron mi hatchback rápido y me explicaron qué detalles importaban para la oferta."
+      },
+      {
+        "name": "Anthony S.",
+        "area": "La Mesa",
+        "quote": "Tenía un sedán limpio pero necesitaba venderlo rápido. La llamada fue corta y clara."
+      },
+      {
+        "name": "Nora P.",
+        "area": "Carlsbad",
+        "quote": "Trataron mi SUV como un carro real, no como un estimado automático de internet."
+      },
+      {
+        "name": "Carlos T.",
+        "area": "Otay Mesa",
+        "quote": "El golpe de atrás me complicaba venderlo. Ellos hicieron que la revisión se sintiera normal."
+      },
+      {
+        "name": "Miguel A.",
+        "area": "Oceanside",
+        "quote": "El daño del frente se veía fuerte, pero igual me explicaron mis opciones."
+      },
+      {
+        "name": "Rachel B.",
+        "area": "Santee",
+        "quote": "La van de trabajo llevaba tiempo parada. Nos ayudaron a saber qué información necesitaban."
+      },
+      {
+        "name": "Luis F.",
+        "area": "Escondido",
+        "quote": "La minivan tenía muchas millas, pero el proceso fue respetuoso y práctico."
+      },
+      {
+        "name": "Brandon W.",
+        "area": "Encinitas",
+        "quote": "Mostré el daño lateral y me explicaron claro cómo podía afectar la oferta."
+      }
+    ]
+  },
+  "cashForCarsProof": {
+    "eyebrow": "Hecho para vendedores reales",
+    "title": "Seis formas de hacer más simple vender un carro que ya no quieres.",
+    "body": "La mayoría de la gente no tiene un carro perfecto, papeleo perfecto y tiempo de sobra. Esto está pensado para situaciones reales en San Diego County.",
+    "ctaBody": "Empieza con el VIN o llámanos. Podemos revisar el carro, la condición, el papeleo y cómo pasar por él antes de que pierdas tiempo con compradores privados.",
+    "cta": "Empezar mi oferta",
+    "callCta": "Llama al 619-830-7005",
+    "cards": [
+      {
+        "kicker": "Datos del carro",
+        "title": "Primero el VIN, después los detalles.",
+        "body": "El VIN ayuda a confirmar año, marca, modelo, versión y carrocería antes de hablar de condición y pickup.",
+        "stat": "Búsqueda rápida"
+      },
+      {
+        "kicker": "Cualquier condición",
+        "title": "No solo carros limpios.",
+        "body": "Podemos revisar carros para yonke, chocados, con muchas millas, smog fallido, partes faltantes o que no prenden.",
+        "stat": "Problemas reales"
+      },
+      {
+        "kicker": "Oferta en efectivo",
+        "title": "Una oferta local, no un estimado al aire.",
+        "body": "Revisamos el carro, la demanda en San Diego County, el título y los detalles para pasar por él.",
+        "stat": "Precio local"
+      },
+      {
+        "kicker": "Pasamos por él",
+        "title": "No tienes que buscar grúa.",
+        "body": "Si compramos tu carro, pasar por él o mandar grúa estándar va incluido para vehículos elegibles en San Diego County.",
+        "stat": "$0 pickup estándar"
+      },
+      {
+        "kicker": "San Diego County",
+        "title": "Pensado para la logística local.",
+        "body": "Casa, apartamento, taller, tow yard, trabajo o calle. Planeamos según dónde está el carro realmente.",
+        "stat": "Todo el condado"
+      },
+      {
+        "kicker": "Ayuda con papeles",
+        "title": "Las dudas de título no tienen que frenarte.",
+        "body": "Título perdido, registro, posible lien o papeleo del DMV se puede revisar antes de agendar pickup.",
+        "stat": "Pregunta primero"
+      }
+    ]
+  },
   "process": {
     "eyebrow": "Cómo funciona",
     "title": "Tan simple como las plataformas nacionales, pero más rápido porque somos locales.",
@@ -152,21 +253,54 @@
   },
   "locations": {
     "title": "Atendemos San Diego County, ciudad por ciudad.",
-    "body": "Ayudamos a vendedores en todo San Diego County, incluyendo South Bay, East County, comunidades de la costa y North County. Empieza en línea y después revisamos horario, papeleo y opciones para pasar por el carro.",
+    "body": "Atendemos desde Camp Pendleton y Oceanside hacia el sur, y desde Alpine hacia la costa. Empieza en línea y después revisamos horario, papeleo y opciones para pasar por el carro.",
     "serviceAreaLabel": "Área de servicio",
+    "summaryTitle": "Regla simple de cobertura",
+    "summaryBody": "De Camp Pendleton y Oceanside hacia el sur. De Alpine hacia la costa. Para rutas más lejos en montaña o desierto, llama primero para confirmar.",
+    "notServedLabel": "Llama primero para estas rutas",
+    "notServed": ["Borrego Springs", "Julian", "Campo", "Pine Valley", "Descanso", "Zonas muy al este"],
+    "cityPageCta": "Ver todas las ciudades",
     "areas": [
       "San Diego",
       "Chula Vista",
       "Oceanside",
       "Escondido",
+      "Carlsbad",
       "El Cajon",
+      "Vista",
+      "San Marcos",
+      "Encinitas",
       "National City",
       "La Mesa",
       "Poway",
-      "Carlsbad",
-      "Encinitas",
       "Santee",
-      "Imperial Beach"
+      "Imperial Beach",
+      "Lemon Grove",
+      "Coronado",
+      "Solana Beach",
+      "Del Mar"
+    ],
+    "groups": [
+      {
+        "title": "North County costa",
+        "body": "Desde Camp Pendleton y Oceanside bajando por la costa.",
+        "areas": ["Oceanside", "Carlsbad", "Encinitas", "Solana Beach", "Del Mar"]
+      },
+      {
+        "title": "North County inland",
+        "body": "Comunidades inland grandes que siguen dentro de la ruta práctica.",
+        "areas": ["Vista", "San Marcos", "Escondido", "Poway"]
+      },
+      {
+        "title": "Central / Metro",
+        "body": "Áreas densas donde los detalles de acceso importan.",
+        "areas": ["San Diego", "La Mesa", "Lemon Grove", "Coronado"]
+      },
+      {
+        "title": "East / South County",
+        "body": "Ciudades de East y South County, usando Alpine como límite práctico hacia el este.",
+        "areas": ["El Cajon", "Santee", "Chula Vista", "National City", "Imperial Beach"]
+      }
     ]
   },
   "carsWeBuy": {
@@ -261,20 +395,60 @@
   },
   "serviceAreas": {
     "eyebrow": "Áreas de servicio en San Diego",
-    "title": "Ofertas locales desde South Bay hasta North County.",
-    "body": "Una página local fuerte debe dejar claro dónde trabajamos. Compramos carros usados, para yonke, chocados y que no prenden en San Diego County, con opciones para pasar por el carro según dónde esté ubicado.",
+    "title": "Ciudades incorporadas, agrupadas para que no se vea saturado.",
+    "body": "En vez de hacer una pared enorme de tarjetas, agrupamos las ciudades por región y enlazamos a una página dedicada.",
     "items": [
       {
-        "title": "San Diego, Chula Vista y South Bay",
-        "body": "Ofertas por carros en San Diego, Chula Vista, National City, Imperial Beach, Otay Mesa y comunidades cercanas del South Bay."
+        "title": "North County costa",
+        "body": "Oceanside y ciudades de la costa bajando desde Camp Pendleton.",
+        "areas": ["Oceanside", "Carlsbad", "Encinitas", "Solana Beach", "Del Mar"]
       },
       {
-        "title": "El Cajon, La Mesa, Santee y East County",
-        "body": "Podemos revisar carros en East County, ya sea en casa, trabajo, apartamentos, talleres, yardas de grúa o estacionados en la calle."
+        "title": "North County inland",
+        "body": "Ciudades inland que siguen dentro de la ruta normal.",
+        "areas": ["Vista", "San Marcos", "Escondido", "Poway"]
       },
       {
-        "title": "Oceanside, Escondido, Carlsbad y North County",
-        "body": "Vendedores de North County pueden empezar con el VIN en línea y continuar a una oferta local por carros usados, chocados o que no prenden."
+        "title": "Central / Metro",
+        "body": "Ciudades centrales con planeación local rápida para pickup.",
+        "areas": ["San Diego", "La Mesa", "Lemon Grove", "Coronado"]
+      },
+      {
+        "title": "East / South County",
+        "body": "Ciudades de East y South County con planeación clara para rutas inland.",
+        "areas": ["El Cajon", "Santee", "Chula Vista", "National City", "Imperial Beach"]
+      }
+    ]
+  },
+  "sanDiegoAreas": {
+    "eyebrow": "Áreas dentro de San Diego",
+    "title": "Vecindarios de San Diego sin convertir la página en directorio.",
+    "body": "Estas son áreas dentro de la ciudad de San Diego que podemos mencionar para planear pickup, agrupadas para que la página sea fácil de leer.",
+    "groups": [
+      {
+        "title": "Costa / Bahía",
+        "body": "Zonas de playa y bahía donde estacionamiento y acceso pueden afectar el pickup.",
+        "areas": ["La Jolla", "Pacific Beach", "Mission Beach", "Ocean Beach", "Point Loma", "Mission Bay"]
+      },
+      {
+        "title": "Centro urbano",
+        "body": "Áreas centrales densas donde importan calle, garages y horario.",
+        "areas": ["Downtown", "Little Italy", "Gaslamp", "East Village", "Barrio Logan"]
+      },
+      {
+        "title": "Vecindarios centrales",
+        "body": "Zonas con apartamentos, driveways, talleres y estacionamiento en calle.",
+        "areas": ["North Park", "South Park", "Hillcrest", "University Heights", "Normal Heights", "Mission Hills", "Bankers Hill"]
+      },
+      {
+        "title": "Norte / Inland San Diego",
+        "body": "Áreas del norte de la ciudad y zonas de trabajo con rutas más amplias.",
+        "areas": ["Mira Mesa", "Sorrento Valley", "UTC", "Carmel Valley", "Rancho Peñasquitos", "Rancho Bernardo", "Scripps Ranch", "Tierrasanta"]
+      },
+      {
+        "title": "Sureste / South Metro",
+        "body": "Vecindarios del sur metropolitano dentro de la conversación de servicio.",
+        "areas": ["Skyline", "Encanto", "Paradise Hills", "Otay Mesa"]
       }
     ]
   },
@@ -288,6 +462,12 @@
     "navigationLabel": "Navegación del footer",
     "rights": "Ofertas locales en efectivo y ayuda para pasar por tu carro sin costo en San Diego County.",
     "backToTop": "Volver arriba",
+    "incorporatedCitiesTitle": "Ciudades incorporadas",
+    "incorporatedCitiesBody": "Las 18 ciudades incorporadas, agrupadas por región para leer rápido.",
+    "sanDiegoAreasTitle": "Áreas dentro de San Diego",
+    "sanDiegoAreasBody": "Vecindarios y áreas agrupadas para planear pickup sin saturar la página.",
+    "viewAllCities": "Ver todas las ciudades",
+    "viewCounty": "Resumen de San Diego County",
     "columns": [
       {
         "title": "Vender",
@@ -311,10 +491,10 @@
       {
         "title": "Áreas",
         "links": [
-          { "label": "San Diego", "href": "/es/san-diego-county#central-south" },
+          { "label": "Todas las ciudades", "href": "/es/ciudades-incorporadas" },
+          { "label": "San Diego County", "href": "/es/san-diego-county" },
           { "label": "Chula Vista", "href": "/es/san-diego-county#central-south" },
-          { "label": "Oceanside", "href": "/es/san-diego-county#north-county" },
-          { "label": "El Cajon", "href": "/es/san-diego-county#east-county" }
+          { "label": "Oceanside", "href": "/es/san-diego-county#north-county" }
         ]
       },
       {
@@ -329,7 +509,8 @@
     ]
   },
   "offerFlow": {
-    "metaTitle": "Obtén tu oferta | Cash For Cars",
+    "metaTitle": "Obtén una oferta por tu carro | Cash For Cars San Diego",
+    "metaDescription": "Empieza tu oferta local en el condado de San Diego. Escribe el VIN o datos del carro, contesta sobre condición y título, y llama al 619-830-7005 si necesitas ayuda.",
     "helpLabel": "¿Necesitas ayuda?",
     "introTitle": "Cuéntanos de tu carro",
     "introBody": "Preguntas rápidas para preparar una mejor oferta local en San Diego County.",
@@ -346,8 +527,14 @@
       "no": "No",
       "next": "Siguiente",
       "back": "Regresar",
-      "submit": "Enviar ejemplo",
+      "submit": "Enviar mi solicitud",
+      "submitting": "Enviando",
       "required": "Completa las preguntas marcadas antes de continuar.",
+      "submitError": "No pudimos enviar tu solicitud por ahora. Llámanos o intenta otra vez.",
+      "turnstileRequired": "Completa la verificación de seguridad antes de enviar tu solicitud.",
+      "turnstileError": "Hubo un problema con la verificación de seguridad. Intenta otra vez.",
+      "turnstileExpired": "La verificación de seguridad expiró. Intenta otra vez.",
+      "turnstileMissing": "La verificación de seguridad todavía no está configurada.",
       "source": "Fuente"
     },
     "vehicle": {
@@ -423,9 +610,10 @@
     },
     "review": {
       "title": "Revisa la información",
-      "body": "Así se verá la información antes de conectarla a tu CRM, correo o base de datos.",
-      "submittedTitle": "Formulario completo",
-      "submittedBody": "El flujo ya está listo para conectarse a tu sistema de leads.",
+      "body": "Confirma los detalles antes de enviarlos al equipo local de ofertas.",
+      "submittedTitle": "Solicitud enviada",
+      "submittedBody": "Recibimos tus datos y vamos a revisar el carro, el título y los detalles para pasar por él.",
+      "securityTitle": "Verificación de seguridad",
       "vehicleSummary": "Carro",
       "contactSummary": "Contacto",
       "conditionSummary": "Condición"

@@ -1,19 +1,43 @@
 import type { Metadata } from "next";
-import { getDictionary } from "../../dictionaries";
+import { getDictionary, getLocalePath } from "../../dictionaries";
 import { OfferFlow } from "../../components/offer-flow";
 import { createPageMetadata } from "../../seo";
+import {
+  createBreadcrumbJsonLd,
+  createLocalBusinessJsonLd,
+  createSchemaGraph,
+  jsonLdScriptProps,
+} from "../../structured-data";
 
 const dictionary = getDictionary("en");
+const offerPath = "/offer";
+const structuredData = createSchemaGraph([
+  createLocalBusinessJsonLd({
+    description: dictionary.offerFlow.metaDescription,
+    locale: "en",
+    path: offerPath,
+  }),
+  createBreadcrumbJsonLd([
+    {
+      name: "Home",
+      path: getLocalePath("en"),
+    },
+    {
+      name: "Get a Cash Offer",
+      path: offerPath,
+    },
+  ]),
+]);
 
 export const metadata: Metadata = createPageMetadata({
   locale: "en",
   title: dictionary.offerFlow.metaTitle,
-  description: dictionary.meta.description,
-  path: "/offer",
+  description: dictionary.offerFlow.metaDescription,
+  path: offerPath,
   alternates: {
-    canonical: "/offer",
+    canonical: offerPath,
     languages: {
-      en: "/offer",
+      en: offerPath,
       es: "/es/oferta",
     },
   },
@@ -27,10 +51,16 @@ export default async function OfferPage({
   const params = await searchParams;
 
   return (
-    <OfferFlow
-      dictionary={dictionary}
-      initialVin={params.vin ?? ""}
-      locale="en"
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
+      />
+      <OfferFlow
+        dictionary={dictionary}
+        initialVin={params.vin ?? ""}
+        locale="en"
+      />
+    </>
   );
 }
