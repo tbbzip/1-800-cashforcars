@@ -354,6 +354,10 @@ async function sendOfferEmail(lead: OfferLead, locale: string) {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM_EMAIL;
   const to = process.env.OFFER_RECIPIENT_EMAIL ?? from;
+  const bccRecipients =
+    process.env.OFFER_BCC_EMAIL?.split(",")
+      .map((email) => email.trim())
+      .filter(Boolean) ?? [];
 
   if (!apiKey || !from || !to) {
     return { ok: false, status: 500, error: "Email delivery is not configured." };
@@ -370,6 +374,7 @@ async function sendOfferEmail(lead: OfferLead, locale: string) {
     body: JSON.stringify({
       from,
       to: [to],
+      ...(bccRecipients.length > 0 ? { bcc: bccRecipients } : {}),
       reply_to: lead.email,
       subject: buildSubject(lead),
       html: buildHtmlEmail(lead, locale),
