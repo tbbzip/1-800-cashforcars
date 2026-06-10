@@ -1218,6 +1218,16 @@ function ReviewStep({
           <p className="mt-2 text-sm font-bold text-[#1f7a38]">
             {flow.review.submittedBody}
           </p>
+          <p className="mt-3 text-sm font-black text-[#1f7a38]">
+            {flow.review.submittedUrgentPrefix}{" "}
+            <a
+              href={phoneHref}
+              className="underline decoration-current decoration-2 underline-offset-4 transition hover:text-[#16652d]"
+            >
+              {phoneNumber}
+            </a>
+            .
+          </p>
         </div>
       ) : null}
 

@@ -627,6 +627,7 @@
       "body": "Check the details before sending them to our local offer team.",
       "submittedTitle": "Offer request sent",
       "submittedBody": "We received your details and will review the car, title status, and pickup information.",
+      "submittedUrgentPrefix": "For immediate attention, call",
       "securityTitle": "Security check",
       "vehicleSummary": "Vehicle",
       "pickupSummary": "Pickup",

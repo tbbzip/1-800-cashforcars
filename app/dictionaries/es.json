@@ -627,6 +627,7 @@
       "body": "Confirma los detalles antes de enviarlos al equipo local de ofertas.",
       "submittedTitle": "Solicitud enviada",
       "submittedBody": "Recibimos tus datos y vamos a revisar el carro, el título y los detalles para pasar por él.",
+      "submittedUrgentPrefix": "Para atención inmediata, llama al",
       "securityTitle": "Verificación de seguridad",
       "vehicleSummary": "Carro",
       "pickupSummary": "Pickup",
