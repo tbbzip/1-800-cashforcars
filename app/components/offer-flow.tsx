@@ -146,6 +146,31 @@ function emptyFlowData(initialVin = ""): FlowData {
   };
 }
 
+function successPreviewFlowData(initialVin = ""): FlowData {
+  return {
+    ...emptyFlowData(initialVin),
+    access: "Home driveway",
+    accessNotes: "Success preview only. No lead was submitted.",
+    bodyDamage: "Minor cosmetic damage",
+    catalyticConverter: true,
+    city: "San Diego",
+    drives: true,
+    email: "seller@example.com",
+    firstName: "Preview",
+    hasKeys: true,
+    hasTitle: true,
+    make: "Honda",
+    mileage: "Under 150,000",
+    model: "Civic",
+    phone: "619-830-7005",
+    state: "CA",
+    streetAddress: "552 Alta Rd #4",
+    trim: "LX",
+    year: "2014",
+    zip: "92154",
+  };
+}
+
 function TextField({
   label,
   onChange,
@@ -392,14 +417,18 @@ export function OfferFlow({
   dictionary,
   initialVin = "",
   locale,
+  previewSuccess = false,
 }: {
   dictionary: Dictionary;
   initialVin?: string;
   locale: Locale;
+  previewSuccess?: boolean;
 }) {
   const flow = dictionary.offerFlow;
-  const [stepIndex, setStepIndex] = useState(0);
-  const [data, setData] = useState<FlowData>(() => emptyFlowData(initialVin));
+  const [stepIndex, setStepIndex] = useState(previewSuccess ? 3 : 0);
+  const [data, setData] = useState<FlowData>(() =>
+    previewSuccess ? successPreviewFlowData(initialVin) : emptyFlowData(initialVin),
+  );
   const [lookupStatus, setLookupStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -408,7 +437,7 @@ export function OfferFlow({
   const [submitError, setSubmitError] = useState("");
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "loading" | "success" | "error"
-  >("idle");
+  >(previewSuccess ? "success" : "idle");
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   const lookedUpInitialVin = useRef(false);
@@ -1208,26 +1237,53 @@ function ReviewStep({
   flow: Dictionary["offerFlow"];
   submitted: boolean;
 }) {
+  const successMessageRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!submitted) {
+      return;
+    }
+
+    const scrollTimer = window.setTimeout(() => {
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
+      successMessageRef.current?.focus({ preventScroll: true });
+      successMessageRef.current?.scrollIntoView({
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+        block: "center",
+      });
+    }, 50);
+
+    return () => window.clearTimeout(scrollTimer);
+  }, [submitted]);
+
   return (
     <div>
       {submitted ? (
-        <div className="mb-6 rounded-2xl border border-[#bde9c9] bg-[#ecfdf1] p-5">
+        <div
+          ref={successMessageRef}
+          role="status"
+          aria-live="polite"
+          tabIndex={-1}
+          className="mb-6 scroll-mt-24 rounded-2xl border border-[#bde9c9] bg-[#ecfdf1] p-5 shadow-[0_18px_36px_rgba(47,173,80,0.14)] outline-none"
+        >
           <h2 className="text-2xl font-black text-[#1f7a38]">
             {flow.review.submittedTitle}
           </h2>
           <p className="mt-2 text-sm font-bold text-[#1f7a38]">
             {flow.review.submittedBody}
           </p>
-          <p className="mt-3 text-sm font-black text-[#1f7a38]">
-            {flow.review.submittedUrgentPrefix}{" "}
-            <a
-              href={phoneHref}
-              className="underline decoration-current decoration-2 underline-offset-4 transition hover:text-[#16652d]"
-            >
-              {phoneNumber}
-            </a>
-            .
-          </p>
+          <a
+            href={phoneHref}
+            className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1f7a38] px-4 py-3 text-sm font-black text-white shadow-[0_12px_24px_rgba(31,122,56,0.22)] transition hover:bg-[#16652d] sm:w-auto"
+          >
+            <Phone aria-hidden="true" className="h-4 w-4" />
+            <span>
+              {flow.review.submittedUrgentPrefix} {phoneNumber}
+            </span>
+          </a>
         </div>
       ) : null}
 

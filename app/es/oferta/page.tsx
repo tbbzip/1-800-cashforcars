@@ -46,9 +46,11 @@ export const metadata: Metadata = createPageMetadata({
 export default async function SpanishOfferPage({
   searchParams,
 }: {
-  searchParams: Promise<{ vin?: string }>;
+  searchParams: Promise<{ successPreview?: string; vin?: string }>;
 }) {
   const params = await searchParams;
+  const previewSuccess =
+    process.env.NODE_ENV !== "production" && params.successPreview === "1";
 
   return (
     <>
@@ -60,6 +62,7 @@ export default async function SpanishOfferPage({
         dictionary={dictionary}
         initialVin={params.vin ?? ""}
         locale="es"
+        previewSuccess={previewSuccess}
       />
     </>
   );
