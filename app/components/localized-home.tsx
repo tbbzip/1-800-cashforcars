@@ -199,6 +199,22 @@ export function LocalizedHome({
                 layout="wide"
               />
             </div>
+            <div className="mt-5 flex flex-col gap-4 rounded-[20px] border border-[#6ee28d]/25 bg-white/[0.06] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] sm:flex-row sm:items-center">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#6ee28d] text-slate-950 shadow-[0_12px_26px_rgba(110,226,141,0.18)]">
+                <BadgeDollarSign aria-hidden="true" className="h-6 w-6" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-black uppercase tracking-normal text-[#6ee28d]">
+                  {dictionary.offerForm.matchEyebrow}
+                </p>
+                <p className="mt-1 text-base font-black leading-tight text-white">
+                  {dictionary.offerForm.matchTitle}
+                </p>
+                <p className="mt-1 text-sm font-semibold leading-6 text-slate-300">
+                  {dictionary.offerForm.matchBody}
+                </p>
+              </div>
+            </div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs font-bold text-slate-400">
               <p>{dictionary.hero.proofPoints[1]}</p>
               <span aria-hidden="true">/</span>
