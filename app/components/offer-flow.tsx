@@ -223,14 +223,14 @@ function TextAreaField({
   value: string;
 }) {
   return (
-    <label className="grid gap-2">
+    <label className="grid min-w-0 gap-2">
       <span className="text-sm font-black text-slate-700">{label}</span>
       <textarea
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder ?? label}
         rows={4}
-        className="min-h-28 rounded-xl border border-slate-200 bg-white px-4 py-3 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
+        className="min-h-28 w-full min-w-0 rounded-xl border border-slate-200 bg-white px-4 py-3 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
       />
     </label>
   );
@@ -250,12 +250,12 @@ function SelectField({
   value: string;
 }) {
   return (
-    <label className="grid gap-2">
+    <label className="grid min-w-0 gap-2">
       <span className="text-sm font-black text-slate-700">{label}</span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="h-14 rounded-xl border border-slate-200 bg-white px-4 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
+        className="h-14 w-full min-w-0 rounded-xl border border-slate-200 bg-white px-4 text-base font-semibold text-slate-950 outline-none transition focus:border-[#2fad50] focus:ring-4 focus:ring-[#2fad50]/12"
       >
         <option value="">{placeholder}</option>
         {options.map((option) => (
@@ -315,7 +315,7 @@ function SummaryCard({
   title: string;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
+    <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
       <h3 className="text-sm font-black uppercase text-[#2fad50]">{title}</h3>
       <div className="mt-3 grid gap-2 text-sm font-semibold text-slate-700">
         {children}
@@ -663,7 +663,7 @@ export function OfferFlow({
         </div>
       </header>
 
-      <div className="mx-auto grid min-h-[calc(100vh-68px)] max-w-[1800px] overflow-hidden bg-[#f6f8fb] lg:grid-cols-[320px_1fr]">
+      <div className="mx-auto grid min-h-[calc(100vh-68px)] w-full min-w-0 max-w-[1800px] overflow-x-hidden bg-[#f6f8fb] lg:grid-cols-[320px_minmax(0,1fr)]">
         <aside className="hidden border-r border-slate-200 bg-white px-8 py-12 text-center text-slate-950 lg:flex lg:flex-col lg:justify-between">
           <div>
             <h1 className="text-2xl font-black">{flow.introTitle}</h1>
@@ -700,7 +700,7 @@ export function OfferFlow({
 
         <form
           onSubmit={handleSubmit}
-          className="px-5 py-8 sm:px-8 lg:px-20 lg:py-14"
+          className="min-w-0 px-5 py-8 sm:px-8 lg:px-20 lg:py-14"
         >
           <Link
             href={getLocalePath(locale)}
@@ -726,7 +726,7 @@ export function OfferFlow({
           </div>
 
           <AnimatePresence mode="wait">
-            <motion.section key={currentStep.id} {...stepMotion}>
+            <motion.section key={currentStep.id} className="min-w-0" {...stepMotion}>
               {stepIndex === 0 ? (
                 <VehicleStep
                   data={data}
@@ -845,16 +845,16 @@ function VehicleStep({
   const zipIsAllowed = isServiceAreaZip(data.zip);
 
   return (
-    <div>
+    <div className="min-w-0">
       <h2 className="text-3xl font-black text-slate-950">{flow.vehicle.title}</h2>
 
-      <div className="mt-8 grid gap-5">
-        <div className="grid gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
-          <label className="grid gap-2">
+      <div className="mt-8 grid min-w-0 gap-5">
+        <div className="grid min-w-0 gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)]">
+          <label className="grid min-w-0 gap-2">
             <span className="text-sm font-black text-slate-700">
               {flow.vehicle.vinLabel}
             </span>
-            <div className="flex h-14 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 transition focus-within:border-[#2fad50] focus-within:ring-4 focus-within:ring-[#2fad50]/12">
+            <div className="flex h-14 min-w-0 items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 transition focus-within:border-[#2fad50] focus-within:ring-4 focus-within:ring-[#2fad50]/12">
               <Search aria-hidden="true" className="h-4 w-4 text-slate-400" />
               <input
                 value={data.vin}
@@ -904,7 +904,7 @@ function VehicleStep({
           </p>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid min-w-0 gap-5 lg:grid-cols-2">
           <TextField
             label={flow.vehicle.year}
             onChange={(value) => setField("year", value)}
@@ -925,7 +925,7 @@ function VehicleStep({
             onChange={(value) => setField("trim", value)}
             value={data.trim}
           />
-          <section className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)] lg:col-span-2">
+          <section className="grid min-w-0 gap-4 rounded-2xl border border-slate-200 bg-white p-4 shadow-[0_14px_34px_rgba(15,23,42,0.05)] lg:col-span-2">
             <div>
               <h3 className="text-base font-black text-slate-950">
                 {flow.vehicle.pickupAddressTitle}
@@ -934,7 +934,7 @@ function VehicleStep({
                 {flow.vehicle.pickupAddressBody}
               </p>
             </div>
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid min-w-0 gap-5 md:grid-cols-2 xl:grid-cols-4">
               <TextField
                 label={flow.vehicle.streetAddress}
                 onChange={(value) => setField("streetAddress", value)}
@@ -1102,12 +1102,12 @@ function MechanicalStep({
   setField: <K extends keyof FlowData>(key: K, value: FlowData[K]) => void;
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <h2 className="text-3xl font-black text-slate-950">
         {flow.mechanical.title}
       </h2>
 
-      <div className="mt-8 grid gap-5">
+      <div className="mt-8 grid min-w-0 gap-5">
         <SelectField
           label={flow.mechanical.mileageQuestion}
           onChange={(value) => setField("mileage", value)}
@@ -1185,10 +1185,10 @@ function BodyStep({
   setField: <K extends keyof FlowData>(key: K, value: FlowData[K]) => void;
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <h2 className="text-3xl font-black text-slate-950">{flow.body.title}</h2>
 
-      <div className="mt-8 grid gap-5">
+      <div className="mt-8 grid min-w-0 gap-5">
         <SelectField
           label={flow.body.damageQuestion}
           onChange={(value) => setField("bodyDamage", value)}
@@ -1260,7 +1260,7 @@ function ReviewStep({
   }, [submitted]);
 
   return (
-    <div>
+    <div className="min-w-0">
       {submitted ? (
         <div
           ref={successMessageRef}
@@ -1292,7 +1292,7 @@ function ReviewStep({
         {flow.review.body}
       </p>
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-4">
+      <div className="mt-8 grid min-w-0 gap-4 lg:grid-cols-4">
         <SummaryCard title={flow.review.vehicleSummary}>
           <p>
             {[data.year, data.make, data.model, data.trim].filter(Boolean).join(" ") ||
