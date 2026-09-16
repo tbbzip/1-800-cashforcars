@@ -1,0 +1,16 @@
+Quick vehicle inquiry
+
+This is a quick vehicle inquiry, not a completed condition assessment. Running status, ownership, and title answers are seller-reported and have not been verified. All inquiries require human review; no offer or eligibility has been confirmed. Contact the seller to confirm the vehicle, condition, title, and exact pickup address.
+
+First name: Alex Example
+Phone: 619-555-0142
+Pickup street address: 123 Example Street
+Pickup city / state / ZIP: San Diego, CA 92154
+Vehicle: 2014 Honda Civic
+VIN: Not provided
+Running status (seller-reported): Runs
+Ownership / title (seller-reported): Seller reports they are the owner and have the title
+Selection method: dropdown
+Page: /junk-cars
+Language: en
+Inquiry ID: d0334bc8-8394-4fa3-9f6b-dc0e1c56c210

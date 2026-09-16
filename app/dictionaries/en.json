@@ -11,7 +11,7 @@
     "toggleMenu": "Toggle mobile menu",
     "callUs": "CALL US",
     "getOffer": "GET OFFER",
-    "getInstantOffer": "GET INSTANT OFFER",
+    "getInstantOffer": "REQUEST AN OFFER",
     "items": [
       {
         "label": "How it Works",
@@ -89,9 +89,9 @@
     "guideBody": "Quick answers, clear pickup details, and help from the first cash offer to vehicle handoff."
   },
   "offerForm": {
-    "eyebrow": "Instant offer form",
-    "title": "Start with your VIN",
-    "body": "Look up the vehicle first. Then we can review condition, title status, and pickup details for your San Diego County offer.",
+    "eyebrow": "Request a cash offer",
+    "title": "VIN or vehicle details",
+    "body": "Enter your VIN or choose your year, make and model. Our local team will review your request.",
     "button": "GET MY OFFER",
     "vinLabel": "Vehicle VIN",
     "vinPlaceholder": "Enter 17-character VIN",

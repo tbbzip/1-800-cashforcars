@@ -1,0 +1,17 @@
+Quick vehicle inquiry
+
+This is a quick vehicle inquiry, not a completed condition assessment. Running status, ownership, and title answers are seller-reported and have not been verified. All inquiries require human review; no offer or eligibility has been confirmed. Contact the seller to confirm the vehicle, condition, title, and exact pickup address.
+
+First name: Alex Address QA
+Phone: 6195550101
+Pickup street address: 123 Example Street
+Apt / unit / space: Unit 4
+Pickup city / state / ZIP: San Diego, CA 92101
+Vehicle: 2006 CHEVROLET HHR
+VIN: 3GNDA13D76S000000
+Running status (seller-reported): Runs
+Ownership / title (seller-reported): Seller reports they are the owner and have the title
+Selection method: vin
+Page: /
+Language: en
+Inquiry ID: f65ca27a-1711-4364-87ec-9f0d54fc5ac7

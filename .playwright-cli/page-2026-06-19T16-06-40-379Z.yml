@@ -1,0 +1,1319 @@
+- generic [active] [ref=e1]:
+  - link "Ir directamente al contenido" [ref=e2] [cursor=pointer]:
+    - /url: "#MainContent"
+  - generic [ref=e3]:
+    - complementary [ref=e6]:
+      - paragraph [ref=e10]: Pedido mínimo $999 MXN · Envío nacional $200 MXN · Gratis desde $5,000 MXN
+    - banner [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e14]: EL MAYORISTA
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - group [ref=e20]:
+              - generic "Menú" [ref=e21] [cursor=pointer]:
+                - generic:
+                  - img
+            - 'link "Translation missing: es.EL MAYORISTA accessibility.home" [ref=e22] [cursor=pointer]':
+              - /url: /
+              - 'img "Translation missing: es.EL MAYORISTA accessibility.home" [ref=e24]'
+            - button "Buscar" [ref=e26] [cursor=pointer]:
+              - generic:
+                - img
+          - generic [ref=e27]:
+            - button "Buscar" [ref=e29] [cursor=pointer]:
+              - generic:
+                - img
+            - generic [ref=e30]:
+              - link "Carrito" [ref=e31] [cursor=pointer]:
+                - /url: /cart
+                - generic [ref=e32]:
+                  - generic:
+                    - img
+              - status [ref=e35]
+  - main [ref=e36]:
+    - region "Surtido mayorista desde $999 MXN para tu negocio" [ref=e40]:
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - paragraph [ref=e46]: Mayoreo para tiendas, bazares y revendedores
+          - heading "Surtido mayorista desde $999 MXN para tu negocio" [level=1] [ref=e47]
+          - paragraph [ref=e48]: Compra novedades, belleza, fiesta, juguetes, accesorios y papelería en un solo pedido. Enviamos a todo México y te ayudamos por WhatsApp si necesitas cotizar.
+          - list "Beneficios principales" [ref=e49]:
+            - listitem [ref=e50]: Pedido mínimo claro
+            - listitem [ref=e51]: Productos de alta rotación
+            - listitem [ref=e52]: Atención para revendedores
+          - generic "Acciones principales" [ref=e53]:
+            - link "Ver catálogo mayorista" [ref=e54] [cursor=pointer]:
+              - /url: /collections/all
+            - link "Pedir ayuda por WhatsApp" [ref=e55] [cursor=pointer]:
+              - /url: https://wa.me/523511011088?text=Hola%2C+quiero+cotizar+productos+al+mayoreo.+%C2%BFMe+pueden+ayudar%3F
+        - complementary "Resumen de compra mayorista" [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: Compra inicial
+            - strong [ref=e59]: $999 MXN
+          - generic [ref=e60]:
+            - generic [ref=e61]:
+              - strong [ref=e62]: +1,000
+              - generic [ref=e63]: productos para surtir
+            - generic [ref=e64]:
+              - strong [ref=e65]: MX
+              - generic [ref=e66]: envíos nacionales
+            - generic [ref=e67]:
+              - strong [ref=e68]: WA
+              - generic [ref=e69]: cotización asistida
+      - generic "Razones para comprar al mayoreo" [ref=e70]:
+        - article [ref=e71]:
+          - generic [ref=e72]: "01"
+          - generic [ref=e73]:
+            - strong [ref=e74]: Surtido para negocios
+            - generic [ref=e75]: Belleza, papelería, fiesta, juguetes, accesorios y novedades en un solo lugar.
+        - article [ref=e76]:
+          - generic [ref=e77]: "02"
+          - generic [ref=e78]:
+            - strong [ref=e79]: Envíos a todo México
+            - generic [ref=e80]: Mandamos por paqueterías nacionales para que puedas surtir sin venir a tienda.
+        - article [ref=e81]:
+          - generic [ref=e82]: "03"
+          - generic [ref=e83]:
+            - strong [ref=e84]: Compra con orientación
+            - generic [ref=e85]: Si no sabes qué elegir, te ayudamos a cotizar productos para tu tipo de negocio.
+    - generic [ref=e88]:
+      - generic [ref=e89]:
+        - paragraph [ref=e90]: Compra más rápido
+        - heading "Explora por categoría" [level=2] [ref=e91]
+        - paragraph [ref=e93]: Encuentra rápido las líneas que más se mueven para tiendas, bazares y revendedores.
+        - link "Ver todo el catálogo" [ref=e94] [cursor=pointer]:
+          - /url: /collections/all
+      - navigation "Categorías principales" [ref=e95]:
+        - link "Novedades Ingresos recientes" [ref=e96] [cursor=pointer]:
+          - /url: /collections/novedades
+          - generic [ref=e97]:
+            - generic [ref=e98]: Novedades
+            - generic [ref=e99]: Ingresos recientes
+          - generic [ref=e100]: →
+        - link "Lo más nuevo Productos para rotar rápido" [ref=e101] [cursor=pointer]:
+          - /url: /collections/lo-mas-nuevo
+          - generic [ref=e102]:
+            - generic [ref=e103]: Lo más nuevo
+            - generic [ref=e104]: Productos para rotar rápido
+          - generic [ref=e105]: →
+        - link "Papelería Escolar, oficina y detalle" [ref=e106] [cursor=pointer]:
+          - /url: /collections/papeleria
+          - generic [ref=e107]:
+            - generic [ref=e108]: Papelería
+            - generic [ref=e109]: Escolar, oficina y detalle
+          - generic [ref=e110]: →
+        - link "Hogar Cocina, orden y diario" [ref=e111] [cursor=pointer]:
+          - /url: /collections/hogar
+          - generic [ref=e112]:
+            - generic [ref=e113]: Hogar
+            - generic [ref=e114]: Cocina, orden y diario
+          - generic [ref=e115]: →
+        - link "Accesorios Cabello, moda y básicos" [ref=e116] [cursor=pointer]:
+          - /url: /collections/accesorios
+          - generic [ref=e117]:
+            - generic [ref=e118]: Accesorios
+            - generic [ref=e119]: Cabello, moda y básicos
+          - generic [ref=e120]: →
+        - link "Belleza Cosméticos y cuidado" [ref=e121] [cursor=pointer]:
+          - /url: /collections/belleza
+          - generic [ref=e122]:
+            - generic [ref=e123]: Belleza
+            - generic [ref=e124]: Cosméticos y cuidado
+          - generic [ref=e125]: →
+        - link "Juguetes Económicos y surtidos" [ref=e126] [cursor=pointer]:
+          - /url: /collections/juguetes
+          - generic [ref=e127]:
+            - generic [ref=e128]: Juguetes
+            - generic [ref=e129]: Económicos y surtidos
+          - generic [ref=e130]: →
+        - link "Fiesta Globos, regalos y eventos" [ref=e131] [cursor=pointer]:
+          - /url: /collections/fiesta
+          - generic [ref=e132]:
+            - generic [ref=e133]: Fiesta
+            - generic [ref=e134]: Globos, regalos y eventos
+          - generic [ref=e135]: →
+        - link "Temporada Fechas especiales" [ref=e136] [cursor=pointer]:
+          - /url: /collections/temporada
+          - generic [ref=e137]:
+            - generic [ref=e138]: Temporada
+            - generic [ref=e139]: Fechas especiales
+          - generic [ref=e140]: →
+      - generic "Condiciones principales de compra" [ref=e141]:
+        - article [ref=e142]:
+          - generic [ref=e143]: Pedido mínimo
+          - strong [ref=e144]: $999 MXN
+          - generic [ref=e145]: Surtido mayorista sin pedido inicial alto.
+        - article [ref=e146]:
+          - generic [ref=e147]: Envío nacional
+          - strong [ref=e148]: $200 MXN
+          - generic [ref=e149]: Paquetería a todo México.
+        - article [ref=e150]:
+          - generic [ref=e151]: Más ahorro
+          - strong [ref=e152]: Gratis desde $5,000
+          - generic [ref=e153]: Aprovecha compras más grandes.
+        - article [ref=e154]:
+          - generic [ref=e155]: Atención
+          - strong [ref=e156]: WhatsApp
+          - generic [ref=e157]: Te ayudamos a armar tu pedido.
+    - generic [ref=e162]:
+      - generic [ref=e163]:
+        - paragraph [ref=e164]: Catálogo mayorista
+        - heading "Explora nuestras categorías" [level=2] [ref=e165]
+        - paragraph [ref=e166]: Encuentra productos ideales para surtir tu tienda, bazar, negocio o emprendimiento. Compra al mayoreo desde $999 MXN.
+      - generic [ref=e167]:
+        - link "Productos de novedades al mayoreo Alta rotación Novedades Productos nuevos y artículos populares para venta rápida. Ver productos →" [ref=e168] [cursor=pointer]:
+          - /url: /collections/novedades
+          - generic [ref=e169]:
+            - img "Productos de novedades al mayoreo" [ref=e170]
+            - generic [ref=e171]: Alta rotación
+            - img [ref=e173]
+          - generic [ref=e175]:
+            - heading "Novedades" [level=3] [ref=e176]
+            - paragraph [ref=e177]: Productos nuevos y artículos populares para venta rápida.
+            - generic [ref=e178]: Ver productos →
+        - link "Accesorios al mayoreo Accesorios Artículos prácticos y de uso diario para diferentes tipos de negocio. Ver productos →" [ref=e179] [cursor=pointer]:
+          - /url: /collections/accesorios
+          - generic [ref=e180]:
+            - img "Accesorios al mayoreo" [ref=e181]
+            - img [ref=e183]
+          - generic [ref=e187]:
+            - heading "Accesorios" [level=3] [ref=e188]
+            - paragraph [ref=e189]: Artículos prácticos y de uso diario para diferentes tipos de negocio.
+            - generic [ref=e190]: Ver productos →
+        - link "Productos de belleza al mayoreo Belleza Productos de belleza, cosméticos y cuidado personal al mayoreo. Ver productos →" [ref=e191] [cursor=pointer]:
+          - /url: /collections/belleza
+          - generic [ref=e192]:
+            - img "Productos de belleza al mayoreo" [ref=e193]
+            - img [ref=e195]
+          - generic [ref=e197]:
+            - heading "Belleza" [level=3] [ref=e198]
+            - paragraph [ref=e199]: Productos de belleza, cosméticos y cuidado personal al mayoreo.
+            - generic [ref=e200]: Ver productos →
+        - link "Bisutería al mayoreo Bisutería Aretes, pulseras, collares y accesorios para complementar tu inventario. Ver productos →" [ref=e201] [cursor=pointer]:
+          - /url: /collections/bisuteria
+          - generic [ref=e202]:
+            - img "Bisutería al mayoreo" [ref=e203]
+            - img [ref=e205]
+          - generic [ref=e208]:
+            - heading "Bisutería" [level=3] [ref=e209]
+            - paragraph [ref=e210]: Aretes, pulseras, collares y accesorios para complementar tu inventario.
+            - generic [ref=e211]: Ver productos →
+        - link "Bolsas de regalo al mayoreo Bolsas de regalo Empaques, bolsas y artículos para presentación de regalos. Ver productos →" [ref=e212] [cursor=pointer]:
+          - /url: /collections/bolsas-de-regalo
+          - generic [ref=e213]:
+            - img "Bolsas de regalo al mayoreo" [ref=e214]
+            - img [ref=e216]
+          - generic [ref=e219]:
+            - heading "Bolsas de regalo" [level=3] [ref=e220]
+            - paragraph [ref=e221]: Empaques, bolsas y artículos para presentación de regalos.
+            - generic [ref=e222]: Ver productos →
+        - link "Artículos de fiesta al mayoreo Fiesta Artículos para fiestas, eventos, decoración y celebraciones. Ver productos →" [ref=e223] [cursor=pointer]:
+          - /url: /collections/fiesta
+          - generic [ref=e224]:
+            - img "Artículos de fiesta al mayoreo" [ref=e225]
+            - img [ref=e227]
+          - generic [ref=e233]:
+            - heading "Fiesta" [level=3] [ref=e234]
+            - paragraph [ref=e235]: Artículos para fiestas, eventos, decoración y celebraciones.
+            - generic [ref=e236]: Ver productos →
+        - link "Juguetes al mayoreo Juguetes Productos infantiles y artículos divertidos para venta al mayoreo. Ver productos →" [ref=e237] [cursor=pointer]:
+          - /url: /collections/juguetes
+          - generic [ref=e238]:
+            - img "Juguetes al mayoreo" [ref=e239]
+            - img [ref=e241]
+          - generic [ref=e243]:
+            - heading "Juguetes" [level=3] [ref=e244]
+            - paragraph [ref=e245]: Productos infantiles y artículos divertidos para venta al mayoreo.
+            - generic [ref=e246]: Ver productos →
+        - link "Papelería al mayoreo Papelería Artículos escolares, oficina, escritura y productos para temporada escolar. Ver productos →" [ref=e247] [cursor=pointer]:
+          - /url: /collections/papeleria
+          - generic [ref=e248]:
+            - img "Papelería al mayoreo" [ref=e249]
+            - img [ref=e251]
+          - generic [ref=e254]:
+            - heading "Papelería" [level=3] [ref=e255]
+            - paragraph [ref=e256]: Artículos escolares, oficina, escritura y productos para temporada escolar.
+            - generic [ref=e257]: Ver productos →
+        - link "Productos para el hogar al mayoreo Hogar Productos útiles para casa, cocina, organización y uso diario. Ver productos →" [ref=e258] [cursor=pointer]:
+          - /url: /collections/hogar
+          - generic [ref=e259]:
+            - img "Productos para el hogar al mayoreo" [ref=e260]
+            - img [ref=e262]
+          - generic [ref=e266]:
+            - heading "Hogar" [level=3] [ref=e267]
+            - paragraph [ref=e268]: Productos útiles para casa, cocina, organización y uso diario.
+            - generic [ref=e269]: Ver productos →
+        - link "Productos de temporada al mayoreo Oportunidad Temporada Productos para fechas especiales, promociones y ventas por temporada. Ver productos →" [ref=e270] [cursor=pointer]:
+          - /url: /collections/temporada
+          - generic [ref=e271]:
+            - img "Productos de temporada al mayoreo" [ref=e272]
+            - generic [ref=e273]: Oportunidad
+            - img [ref=e275]
+          - generic [ref=e277]:
+            - heading "Temporada" [level=3] [ref=e278]
+            - paragraph [ref=e279]: Productos para fechas especiales, promociones y ventas por temporada.
+            - generic [ref=e280]: Ver productos →
+      - link "Ver todo el catálogo" [ref=e282] [cursor=pointer]:
+        - /url: /collections/all
+    - generic [ref=e286]:
+      - generic [ref=e287]:
+        - generic [ref=e288]:
+          - paragraph [ref=e289]: Proceso de compra
+          - heading "Comprar al mayoreo es muy fácil" [level=2] [ref=e290]
+          - paragraph [ref=e291]: Explora nuestro catálogo, agrega los productos que necesitas y finaliza tu pedido. Si eliges pagar por transferencia o depósito, solo recuerda enviarnos tu comprobante para validar tu compra.
+          - generic [ref=e292]:
+            - generic [ref=e293]:
+              - generic [ref=e294]: ✓
+              - generic [ref=e295]: Pedido mínimo desde $999 MXN
+            - generic [ref=e296]:
+              - generic [ref=e297]: ✓
+              - generic [ref=e298]: Pago con tarjeta, transferencia o depósito
+            - generic [ref=e299]:
+              - generic [ref=e300]: ✓
+              - generic [ref=e301]: Envíos a todo México
+          - generic [ref=e302]:
+            - link "Ver catálogo mayorista" [ref=e303] [cursor=pointer]:
+              - /url: /collections/all
+            - link "Ver datos de contacto" [ref=e304] [cursor=pointer]:
+              - /url: /pages/contact
+        - generic [ref=e305]:
+          - article [ref=e306]:
+            - generic [ref=e307]:
+              - img [ref=e309]
+              - generic [ref=e312]: "1"
+            - heading "Explora el catálogo" [level=3] [ref=e313]
+            - paragraph [ref=e314]: Revisa nuestras categorías y encuentra los productos ideales para surtir tu negocio.
+          - article [ref=e315]:
+            - generic [ref=e316]:
+              - img [ref=e318]
+              - generic [ref=e322]: "2"
+            - heading "Agrega tus productos" [level=3] [ref=e323]
+            - paragraph [ref=e324]: Selecciona los artículos que deseas comprar y agrégalos a tu carrito.
+          - article [ref=e325]:
+            - generic [ref=e326]:
+              - img [ref=e328]
+              - generic [ref=e331]: "3"
+            - heading "Confirma tu pedido" [level=3] [ref=e332]
+            - paragraph [ref=e333]: Verifica cantidades, productos y datos de envío antes de finalizar la compra.
+          - article [ref=e334]:
+            - generic [ref=e335]:
+              - img [ref=e337]
+              - generic [ref=e339]: "4"
+            - heading "Realiza tu pago" [level=3] [ref=e340]
+            - paragraph [ref=e341]: Paga con tarjeta o mediante transferencia bancaria / depósito.
+          - article [ref=e342]:
+            - generic [ref=e343]:
+              - img [ref=e345]
+              - generic [ref=e347]: "5"
+            - heading "Envía tu comprobante" [level=3] [ref=e348]
+            - paragraph [ref=e349]: Si pagas por transferencia o depósito, envíanos una foto del comprobante para validar tu pedido.
+          - article [ref=e350]:
+            - generic [ref=e351]:
+              - img [ref=e353]
+              - generic [ref=e358]: "6"
+            - heading "Recibe tu pedido" [level=3] [ref=e359]
+            - paragraph [ref=e360]: Preparamos tu compra y realizamos el envío a tu ciudad por paquetería.
+      - generic [ref=e362]:
+        - strong [ref=e363]: "Importante:"
+        - text: El pedido mínimo es de
+        - strong [ref=e364]: $999 MXN
+        - text: . Los pedidos se preparan una vez confirmado el pago.
+    - generic [ref=e367]:
+      - generic [ref=e370]:
+        - heading "Novedades" [level=2] [ref=e372]
+        - link "Ver todo" [ref=e373] [cursor=pointer]:
+          - /url: /collections/novedades
+      - generic [ref=e377]:
+        - button "Siguiente diapositiva" [ref=e378] [cursor=pointer]:
+          - generic:
+            - img
+        - generic [ref=e379]:
+          - generic [ref=e382]:
+            - link "MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS" [ref=e383] [cursor=pointer]:
+              - /url: /products/marcador-permanente-de-colores-surtidos-en-blister-con-6-pzas?variant=49007755657458
+              - generic [ref=e384]: MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS
+            - generic [ref=e385] [cursor=pointer]:
+              - generic [ref=e386]:
+                - link "MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS" [ref=e387]:
+                  - /url: /products/marcador-permanente-de-colores-surtidos-en-blister-con-6-pzas?variant=49007755657458
+                  - generic [ref=e390]:
+                    - img "MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS" [ref=e393]
+                    - img [ref=e396]
+                - generic:
+                  - generic:
+                    - status
+                    - button "Añadir" [ref=e397]:
+                      - generic [ref=e398]:
+                        - generic:
+                          - img
+                        - generic [ref=e400]: Añadir
+                      - generic [ref=e401]:
+                        - generic:
+                          - img
+              - link "MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS" [ref=e402]:
+                - /url: /products/marcador-permanente-de-colores-surtidos-en-blister-con-6-pzas?variant=49007755657458
+                - heading "MARCADOR PERMANENTE DE COLORES SURTIDOS EN BLISTER CON 6 PZAS" [level=3] [ref=e404]
+              - generic [ref=e407]: $ 10.20 MXN
+          - generic [ref=e410] [cursor=pointer]:
+            - link [ref=e411]:
+              - /url: /products/portaglobos-con-popote-de-42-cm-por-mayoreo?variant=49007763718386
+              - generic [ref=e412]: PORTAGLOBOS CON POPOTE DE 42 CM POR MAYOREO
+            - generic [ref=e413]:
+              - generic [ref=e414]:
+                - link [ref=e415]:
+                  - /url: /products/portaglobos-con-popote-de-42-cm-por-mayoreo?variant=49007763718386
+                  - img [ref=e421]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e422]:
+                      - generic [ref=e423]:
+                        - generic:
+                          - img
+                        - generic [ref=e425]: Elegir
+              - link [ref=e426]:
+                - /url: /products/portaglobos-con-popote-de-42-cm-por-mayoreo?variant=49007763718386
+                - heading [level=3] [ref=e428]: PORTAGLOBOS CON POPOTE DE 42 CM POR MAYOREO
+              - generic [ref=e431]: $ 15.00 MXN
+          - generic [ref=e434] [cursor=pointer]:
+            - link [ref=e435]:
+              - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-por-mayoreo?variant=49071408316658
+              - generic [ref=e436]: PEINE DE PLASTICO 21.5 CM COLA DE RATA SURTIDO EN COLORES POR MAYOREO
+            - generic [ref=e437]:
+              - generic [ref=e438]:
+                - link [ref=e439]:
+                  - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-por-mayoreo?variant=49071408316658
+                  - img [ref=e445]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e446]:
+                      - generic [ref=e447]:
+                        - generic:
+                          - img
+                        - generic [ref=e449]: Añadir
+                      - generic [ref=e450]:
+                        - generic:
+                          - img
+              - link [ref=e451]:
+                - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-por-mayoreo?variant=49071408316658
+                - heading [level=3] [ref=e453]: PEINE DE PLASTICO 21.5 CM COLA DE RATA SURTIDO EN COLORES POR MAYOREO
+              - generic [ref=e456]: $ 15.60 MXN
+          - generic [ref=e459] [cursor=pointer]:
+            - link [ref=e460]:
+              - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-pastel-por-mayoreo?variant=49071441576178
+              - generic [ref=e461]: PEINE DE PLASTICO 21.5 CM COLA DE RATA SURTIDO EN COLORES PASTEL POR MAYOREO
+            - generic [ref=e462]:
+              - generic [ref=e463]:
+                - link [ref=e464]:
+                  - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-pastel-por-mayoreo?variant=49071441576178
+                  - img [ref=e470]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e471]:
+                      - generic [ref=e472]:
+                        - generic:
+                          - img
+                        - generic [ref=e474]: Añadir
+                      - generic [ref=e475]:
+                        - generic:
+                          - img
+              - link [ref=e476]:
+                - /url: /products/peine-de-plastico-21-5-cm-cola-de-rata-surtido-en-colores-pastel-por-mayoreo?variant=49071441576178
+                - heading [level=3] [ref=e478]: PEINE DE PLASTICO 21.5 CM COLA DE RATA SURTIDO EN COLORES PASTEL POR MAYOREO
+              - generic [ref=e481]: $ 15.60 MXN
+          - generic [ref=e484] [cursor=pointer]:
+            - link [ref=e485]:
+              - /url: /products/liga-latex-bolsita-surtida-en-colores-por-mayoreo?variant=49007752937714
+              - generic [ref=e486]: LIGA LATEX BOLSITA SURTIDA EN COLORES POR MAYOREO
+            - generic [ref=e487]:
+              - generic [ref=e488]:
+                - link [ref=e489]:
+                  - /url: /products/liga-latex-bolsita-surtida-en-colores-por-mayoreo?variant=49007752937714
+                  - img [ref=e495]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e496]:
+                      - generic [ref=e497]:
+                        - generic:
+                          - img
+                        - generic [ref=e499]: Elegir
+              - link [ref=e500]:
+                - /url: /products/liga-latex-bolsita-surtida-en-colores-por-mayoreo?variant=49007752937714
+                - heading [level=3] [ref=e502]: LIGA LATEX BOLSITA SURTIDA EN COLORES POR MAYOREO
+              - generic [ref=e505]: $ 19.80 MXN
+          - generic [ref=e508] [cursor=pointer]:
+            - link [ref=e509]:
+              - /url: /products/collar-multicolor-de-bolitas-surtido-en-colores-por-mayoreo?variant=49007739109618
+              - generic [ref=e510]: COLLAR MULTICOLOR DE BOLITAS SURTIDO EN COLORES POR MAYOREO
+            - generic [ref=e511]:
+              - generic [ref=e512]:
+                - link [ref=e513]:
+                  - /url: /products/collar-multicolor-de-bolitas-surtido-en-colores-por-mayoreo?variant=49007739109618
+                  - img [ref=e519]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e520]:
+                      - generic [ref=e521]:
+                        - generic:
+                          - img
+                        - generic [ref=e523]: Añadir
+                      - generic [ref=e524]:
+                        - generic:
+                          - img
+              - link [ref=e525]:
+                - /url: /products/collar-multicolor-de-bolitas-surtido-en-colores-por-mayoreo?variant=49007739109618
+                - heading [level=3] [ref=e527]: COLLAR MULTICOLOR DE BOLITAS SURTIDO EN COLORES POR MAYOREO
+              - generic [ref=e530]: $ 18.00 MXN
+    - generic [ref=e533]:
+      - generic [ref=e536]:
+        - heading "Lo más nuevo" [level=2] [ref=e538]
+        - link "Ver todo" [ref=e539] [cursor=pointer]:
+          - /url: /collections/lo-mas-nuevo
+      - generic [ref=e543]:
+        - button "Siguiente diapositiva" [ref=e544] [cursor=pointer]:
+          - generic:
+            - img
+        - generic [ref=e545]:
+          - generic [ref=e548]:
+            - link "PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO" [ref=e549] [cursor=pointer]:
+              - /url: /products/pinza-de-plastico-para-cabello-4-colores-surtidos-por-mayoreo?variant=49128005992690
+              - generic [ref=e550]: PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO
+            - generic [ref=e551] [cursor=pointer]:
+              - generic [ref=e552]:
+                - link "PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO" [ref=e553]:
+                  - /url: /products/pinza-de-plastico-para-cabello-4-colores-surtidos-por-mayoreo?variant=49128005992690
+                  - img "PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO" [ref=e559]
+                - generic:
+                  - generic:
+                    - status
+                    - button "Elegir" [ref=e560]:
+                      - generic [ref=e561]:
+                        - generic:
+                          - img
+                        - generic [ref=e563]: Elegir
+              - link "PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO" [ref=e564]:
+                - /url: /products/pinza-de-plastico-para-cabello-4-colores-surtidos-por-mayoreo?variant=49128005992690
+                - heading "PINZA DE PLASTICO PARA CABELLO 4 COLORES SURTIDOS POR MAYOREO" [level=3] [ref=e566]
+              - generic [ref=e569]: $ 42.00 MXN
+          - generic [ref=e572] [cursor=pointer]:
+            - link [ref=e573]:
+              - /url: /products/liga-latex-maruchan-tpu-por-mayoreo?variant=49007753527538
+              - generic [ref=e574]: LIGA LATEX MARUCHAN TPU POR MAYOREO
+            - generic [ref=e575]:
+              - generic [ref=e576]:
+                - link [ref=e577]:
+                  - /url: /products/liga-latex-maruchan-tpu-por-mayoreo?variant=49007753527538
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e583]:
+                      - generic [ref=e584]:
+                        - generic:
+                          - img
+                        - generic [ref=e586]: Elegir
+              - link [ref=e587]:
+                - /url: /products/liga-latex-maruchan-tpu-por-mayoreo?variant=49007753527538
+                - heading [level=3] [ref=e589]: LIGA LATEX MARUCHAN TPU POR MAYOREO
+              - generic [ref=e592]: $ 34.80 MXN
+          - generic [ref=e595] [cursor=pointer]:
+            - link [ref=e596]:
+              - /url: /products/bolsa-chica-lisa-colores-pastel-23x17-cm-surtido-en-colores-por-mayoreo?variant=49068716294386
+              - generic [ref=e597]: BOLSA CHICA LISA COLORES PASTEL 23X17 CM SURTIDO EN COLORES POR MAYOREO
+            - generic [ref=e598]:
+              - generic [ref=e599]:
+                - link [ref=e600]:
+                  - /url: /products/bolsa-chica-lisa-colores-pastel-23x17-cm-surtido-en-colores-por-mayoreo?variant=49068716294386
+                  - img [ref=e606]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e607]:
+                      - generic [ref=e608]:
+                        - generic:
+                          - img
+                        - generic [ref=e610]: Añadir
+                      - generic [ref=e611]:
+                        - generic:
+                          - img
+              - link [ref=e612]:
+                - /url: /products/bolsa-chica-lisa-colores-pastel-23x17-cm-surtido-en-colores-por-mayoreo?variant=49068716294386
+                - heading [level=3] [ref=e614]: BOLSA CHICA LISA COLORES PASTEL 23X17 CM SURTIDO EN COLORES POR MAYOREO
+              - generic [ref=e617]: $ 50.00 MXN
+          - generic [ref=e620] [cursor=pointer]:
+            - link [ref=e621]:
+              - /url: /products/pinza-cangrejo-mini-3-5-cm-surtida-en-colores-por-mayoreo?variant=49007761326322
+              - generic [ref=e622]: PINZA CANGREJO MINI 3.5 CM SURTIDA EN COLORES POR MAYOREO G2631
+            - generic [ref=e623]:
+              - generic [ref=e624]:
+                - link [ref=e625]:
+                  - /url: /products/pinza-cangrejo-mini-3-5-cm-surtida-en-colores-por-mayoreo?variant=49007761326322
+                  - img [ref=e631]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e632]:
+                      - generic [ref=e633]:
+                        - generic:
+                          - img
+                        - generic [ref=e635]: Elegir
+              - link [ref=e636]:
+                - /url: /products/pinza-cangrejo-mini-3-5-cm-surtida-en-colores-por-mayoreo?variant=49007761326322
+                - heading [level=3] [ref=e638]: PINZA CANGREJO MINI 3.5 CM SURTIDA EN COLORES POR MAYOREO G2631
+              - generic [ref=e641]: $ 30.00 MXN
+          - generic [ref=e644] [cursor=pointer]:
+            - link [ref=e645]:
+              - /url: /products/bolsa-mediana-28x19-cm-colores-pastel-surtidos-por-mayoreo?variant=49007735046386
+              - generic [ref=e646]: BOLSA MEDIANA 28X19 CM COLORES PASTEL SURTIDOS POR MAYOREO
+            - generic [ref=e647]:
+              - generic [ref=e648]:
+                - link [ref=e649]:
+                  - /url: /products/bolsa-mediana-28x19-cm-colores-pastel-surtidos-por-mayoreo?variant=49007735046386
+                  - img [ref=e655]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e656]:
+                      - generic [ref=e657]:
+                        - generic:
+                          - img
+                        - generic [ref=e659]: Añadir
+                      - generic [ref=e660]:
+                        - generic:
+                          - img
+              - link [ref=e661]:
+                - /url: /products/bolsa-mediana-28x19-cm-colores-pastel-surtidos-por-mayoreo?variant=49007735046386
+                - heading [level=3] [ref=e663]: BOLSA MEDIANA 28X19 CM COLORES PASTEL SURTIDOS POR MAYOREO
+              - generic [ref=e666]: $ 80.00 MXN
+          - generic [ref=e669] [cursor=pointer]:
+            - link [ref=e670]:
+              - /url: /products/pinza-cangrejo-chica-5-5-cm-surtida-en-colores-por-mayoreo?variant=49007761129714
+              - generic [ref=e671]: PINZA CANGREJO CHICA 5,5 CM SURTIDA EN COLORES POR MAYOREO
+            - generic [ref=e672]:
+              - generic [ref=e673]:
+                - link [ref=e674]:
+                  - /url: /products/pinza-cangrejo-chica-5-5-cm-surtida-en-colores-por-mayoreo?variant=49007761129714
+                  - img [ref=e680]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e681]:
+                      - generic [ref=e682]:
+                        - generic:
+                          - img
+                        - generic [ref=e684]: Elegir
+              - link [ref=e685]:
+                - /url: /products/pinza-cangrejo-chica-5-5-cm-surtida-en-colores-por-mayoreo?variant=49007761129714
+                - heading [level=3] [ref=e687]: PINZA CANGREJO CHICA 5,5 CM SURTIDA EN COLORES POR MAYOREO
+              - generic [ref=e690]: $ 30.00 MXN
+    - generic [ref=e693]:
+      - generic [ref=e696]:
+        - heading "Juguetes" [level=2] [ref=e698]
+        - link "Ver todo" [ref=e699] [cursor=pointer]:
+          - /url: /collections/juguetes
+      - generic [ref=e703]:
+        - button "Siguiente diapositiva" [ref=e704] [cursor=pointer]:
+          - generic:
+            - img
+        - generic [ref=e705]:
+          - generic [ref=e708]:
+            - link "PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO" [ref=e709] [cursor=pointer]:
+              - /url: /products/pelota-suave-4-5-cm-surtida-en-disenos-por-mayoreo?variant=49119714345202
+              - generic [ref=e710]: PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO
+            - generic [ref=e711] [cursor=pointer]:
+              - generic [ref=e712]:
+                - link "PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO" [ref=e713]:
+                  - /url: /products/pelota-suave-4-5-cm-surtida-en-disenos-por-mayoreo?variant=49119714345202
+                  - img "PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO" [ref=e719]
+                - generic:
+                  - generic:
+                    - status
+                    - button "Elegir" [ref=e720]:
+                      - generic [ref=e721]:
+                        - generic:
+                          - img
+                        - generic [ref=e723]: Elegir
+              - link "PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO" [ref=e724]:
+                - /url: /products/pelota-suave-4-5-cm-surtida-en-disenos-por-mayoreo?variant=49119714345202
+                - heading "PELOTA SUAVE 4.5 CM SURTIDA EN DISEÑOS POR MAYOREO" [level=3] [ref=e726]
+              - generic [ref=e729]: $ 90.00 MXN
+          - generic [ref=e732] [cursor=pointer]:
+            - link [ref=e733]:
+              - /url: /products/libreta-en-espiral-14x10-cm-raya-surtida-en-disenos-para-nina-por-mayoreo?variant=49068721602802
+              - generic [ref=e734]: LIBRETA EN ESPIRAL 14X10 CM RAYA SURTIDA EN DISEÑOS PARA NIÑA POR MAYOREO
+            - generic [ref=e735]:
+              - generic [ref=e736]:
+                - link [ref=e737]:
+                  - /url: /products/libreta-en-espiral-14x10-cm-raya-surtida-en-disenos-para-nina-por-mayoreo?variant=49068721602802
+                  - img [ref=e743]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e744]:
+                      - generic [ref=e745]:
+                        - generic:
+                          - img
+                        - generic [ref=e747]: Añadir
+                      - generic [ref=e748]:
+                        - generic:
+                          - img
+              - link [ref=e749]:
+                - /url: /products/libreta-en-espiral-14x10-cm-raya-surtida-en-disenos-para-nina-por-mayoreo?variant=49068721602802
+                - heading [level=3] [ref=e751]: LIBRETA EN ESPIRAL 14X10 CM RAYA SURTIDA EN DISEÑOS PARA NIÑA POR MAYOREO
+              - generic [ref=e754]: $ 87.00 MXN
+          - generic [ref=e757] [cursor=pointer]:
+            - link [ref=e758]:
+              - /url: /products/squizi-12-cm-animales-en-red-individual-por-mayoreo?variant=49007767388402
+              - generic [ref=e759]: SQUIZI 12 CM ANIMALES EN RED INDIVIDUAL POR MAYOREO
+            - generic [ref=e760]:
+              - generic [ref=e761]:
+                - link [ref=e762]:
+                  - /url: /products/squizi-12-cm-animales-en-red-individual-por-mayoreo?variant=49007767388402
+                  - img [ref=e768]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e769]:
+                      - generic [ref=e770]:
+                        - generic:
+                          - img
+                        - generic [ref=e772]: Añadir
+                      - generic [ref=e773]:
+                        - generic:
+                          - img
+              - link [ref=e774]:
+                - /url: /products/squizi-12-cm-animales-en-red-individual-por-mayoreo?variant=49007767388402
+                - heading [level=3] [ref=e776]: SQUIZI 12 CM ANIMALES EN RED INDIVIDUAL POR MAYOREO
+              - generic [ref=e779]: $ 192.00 MXN
+          - generic [ref=e782] [cursor=pointer]:
+            - link [ref=e783]:
+              - /url: /products/lampara-llavero-de-10-5-cm-x-3-5-cm-surtida-en-colores-por-mayoreo?variant=49139778748658
+              - generic [ref=e784]: LAMPARA LLAVERO DE 10.5 CM X 3.5 CM SURTIDA EN COLORES POR MAYOREO
+            - generic [ref=e785]:
+              - generic [ref=e786]:
+                - link [ref=e787]:
+                  - /url: /products/lampara-llavero-de-10-5-cm-x-3-5-cm-surtida-en-colores-por-mayoreo?variant=49139778748658
+                  - img [ref=e793]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e794]:
+                      - generic [ref=e795]:
+                        - generic:
+                          - img
+                        - generic [ref=e797]: Añadir
+                      - generic [ref=e798]:
+                        - generic:
+                          - img
+              - link [ref=e799]:
+                - /url: /products/lampara-llavero-de-10-5-cm-x-3-5-cm-surtida-en-colores-por-mayoreo?variant=49139778748658
+                - heading [level=3] [ref=e801]: LAMPARA LLAVERO DE 10.5 CM X 3.5 CM SURTIDA EN COLORES POR MAYOREO
+              - generic [ref=e804]: $ 57.00 MXN
+          - generic [ref=e807] [cursor=pointer]:
+            - link [ref=e808]:
+              - /url: /products/billetito-educativo-con-100-pzas-todas-denominaciones-en-bolstita?variant=49007730753778
+              - generic [ref=e809]: BILLETITO EDUCATIVO CON 100 PZAS TODAS DENOMINACIONES EN BOLSTITA
+            - generic [ref=e810]:
+              - generic [ref=e811]:
+                - link [ref=e812]:
+                  - /url: /products/billetito-educativo-con-100-pzas-todas-denominaciones-en-bolstita?variant=49007730753778
+                  - img [ref=e818]
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e819]:
+                      - generic [ref=e820]:
+                        - generic:
+                          - img
+                        - generic [ref=e822]: Añadir
+                      - generic [ref=e823]:
+                        - generic:
+                          - img
+              - link [ref=e824]:
+                - /url: /products/billetito-educativo-con-100-pzas-todas-denominaciones-en-bolstita?variant=49007730753778
+                - heading [level=3] [ref=e826]: BILLETITO EDUCATIVO CON 100 PZAS TODAS DENOMINACIONES EN BOLSTITA
+              - generic [ref=e829]: $ 93.60 MXN
+          - generic [ref=e832] [cursor=pointer]:
+            - link [ref=e833]:
+              - /url: /products/pelota-esponja-6-3-cm-de-diametro-por-mayoreo-surtido-al-azar-cada-paquete-trae-un-diseno-si-gusta-surtido-debera-pedir-varios-paquetes?variant=49007759458546
+              - generic [ref=e834]: PELOTA ESPONJA 6.3 CM DE DIÁMETRO, POR MAYOREO SURTIDO AL AZAR, CADA PAQUETE TRAE UN DISEÑO, SI GUSTA SURTIDO DEBERA PEDIR VARIOS PAQUETES
+            - generic [ref=e835]:
+              - generic [ref=e836]:
+                - link [ref=e837]:
+                  - /url: /products/pelota-esponja-6-3-cm-de-diametro-por-mayoreo-surtido-al-azar-cada-paquete-trae-un-diseno-si-gusta-surtido-debera-pedir-varios-paquetes?variant=49007759458546
+                - generic:
+                  - generic:
+                    - status
+                    - button [ref=e843]:
+                      - generic [ref=e844]:
+                        - generic:
+                          - img
+                        - generic [ref=e846]: Elegir
+              - link [ref=e847]:
+                - /url: /products/pelota-esponja-6-3-cm-de-diametro-por-mayoreo-surtido-al-azar-cada-paquete-trae-un-diseno-si-gusta-surtido-debera-pedir-varios-paquetes?variant=49007759458546
+                - heading [level=3] [ref=e849]: PELOTA ESPONJA 6.3 CM DE DIÁMETRO, POR MAYOREO SURTIDO AL AZAR, CADA PAQUETE TRAE UN DISEÑO, SI GUSTA SURTIDO DEBERA PEDIR VARIOS PAQUETES
+              - generic [ref=e852]: $ 75.60 MXN
+    - generic [ref=e857]:
+      - generic [ref=e858]:
+        - generic [ref=e859]:
+          - paragraph [ref=e860]: Oportunidades para vender
+          - heading "Productos de temporada y alta rotación" [level=2] [ref=e861]
+        - paragraph [ref=e862]: Encuentra artículos ideales para fechas especiales, promociones y ventas rápidas. Perfecto para surtir tu negocio con productos que se mueven por temporada.
+      - generic [ref=e863]:
+        - link "Productos de temporada al mayoreo Temporada Surtido para fechas especiales Artículos para celebraciones, regalos, decoración, fiestas y temporadas comerciales. Compra al mayoreo desde $999 MXN. Ver productos de temporada →" [ref=e864] [cursor=pointer]:
+          - /url: /collections/temporada
+          - img "Productos de temporada al mayoreo" [ref=e865]
+          - generic [ref=e867]:
+            - generic [ref=e868]: Temporada
+            - heading "Surtido para fechas especiales" [level=3] [ref=e869]
+            - paragraph [ref=e870]: Artículos para celebraciones, regalos, decoración, fiestas y temporadas comerciales. Compra al mayoreo desde $999 MXN.
+            - generic [ref=e871]: Ver productos de temporada →
+        - generic [ref=e872]:
+          - link "Productos de Navidad al mayoreo Navidad Navidad Regalos, decoración, empaques y productos para temporada navideña. Ver productos →" [ref=e873] [cursor=pointer]:
+            - /url: /collections/navidad
+            - generic [ref=e874]:
+              - img "Productos de Navidad al mayoreo" [ref=e875]
+              - generic [ref=e876]: Navidad
+            - generic [ref=e877]:
+              - heading "Navidad" [level=3] [ref=e878]
+              - paragraph [ref=e879]: Regalos, decoración, empaques y productos para temporada navideña.
+              - generic [ref=e880]: Ver productos →
+          - link "Productos de Halloween al mayoreo Halloween Halloween Artículos de fiesta, decoración, dulceros y accesorios de temporada. Ver productos →" [ref=e881] [cursor=pointer]:
+            - /url: /collections/halloween
+            - generic [ref=e882]:
+              - img "Productos de Halloween al mayoreo" [ref=e883]
+              - generic [ref=e884]: Halloween
+            - generic [ref=e885]:
+              - heading "Halloween" [level=3] [ref=e886]
+              - paragraph [ref=e887]: Artículos de fiesta, decoración, dulceros y accesorios de temporada.
+              - generic [ref=e888]: Ver productos →
+          - link "Productos de Día de Muertos al mayoreo Día de Muertos Día de Muertos Decoración, detalles, accesorios y productos para temporada mexicana. Ver productos →" [ref=e889] [cursor=pointer]:
+            - /url: /collections/halloween
+            - generic [ref=e890]:
+              - img "Productos de Día de Muertos al mayoreo" [ref=e891]
+              - generic [ref=e892]: Día de Muertos
+            - generic [ref=e893]:
+              - heading "Día de Muertos" [level=3] [ref=e894]
+              - paragraph [ref=e895]: Decoración, detalles, accesorios y productos para temporada mexicana.
+              - generic [ref=e896]: Ver productos →
+          - link "Productos de Día del Niño al mayoreo Día del Niño Día del Niño Juguetes, regalos, sorpresas y productos infantiles para venta rápida. Ver productos →" [ref=e897] [cursor=pointer]:
+            - /url: /collections/juguetes
+            - generic [ref=e898]:
+              - img "Productos de Día del Niño al mayoreo" [ref=e899]
+              - generic [ref=e900]: Día del Niño
+            - generic [ref=e901]:
+              - heading "Día del Niño" [level=3] [ref=e902]
+              - paragraph [ref=e903]: Juguetes, regalos, sorpresas y productos infantiles para venta rápida.
+              - generic [ref=e904]: Ver productos →
+          - link "Productos de Día de la Madre al mayoreo Día de la Madre Día de la Madre Regalos, detalles, belleza, bolsas y productos ideales para vender en mayo. Ver productos →" [ref=e905] [cursor=pointer]:
+            - /url: /collections/dia-de-las-madres
+            - generic [ref=e906]:
+              - img "Productos de Día de la Madre al mayoreo" [ref=e907]
+              - generic [ref=e908]: Día de la Madre
+            - generic [ref=e909]:
+              - heading "Día de la Madre" [level=3] [ref=e910]
+              - paragraph [ref=e911]: Regalos, detalles, belleza, bolsas y productos ideales para vender en mayo.
+              - generic [ref=e912]: Ver productos →
+          - link "Productos de regreso a clases al mayoreo Regreso a clases Regreso a clases Papelería, útiles, accesorios escolares y productos de alta demanda. Ver productos →" [ref=e913] [cursor=pointer]:
+            - /url: /collections/papeleria
+            - generic [ref=e914]:
+              - img "Productos de regreso a clases al mayoreo" [ref=e915]
+              - generic [ref=e916]: Regreso a clases
+            - generic [ref=e917]:
+              - heading "Regreso a clases" [level=3] [ref=e918]
+              - paragraph [ref=e919]: Papelería, útiles, accesorios escolares y productos de alta demanda.
+              - generic [ref=e920]: Ver productos →
+    - generic [ref=e925]:
+      - generic [ref=e926]:
+        - paragraph [ref=e927]: Opiniones de clientes
+        - heading "Clientes que ya confían en El Mayorista" [level=2] [ref=e928]
+        - paragraph [ref=e929]: Lee opiniones reales de clientes que han comprado al mayoreo, recibido sus pedidos y surtido sus negocios con nosotros.
+      - generic [ref=e930]:
+        - generic [ref=e931]:
+          - generic [ref=e932]:
+            - generic "Google Reviews" [ref=e933]:
+              - img [ref=e934]
+            - generic "Facebook Reviews" [ref=e939]:
+              - img "Facebook" [ref=e940]
+          - generic [ref=e941]: Reseñas en Google y Facebook
+          - heading "Compra con más confianza" [level=3] [ref=e942]
+          - paragraph [ref=e943]: Revisa opiniones de clientes que destacan nuestros precios, surtido, entregas, atención y envíos seguros.
+          - generic [ref=e944]:
+            - generic [ref=e945]:
+              - strong [ref=e946]: $999 MXN
+              - generic [ref=e947]: Pedido mínimo
+            - generic [ref=e948]:
+              - strong [ref=e949]: $200 MXN
+              - generic [ref=e950]: Envío nacional
+          - generic [ref=e951]:
+            - link "Ver reseñas en Google" [ref=e952] [cursor=pointer]:
+              - /url: https://share.google/a3Bnw8lfJX63mUyy1
+              - img [ref=e953]
+              - text: Ver reseñas en Google
+            - link "Ver reseñas en Facebook" [ref=e958] [cursor=pointer]:
+              - /url: https://www.facebook.com/ElMayoristaNovedadesyAccesorios/reviews/?id=100063894707346&sk=reviews
+            - link "Contactar por WhatsApp" [ref=e959] [cursor=pointer]:
+              - /url: https://wa.me/523511465672?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20comprar%20al%20mayoreo.%20%C2%BFMe%20pueden%20apoyar%3F
+        - generic [ref=e960]:
+          - article [ref=e961]:
+            - generic [ref=e962]:
+              - img [ref=e964]
+              - generic [ref=e969]:
+                - strong [ref=e970]: Kukiz Escalera
+                - generic [ref=e971]: Google Review · Reciente
+            - generic "5 estrellas" [ref=e972]: ★★★★★
+            - paragraph [ref=e973]: “Todo lo mandan tal y cual lo pides, llega a tiempo y siempre responden de una manera súper amable aclarando tus dudas.”
+          - article [ref=e974]:
+            - generic [ref=e975]:
+              - img [ref=e977]
+              - generic [ref=e982]:
+                - strong [ref=e983]: Mercedes García
+                - generic [ref=e984]: Google Review · Reciente
+            - generic "5 estrellas" [ref=e985]: ★★★★★
+            - paragraph [ref=e986]: “Los precios son súper económicos y productos de calidad, cuentan con variedades. Los envíos a domicilio son seguros.”
+          - article [ref=e987]:
+            - generic [ref=e988]:
+              - img [ref=e990]
+              - generic [ref=e995]:
+                - strong [ref=e996]: Vanesa Acuautla
+                - generic [ref=e997]: Google Review · Reciente
+            - generic "5 estrellas" [ref=e998]: ★★★★★
+            - paragraph [ref=e999]: “Una empresa muy confiable y muy puntual en las entregas.”
+          - article [ref=e1000]:
+            - generic [ref=e1001]:
+              - img [ref=e1003]
+              - generic [ref=e1008]:
+                - strong [ref=e1009]: Lourdes Larios Licea
+                - generic [ref=e1010]: Google Review · Reciente
+            - generic "5 estrellas" [ref=e1011]: ★★★★★
+            - paragraph [ref=e1012]: “Los mejores y 100 por ciento seguros.”
+          - article [ref=e1013]:
+            - generic [ref=e1014]:
+              - generic [ref=e1015]: E
+              - generic [ref=e1016]:
+                - strong [ref=e1017]: Esther Cruz
+                - generic [ref=e1018]: Reseña de Facebook
+            - generic "5 estrellas" [ref=e1019]: ★★★★★
+            - paragraph [ref=e1020]: “Tienen un precio muy accesible y todo llega en excelentes condiciones. Los súper recomiendo.”
+          - article [ref=e1021]:
+            - generic [ref=e1022]:
+              - generic [ref=e1023]: J
+              - generic [ref=e1024]:
+                - strong [ref=e1025]: Julieta Paulina Reyes Hurtado
+                - generic [ref=e1026]: Reseña de Facebook
+            - generic "5 estrellas" [ref=e1027]: ★★★★★
+            - paragraph [ref=e1028]: “Siempre encuentro lo que necesito y con muy buenos precios, excelente atención al cliente y envíos hasta mi ciudad muy rápido y seguro.”
+      - generic [ref=e1029]:
+        - generic [ref=e1030]:
+          - strong [ref=e1031]: ¿Quieres revisar más opiniones?
+          - generic [ref=e1032]: Consulta nuestras reseñas en Google o Facebook antes de comprar.
+        - generic [ref=e1033]:
+          - link "Google" [ref=e1034] [cursor=pointer]:
+            - /url: https://share.google/a3Bnw8lfJX63mUyy1
+            - img [ref=e1035]
+            - text: Google
+          - link "Facebook" [ref=e1040] [cursor=pointer]:
+            - /url: https://www.facebook.com/ElMayoristaNovedadesyAccesorios/reviews/?id=100063894707346&sk=reviews
+          - link "WhatsApp" [ref=e1041] [cursor=pointer]:
+            - /url: https://wa.me/523511465672?text=Hola%2C%20quiero%20informaci%C3%B3n%20para%20comprar%20al%20mayoreo.%20%C2%BFMe%20pueden%20apoyar%3F
+    - generic [ref=e1046]:
+      - generic [ref=e1047]:
+        - paragraph [ref=e1048]: Pagos seguros y sencillos
+        - heading "Métodos de pago y comprobantes" [level=2] [ref=e1049]
+        - paragraph [ref=e1050]: Realiza tu compra al mayoreo de forma sencilla. Aceptamos pago con tarjeta, transferencia bancaria y depósito. En pagos por transferencia o depósito, es necesario enviar comprobante para confirmar tu pedido.
+      - generic [ref=e1051]:
+        - generic [ref=e1052]:
+          - img [ref=e1054]
+          - generic [ref=e1057]:
+            - generic [ref=e1058]: Confirmación de pedido
+            - heading "Tu pedido se prepara después de confirmar el pago" [level=3] [ref=e1059]
+            - paragraph [ref=e1060]: Para mantener el proceso ordenado, los pedidos se validan una vez recibido el pago. Si eliges transferencia o depósito, envía una foto clara del comprobante.
+            - generic [ref=e1061]:
+              - strong [ref=e1062]: "Importante:"
+              - text: pedido mínimo de
+              - strong [ref=e1063]: $999 MXN
+              - text: .
+        - generic [ref=e1064]:
+          - generic [ref=e1065]:
+            - img [ref=e1067]
+            - generic [ref=e1069]:
+              - heading "Pago con tarjeta" [level=3] [ref=e1070]
+              - paragraph [ref=e1071]: Paga directamente con tarjeta de débito o crédito durante tu compra.
+          - generic [ref=e1072]:
+            - img [ref=e1074]
+            - generic [ref=e1076]:
+              - heading "Transferencia bancaria" [level=3] [ref=e1077]
+              - paragraph [ref=e1078]: Realiza tu transferencia y envía una foto del comprobante para validar tu pedido.
+          - generic [ref=e1079]:
+            - img [ref=e1081]
+            - generic [ref=e1083]:
+              - heading "Depósito bancario" [level=3] [ref=e1084]
+              - paragraph [ref=e1085]: También puedes pagar mediante depósito. Es necesario enviar comprobante.
+          - generic [ref=e1086]:
+            - img [ref=e1088]
+            - generic [ref=e1090]:
+              - heading "Comprobante de pago" [level=3] [ref=e1091]
+              - paragraph [ref=e1092]: Si pagas por transferencia o depósito, envía una foto clara del comprobante para confirmar y preparar tu pedido.
+      - generic [ref=e1093]:
+        - generic [ref=e1094]:
+          - generic [ref=e1095]: "1"
+          - paragraph [ref=e1096]: Elige tus productos
+        - generic [ref=e1097]:
+          - generic [ref=e1098]: "2"
+          - paragraph [ref=e1099]: Selecciona tu método de pago
+        - generic [ref=e1100]:
+          - generic [ref=e1101]: "3"
+          - paragraph [ref=e1102]: Envía comprobante si aplica
+        - generic [ref=e1103]:
+          - generic [ref=e1104]: "4"
+          - paragraph [ref=e1105]: Confirmamos y preparamos tu pedido
+      - generic [ref=e1106]:
+        - link "Ver catálogo mayorista" [ref=e1107] [cursor=pointer]:
+          - /url: /collections/all
+        - link "Ver datos de contacto" [ref=e1108] [cursor=pointer]:
+          - /url: /pages/contact
+    - generic [ref=e1113]:
+      - generic [ref=e1114]:
+        - paragraph [ref=e1115]: Envíos nacionales
+        - heading "Enviamos tu pedido a todo México" [level=2] [ref=e1116]
+        - paragraph [ref=e1117]: Compra al mayoreo desde cualquier ciudad de México. Preparamos tu pedido y lo enviamos por paquetería nacional con costo de envío de $200 MXN.
+      - generic [ref=e1118]:
+        - generic [ref=e1119]:
+          - generic [ref=e1120]: Envío nacional $200 MXN
+          - heading "Recibe tu pedido directamente en tu negocio" [level=3] [ref=e1121]
+          - paragraph [ref=e1122]: Una vez confirmado tu pago, preparamos tu compra y coordinamos el envío por paquetería nacional disponible según tu ciudad, cobertura y tipo de pedido.
+          - generic [ref=e1123]:
+            - generic [ref=e1124]:
+              - strong [ref=e1125]: $200 MXN
+              - generic [ref=e1126]: Costo de envío nacional
+            - generic [ref=e1127]:
+              - strong [ref=e1128]: $999 MXN
+              - generic [ref=e1129]: Pedido mínimo
+          - generic [ref=e1130]:
+            - link "Ver catálogo mayorista" [ref=e1131] [cursor=pointer]:
+              - /url: /collections/all
+            - link "Ver datos de contacto" [ref=e1132] [cursor=pointer]:
+              - /url: /pages/contact
+        - generic [ref=e1134]:
+          - img [ref=e1138]
+          - img [ref=e1142]
+          - generic [ref=e1147]:
+            - strong [ref=e1148]: Envío nacional $200 MXN
+            - generic [ref=e1149]: Paquetería disponible según destino y cobertura
+      - generic [ref=e1150]:
+        - generic [ref=e1151]:
+          - generic [ref=e1152]: "1"
+          - generic [ref=e1153]:
+            - heading "Confirma tu pedido" [level=3] [ref=e1154]
+            - paragraph [ref=e1155]: Revisa productos, cantidades y datos antes de finalizar.
+        - generic [ref=e1156]:
+          - generic [ref=e1157]: "2"
+          - generic [ref=e1158]:
+            - heading "Confirmamos tu pago" [level=3] [ref=e1159]
+            - paragraph [ref=e1160]: Validamos el pago antes de preparar tu compra.
+        - generic [ref=e1161]:
+          - generic [ref=e1162]: "3"
+          - generic [ref=e1163]:
+            - heading "Preparamos tu pedido" [level=3] [ref=e1164]
+            - paragraph [ref=e1165]: Empacamos tus productos para envío nacional.
+        - generic [ref=e1166]:
+          - generic [ref=e1167]: "4"
+          - generic [ref=e1168]:
+            - heading "Enviamos por paquetería" [level=3] [ref=e1169]
+            - paragraph [ref=e1170]: Tu pedido se envía por paquetería disponible según destino.
+      - generic [ref=e1171]:
+        - generic [ref=e1172]:
+          - img [ref=e1174]
+          - heading "Paquetería nacional" [level=3] [ref=e1179]
+          - paragraph [ref=e1180]: Enviamos por paqueterías disponibles según ciudad, cobertura y tipo de pedido.
+        - generic [ref=e1181]:
+          - img [ref=e1183]
+          - heading "Envío $200 MXN" [level=3] [ref=e1185]
+          - paragraph [ref=e1186]: Costo de envío nacional para que puedas recibir tu pedido en tu ciudad.
+        - generic [ref=e1187]:
+          - img [ref=e1189]
+          - heading "Cobertura en México" [level=3] [ref=e1192]
+          - paragraph [ref=e1193]: Atendemos pedidos para diferentes ciudades del país.
+        - generic [ref=e1194]:
+          - img [ref=e1196]
+          - heading "Pedido preparado con cuidado" [level=3] [ref=e1199]
+          - paragraph [ref=e1200]: Preparamos tu pedido después de confirmar el pago.
+      - generic [ref=e1201]:
+        - strong [ref=e1202]: "Importante:"
+        - text: el costo de envío nacional es de
+        - strong [ref=e1203]: $200 MXN
+        - text: . El pedido mínimo es de
+        - strong [ref=e1204]: $999 MXN
+        - text: . Los pedidos se preparan una vez confirmado el pago.
+    - generic [ref=e1209]:
+      - generic [ref=e1210]:
+        - paragraph [ref=e1211]: Dudas frecuentes
+        - heading "Preguntas frecuentes" [level=2] [ref=e1212]
+        - paragraph [ref=e1213]: Resolvemos las dudas más comunes antes de realizar tu compra al mayoreo.
+      - generic [ref=e1214]:
+        - generic [ref=e1215]:
+          - img [ref=e1217]
+          - heading "Compra con claridad" [level=3] [ref=e1220]
+          - paragraph [ref=e1221]: Antes de finalizar tu pedido, revisa el mínimo de compra, métodos de pago, envío nacional y proceso de confirmación.
+          - generic [ref=e1222]:
+            - generic [ref=e1223]:
+              - strong [ref=e1224]: $999 MXN
+              - generic [ref=e1225]: Pedido mínimo
+            - generic [ref=e1226]:
+              - strong [ref=e1227]: $200 MXN
+              - generic [ref=e1228]: Envío nacional
+        - generic [ref=e1229]:
+          - group [ref=e1230]:
+            - generic "¿Cuál es el pedido mínimo?" [ref=e1231] [cursor=pointer]:
+              - generic [ref=e1232]: ¿Cuál es el pedido mínimo?
+            - paragraph [ref=e1235]:
+              - text: El pedido mínimo es de
+              - strong [ref=e1236]: $999 MXN
+              - text: . Somos una tienda enfocada en venta al mayoreo para negocios, tiendas, bazares y revendedores.
+          - group [ref=e1237]:
+            - generic "¿Venden por pieza?" [ref=e1238] [cursor=pointer]:
+              - generic [ref=e1239]: ¿Venden por pieza?
+          - group [ref=e1241]:
+            - generic "¿Cuánto cuesta el envío?" [ref=e1242] [cursor=pointer]:
+              - generic [ref=e1243]: ¿Cuánto cuesta el envío?
+          - group [ref=e1245]:
+            - generic "¿Qué métodos de pago aceptan?" [ref=e1246] [cursor=pointer]:
+              - generic [ref=e1247]: ¿Qué métodos de pago aceptan?
+          - group [ref=e1249]:
+            - generic "¿Tengo que enviar comprobante?" [ref=e1250] [cursor=pointer]:
+              - generic [ref=e1251]: ¿Tengo que enviar comprobante?
+          - group [ref=e1253]:
+            - generic "¿Cuándo preparan mi pedido?" [ref=e1254] [cursor=pointer]:
+              - generic [ref=e1255]: ¿Cuándo preparan mi pedido?
+          - group [ref=e1257]:
+            - generic "¿Hacen envíos a todo México?" [ref=e1258] [cursor=pointer]:
+              - generic [ref=e1259]: ¿Hacen envíos a todo México?
+          - group [ref=e1261]:
+            - generic "¿Dónde están ubicados?" [ref=e1262] [cursor=pointer]:
+              - generic [ref=e1263]: ¿Dónde están ubicados?
+      - generic [ref=e1265]:
+        - link "Ver catálogo mayorista" [ref=e1266] [cursor=pointer]:
+          - /url: /collections/all
+        - link "Ver datos de contacto" [ref=e1267] [cursor=pointer]:
+          - /url: /pages/contact
+    - generic [ref=e1272]:
+      - generic [ref=e1273]:
+        - paragraph [ref=e1274]: Ventajas para tu negocio
+        - heading "¿Por qué surtir con El Mayorista?" [level=2] [ref=e1275]
+        - paragraph [ref=e1276]: Somos una opción práctica para tiendas, bazares, revendedores y negocios que buscan variedad, precios de mayoreo y un proceso de compra claro.
+      - generic [ref=e1277]:
+        - generic [ref=e1278]:
+          - img [ref=e1280]
+          - generic [ref=e1283]: Mayoreo para negocios
+          - heading "Surtido práctico para vender más" [level=3] [ref=e1284]
+          - paragraph [ref=e1285]: "Encuentra productos de diferentes categorías en un solo lugar: belleza, accesorios, fiesta, papelería, juguetes, hogar, temporada y novedades."
+          - generic [ref=e1286]:
+            - generic [ref=e1287]:
+              - strong [ref=e1288]: +1,000
+              - generic [ref=e1289]: productos disponibles
+            - generic [ref=e1290]:
+              - strong [ref=e1291]: $999
+              - generic [ref=e1292]: pedido mínimo
+        - generic [ref=e1293]:
+          - generic [ref=e1294]:
+            - img [ref=e1296]
+            - heading "Variedad para tu negocio" [level=3] [ref=e1297]
+            - paragraph [ref=e1298]: Encuentra diferentes líneas de producto para surtir tiendas, bazares y emprendimientos.
+          - generic [ref=e1299]:
+            - img [ref=e1301]
+            - heading "Pedido mínimo accesible" [level=3] [ref=e1303]
+            - paragraph [ref=e1304]: Comienza a surtir al mayoreo desde $999 MXN, ideal para negocios en crecimiento.
+          - generic [ref=e1305]:
+            - img [ref=e1307]
+            - heading "Envío nacional $200 MXN" [level=3] [ref=e1312]
+            - paragraph [ref=e1313]: Enviamos a diferentes ciudades de México por paquetería nacional disponible.
+          - generic [ref=e1314]:
+            - img [ref=e1316]
+            - heading "Productos de alta rotación" [level=3] [ref=e1318]
+            - paragraph [ref=e1319]: Agrega novedades, temporada y artículos populares que pueden moverse rápido.
+          - generic [ref=e1320]:
+            - img [ref=e1322]
+            - heading "Pagos sencillos" [level=3] [ref=e1324]
+            - paragraph [ref=e1325]: Paga con tarjeta, transferencia bancaria o depósito. Si aplica, envía tu comprobante.
+          - generic [ref=e1326]:
+            - img [ref=e1328]
+            - heading "Proceso claro" [level=3] [ref=e1331]
+            - paragraph [ref=e1332]: Te explicamos cómo comprar, pagar y recibir tu pedido para que compres con confianza.
+      - generic [ref=e1333]:
+        - generic [ref=e1334]:
+          - strong [ref=e1335]: $999 MXN
+          - generic [ref=e1336]: Pedido mínimo
+        - generic [ref=e1337]:
+          - strong [ref=e1338]: $200 MXN
+          - generic [ref=e1339]: Envío nacional
+        - generic [ref=e1340]:
+          - strong [ref=e1341]: Mayoreo
+          - generic [ref=e1342]: Para negocios y revendedores
+        - generic [ref=e1343]:
+          - strong [ref=e1344]: Tarjeta / transferencia
+          - generic [ref=e1345]: Métodos de pago disponibles
+      - generic [ref=e1346]:
+        - link "Ver catálogo mayorista" [ref=e1347] [cursor=pointer]:
+          - /url: /collections/all
+        - link "Ver datos de contacto" [ref=e1348] [cursor=pointer]:
+          - /url: /pages/contact
+    - generic [ref=e1353]:
+      - generic [ref=e1354]:
+        - paragraph [ref=e1355]: Catálogo mayorista
+        - heading "¿Listo para surtir tu negocio?" [level=2] [ref=e1356]
+        - paragraph [ref=e1357]:
+          - text: Explora nuestro catálogo y arma tu pedido al mayoreo desde
+          - strong [ref=e1358]: $999 MXN
+          - text: . Tenemos novedades, temporada, belleza, accesorios, fiesta, juguetes, papelería y más.
+        - generic [ref=e1359]:
+          - link "Ver catálogo mayorista" [ref=e1360] [cursor=pointer]:
+            - /url: /collections/all
+          - link "Ver datos de contacto" [ref=e1361] [cursor=pointer]:
+            - /url: /pages/contact
+      - generic "Información rápida" [ref=e1362]:
+        - generic [ref=e1363]:
+          - strong [ref=e1364]: $999 MXN
+          - generic [ref=e1365]: Pedido mínimo
+        - generic [ref=e1366]:
+          - strong [ref=e1367]: $200 MXN
+          - generic [ref=e1368]: Envío nacional
+        - generic [ref=e1369]:
+          - strong [ref=e1370]: Mayoreo
+          - generic [ref=e1371]: Para negocios y revendedores
+  - contentinfo [ref=e1372]:
+    - contentinfo [ref=e1376]:
+      - generic [ref=e1377]:
+        - generic [ref=e1378]:
+          - generic [ref=e1379]:
+            - link "El Mayorista" [ref=e1380] [cursor=pointer]:
+              - /url: /
+            - paragraph [ref=e1381]: Productos al mayoreo para tiendas, bazares, revendedores y negocios. Surtimos novedades, accesorios, belleza, fiesta, juguetes, papelería, hogar y temporada.
+            - generic [ref=e1382]:
+              - generic [ref=e1383]: Pedido mínimo $999 MXN
+              - generic [ref=e1384]: Envío nacional $200 MXN
+              - generic [ref=e1385]: Mayoreo
+          - generic [ref=e1386]:
+            - heading "Catálogo" [level=3] [ref=e1387]
+            - list [ref=e1388]:
+              - listitem [ref=e1389]:
+                - link "Ver todo el catálogo" [ref=e1390] [cursor=pointer]:
+                  - /url: /collections/all
+              - listitem [ref=e1391]:
+                - link "Novedades" [ref=e1392] [cursor=pointer]:
+                  - /url: /collections/novedades
+              - listitem [ref=e1393]:
+                - link "Temporada" [ref=e1394] [cursor=pointer]:
+                  - /url: /collections/temporada
+              - listitem [ref=e1395]:
+                - link "Belleza" [ref=e1396] [cursor=pointer]:
+                  - /url: /collections/belleza
+              - listitem [ref=e1397]:
+                - link "Accesorios" [ref=e1398] [cursor=pointer]:
+                  - /url: /collections/accesorios
+              - listitem [ref=e1399]:
+                - link "Fiesta" [ref=e1400] [cursor=pointer]:
+                  - /url: /collections/fiesta
+          - generic [ref=e1401]:
+            - heading "Categorías" [level=3] [ref=e1402]
+            - list [ref=e1403]:
+              - listitem [ref=e1404]:
+                - link "Bisutería" [ref=e1405] [cursor=pointer]:
+                  - /url: /collections/bisuteria
+              - listitem [ref=e1406]:
+                - link "Bolsas de regalo" [ref=e1407] [cursor=pointer]:
+                  - /url: /collections/bolsas-de-regalo
+              - listitem [ref=e1408]:
+                - link "Juguetes" [ref=e1409] [cursor=pointer]:
+                  - /url: /collections/juguetes
+              - listitem [ref=e1410]:
+                - link "Papelería" [ref=e1411] [cursor=pointer]:
+                  - /url: /collections/papeleria
+              - listitem [ref=e1412]:
+                - link "Hogar" [ref=e1413] [cursor=pointer]:
+                  - /url: /collections/hogar
+          - generic [ref=e1414]:
+            - heading "Contacto" [level=3] [ref=e1415]
+            - list [ref=e1416]:
+              - listitem [ref=e1417]:
+                - generic [ref=e1418]: Teléfono
+                - link "+52 351 146 5672" [ref=e1419] [cursor=pointer]:
+                  - /url: tel:+523511465672
+              - listitem [ref=e1420]:
+                - generic [ref=e1421]: Dirección
+                - link "Morelos Sur 439 B, Esquina Leonardo Castellanos, Colonia Centro, Zamora de Hidalgo, Michoacán, México 59600" [ref=e1422] [cursor=pointer]:
+                  - /url: https://www.google.com/maps/search/?api=1&query=C.%20Morelia%20595A%2C%20Jardines%20de%20Catedral%2C%2059670%20Zamora%20de%20Hidalgo%2C%20Mich.%2C%20Mexico
+              - listitem [ref=e1423]:
+                - generic [ref=e1424]: Horario
+                - paragraph [ref=e1425]: "Lunes a sábado: 8:30 AM – 6:30 PM"
+                - paragraph [ref=e1426]: "Domingo: 9:00 AM – 3:00 PM"
+        - generic [ref=e1427]:
+          - generic [ref=e1428]:
+            - img [ref=e1430]
+            - generic [ref=e1432]:
+              - strong [ref=e1433]: Pedido mínimo
+              - generic [ref=e1434]: Compra al mayoreo desde $999 MXN.
+          - generic [ref=e1435]:
+            - img [ref=e1437]
+            - generic [ref=e1442]:
+              - strong [ref=e1443]: Envío nacional
+              - generic [ref=e1444]: Costo de envío $200 MXN a México.
+          - generic [ref=e1445]:
+            - img [ref=e1447]
+            - generic [ref=e1449]:
+              - strong [ref=e1450]: Métodos de pago
+              - generic [ref=e1451]: Tarjeta, transferencia o depósito.
+          - generic [ref=e1452]:
+            - img [ref=e1454]
+            - generic [ref=e1457]:
+              - strong [ref=e1458]: Confirmación
+              - generic [ref=e1459]: Pedidos se preparan después de confirmar pago.
+        - generic [ref=e1460]:
+          - generic [ref=e1461]:
+            - heading "¿Tienes dudas antes de comprar?" [level=3] [ref=e1462]
+            - paragraph [ref=e1463]: Revisa nuestras preguntas frecuentes o contáctanos para resolver dudas sobre pedidos, pagos, comprobantes y envíos.
+          - generic [ref=e1464]:
+            - link "Ver catálogo mayorista" [ref=e1465] [cursor=pointer]:
+              - /url: /collections/all
+            - link "Ver contacto" [ref=e1466] [cursor=pointer]:
+              - /url: /pages/contact
+        - generic [ref=e1467]:
+          - generic [ref=e1468]: © 2026 El Mayorista. Todos los derechos reservados.
+          - link "Hecho con ❤️ por TBB" [ref=e1470] [cursor=pointer]:
+            - /url: https://www.thebrandingbull.com
+  - iframe [ref=e1472]:
+    - generic [ref=f5e2]:
+      - generic:
+        - generic:
+          - button "toggle" [ref=f5e3] [cursor=pointer]:
+            - generic [ref=f5e6]:
+              - img "Logo" [ref=f5e7]
+              - generic [ref=f5e9]:
+                - generic [ref=f5e10]: Codex navigation homepage improvements
+                - generic [ref=f5e11]: Draft
+          - generic:
+            - generic:
+              - generic:
+                - dialog:
+                  - generic [ref=f5e12]:
+                    - navigation [ref=f5e14]:
+                      - button "View as" [ref=f5e18] [cursor=pointer]:
+                        - img [ref=f5e20]
+                        - generic [ref=f5e23]:
+                          - img [ref=f5e28]
+                          - heading "View as" [level=2] [ref=f5e31]
+                    - generic [ref=f5e40]:
+                      - generic [ref=f5e42]: Actions
+                      - generic [ref=f5e45]:
+                        - button "Copy link" [ref=f5e46] [cursor=pointer]:
+                          - img [ref=f5e50]
+                          - generic [ref=f5e52]: Copy link
+                        - button "Hide bar" [ref=f5e53] [cursor=pointer]:
+                          - img [ref=f5e57]
+                          - generic [ref=f5e60]: Hide bar
+                        - button "Exit preview" [ref=f5e61] [cursor=pointer]:
+                          - img [ref=f5e65]
+                          - generic [ref=f5e68]: Exit preview
+                  - status

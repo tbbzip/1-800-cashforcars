@@ -24,7 +24,7 @@ import {
 } from "../structured-data";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
-import { VehicleLookupForm } from "./vehicle-lookup-form";
+import { QuickOfferForm } from "./quick-offer-form";
 import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 
 const phoneHref = "tel:16198307005";
@@ -33,9 +33,6 @@ const detailIcons = [BadgeDollarSign, Truck, FileCheck2];
 function localizedLabels(locale: Locale) {
   return locale === "es"
     ? {
-        startTitle: "Empieza con tu VIN",
-        startBody:
-          "Busca el carro primero. Después revisamos condición, título, acceso y pickup para esta área.",
         detailsEyebrow: "Detalles locales",
         detailsTitle: "Una página específica para vender tu carro aquí.",
         detailsBody:
@@ -46,9 +43,6 @@ function localizedLabels(locale: Locale) {
         primaryCta: "Obtén tu oferta",
       }
     : {
-        startTitle: "Start with your VIN",
-        startBody:
-          "Look up the vehicle first. Then we review condition, title, access, and pickup for this specific area.",
         detailsEyebrow: "Local details",
         detailsTitle: "A page built for selling your car here.",
         detailsBody:
@@ -110,17 +104,24 @@ export function LocationPageTemplate({
       <SiteNavigation dictionary={dictionary} locale={locale} />
 
       <section className="relative overflow-hidden border-b border-slate-200 bg-[#f6f8fb]">
-        <div className="mx-auto min-h-[calc(100vh-120px)] max-w-[1160px] px-5 py-8 sm:px-8 lg:min-h-[calc(100vh-160px)] lg:py-7">
-          <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,0.92fr)_minmax(430px,1.08fr)] lg:gap-x-12 lg:gap-y-4">
-            <div className="order-1 max-w-xl">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#bde9c9] bg-white px-3 py-2 text-xs font-extrabold uppercase text-[#228b40] shadow-[0_1px_0_rgba(15,23,42,0.04)]">
-                <MapPin aria-hidden="true" className="h-4 w-4" />
+        <div className="mx-auto max-w-[1160px] px-4 py-5 sm:px-8 sm:py-8 lg:py-10">
+          <div className="grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-10">
+            <div className="min-w-0 max-w-xl lg:col-start-1 lg:row-start-1">
+              <div className="mb-2 inline-flex max-w-full items-center gap-2 rounded-full border border-[#bde9c9] bg-white px-3 py-1.5 text-[10px] font-extrabold uppercase text-[#228b40] shadow-[0_1px_0_rgba(15,23,42,0.04)] sm:mb-4 sm:text-xs">
+                <MapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
                 {content.badge}
               </div>
-              <h1 className="text-4xl font-black leading-[1.05] text-slate-950 sm:text-5xl lg:text-[58px]">
+              <h1 className="break-words text-[1.65rem] font-black leading-[1.1] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
                 {content.title}
               </h1>
-              <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
+            </div>
+
+            <div className="min-w-0 self-start lg:col-start-2 lg:row-span-3 lg:row-start-1">
+              <QuickOfferForm locale={locale} />
+            </div>
+
+            <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+              <p className="max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
                 {content.intro}
               </p>
 
@@ -156,9 +157,9 @@ export function LocationPageTemplate({
               </div>
             </div>
 
-            <div className="order-3 relative mx-auto min-h-[360px] w-full max-w-[560px] lg:order-2 lg:min-h-[430px] lg:justify-self-end">
-              <div className="absolute inset-x-7 bottom-6 top-8 rounded-[42px] border border-[#bde9c9] bg-[#ecfdf1] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]" />
-              <div className="absolute right-0 top-5 z-10 hidden max-w-[220px] rounded-[20px] border border-slate-200 bg-white px-4 py-3 shadow-[0_16px_44px_rgba(15,23,42,0.12)] sm:block lg:right-2">
+            <div className="relative mx-auto min-h-[260px] w-full min-w-0 max-w-[560px] lg:col-start-1 lg:row-start-3">
+              <div className="absolute inset-x-3 bottom-3 top-3 rounded-[30px] border border-[#bde9c9] bg-[#ecfdf1] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]" />
+              <div className="absolute right-0 top-5 z-10 hidden max-w-[200px] rounded-[20px] border border-slate-200 bg-white px-4 py-3 shadow-[0_16px_44px_rgba(15,23,42,0.12)] sm:block">
                 <p className="text-sm font-black uppercase text-slate-950">
                   {dictionary.mascot.guideTitle}
                 </p>
@@ -166,45 +167,21 @@ export function LocationPageTemplate({
                   {content.routeNote}
                 </p>
               </div>
-              <div className="relative mx-auto max-w-[460px] px-2 pt-12 sm:max-w-[520px] sm:px-4 lg:max-w-[540px] lg:pt-8">
+              <div className="relative mx-auto max-w-[330px] px-2 pt-4">
                 <Image
                   src={mascotImages.homeHero.src}
                   alt={mascotImages.homeHero.alt[locale]}
                   width={mascotImages.homeHero.width}
                   height={mascotImages.homeHero.height}
-                  priority
-                  className="h-auto w-full drop-shadow-[0_28px_30px_rgba(15,23,42,0.18)]"
+                  sizes="(max-width: 363px) calc(100vw - 48px), 314px"
+                  className="h-auto max-h-[260px] w-full object-contain drop-shadow-[0_28px_30px_rgba(15,23,42,0.18)]"
                 />
               </div>
-              <div className="absolute bottom-5 right-0 z-20 rounded-[20px] bg-slate-950 px-4 py-3 text-white shadow-[0_16px_36px_rgba(15,23,42,0.22)] sm:right-4 lg:-right-4">
+              <div className="absolute bottom-3 right-0 z-20 max-w-full rounded-[20px] bg-slate-950 px-4 py-3 text-white shadow-[0_16px_36px_rgba(15,23,42,0.22)] sm:right-4">
                 <p className="text-xs font-black uppercase text-[#6ee28d]">
                   {dictionary.locations.serviceAreaLabel}
                 </p>
                 <p className="mt-1 text-sm font-black">{page.name}</p>
-              </div>
-            </div>
-
-            <div
-              id="get-offer"
-              className="order-2 self-start rounded-[28px] border border-slate-200 bg-slate-950 p-5 text-white shadow-[0_24px_70px_rgba(15,23,42,0.16)] sm:p-6 lg:order-3 lg:col-span-2"
-            >
-              <div className="grid gap-5 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-                <div>
-                  <p className="text-sm font-bold text-[#6ee28d]">
-                    {dictionary.offerForm.eyebrow}
-                  </p>
-                  <h2 className="mt-2 text-2xl font-black">
-                    {labels.startTitle}
-                  </h2>
-                  <p className="mt-2 max-w-md text-sm leading-6 text-slate-300">
-                    {labels.startBody}
-                  </p>
-                </div>
-                <VehicleLookupForm
-                  dictionary={dictionary}
-                  locale={locale}
-                  layout="wide"
-                />
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import type { Locale } from "../dictionaries";
 import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
+import { QuickOfferForm } from "./quick-offer-form";
 
 type NotFoundCopy = {
   eyebrow: string;
@@ -136,7 +137,7 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
       />
 
       <section className="relative mx-auto grid w-full max-w-7xl content-center gap-10 px-5 py-8 sm:px-8 lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.82fr)] lg:px-12">
-        <div className="flex flex-col justify-center">
+        <div className="flex min-w-0 flex-col justify-center">
           <Link href={paths.home} aria-label={content.links.home.label} className="w-fit">
             <Image
               src="/logo.svg"
@@ -148,13 +149,16 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
             />
           </Link>
 
-          <div className="mt-12 max-w-3xl">
+          <div className="mt-6 min-w-0 max-w-3xl">
             <p className="w-fit rounded-full border border-[#6ee28d]/35 bg-[#6ee28d]/10 px-4 py-2 text-sm font-black uppercase tracking-normal text-[#6ee28d]">
               {content.eyebrow}
             </p>
-            <h1 className="mt-6 text-5xl font-black leading-[0.95] tracking-normal text-white sm:text-6xl lg:text-7xl">
+            <h1 className="mt-4 text-3xl font-black leading-tight tracking-normal text-white sm:text-5xl">
               {content.title}
             </h1>
+            <div className="mt-5">
+              <QuickOfferForm locale={locale} />
+            </div>
             <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-300">
               {content.body}
             </p>
@@ -225,8 +229,6 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
             alt={content.mascotAlt}
             width={2900}
             height={3606}
-            loading="eager"
-            fetchPriority="high"
             sizes="(min-width: 1024px) 42vw, 82vw"
             className="relative z-10 h-auto w-[min(92vw,420px)] drop-shadow-[0_30px_45px_rgba(0,0,0,0.38)] sm:w-[500px] lg:w-[560px]"
           />

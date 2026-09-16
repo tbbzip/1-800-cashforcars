@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { offerPrefill } from "../../offer-validation";
 import { getDictionary, getLocalePath } from "../../dictionaries";
 import { OfferFlow } from "../../components/offer-flow";
 import { createPageMetadata } from "../../seo";
@@ -46,9 +47,10 @@ export const metadata: Metadata = createPageMetadata({
 export default async function OfferPage({
   searchParams,
 }: {
-  searchParams: Promise<{ successPreview?: string; vin?: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
+  const initial = offerPrefill(params);
   const previewSuccess =
     process.env.NODE_ENV !== "production" && params.successPreview === "1";
 
@@ -59,8 +61,9 @@ export default async function OfferPage({
         dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
       />
       <OfferFlow
+        key={JSON.stringify(initial)}
         dictionary={dictionary}
-        initialVin={params.vin ?? ""}
+        {...initial}
         locale="en"
         previewSuccess={previewSuccess}
       />

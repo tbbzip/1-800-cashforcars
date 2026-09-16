@@ -28,6 +28,7 @@ import {
 } from "../structured-data";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
+import { QuickOfferForm } from "./quick-offer-form";
 
 const PHONE_NUMBER = "619-830-7005";
 const PHONE_HREF = "tel:16198307005";
@@ -63,11 +64,13 @@ function PageImageCard({
   image,
   compact = false,
   locale,
+  sizes,
 }: {
   asset?: SiteImageAsset;
   image: PageImage;
   compact?: boolean;
   locale: Locale;
+  sizes?: string;
 }) {
   return (
     <aside
@@ -86,9 +89,10 @@ function PageImageCard({
             alt={image.alt || asset.alt[locale]}
             fill
             sizes={
-              compact
+              sizes ??
+              (compact
                 ? "(max-width: 1024px) 100vw, 320px"
-                : "(max-width: 1024px) 100vw, 580px"
+                : "(max-width: 1024px) 100vw, 580px")
             }
             className={
               asset.fit === "contain"
@@ -183,29 +187,39 @@ export function InternalPageTemplate({
       />
       <SiteNavigation dictionary={dictionary} locale={locale} />
 
-      <section className="border-b border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-[1160px] gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:py-14">
-          <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#bde9c9] bg-[#ecfdf1] px-3 py-2 text-xs font-extrabold uppercase text-[#228b40]">
-              <BadgeDollarSign aria-hidden="true" className="h-4 w-4" />
+      <section className="border-b border-slate-200 bg-[#f6f8fb]">
+        <div className="mx-auto grid max-w-[1160px] grid-cols-[minmax(0,1fr)] gap-5 px-4 py-5 sm:px-8 sm:py-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-x-10 lg:gap-y-5 lg:py-10">
+          <div className="min-w-0 lg:col-start-1 lg:row-start-1">
+            <div className="mb-2 inline-flex max-w-full items-center gap-2 rounded-full border border-[#bde9c9] bg-[#ecfdf1] px-3 py-1.5 text-[10px] font-extrabold uppercase text-[#228b40] sm:mb-4 sm:text-xs">
+              <BadgeDollarSign aria-hidden="true" className="h-4 w-4 shrink-0" />
               {page.eyebrow}
             </div>
-            <h1 className="text-4xl font-black leading-[1.05] text-slate-950 sm:text-5xl">
+            <h1 className="break-words text-[1.65rem] font-black leading-[1.1] tracking-tight text-slate-950 sm:text-4xl lg:text-5xl">
               {page.title}
             </h1>
-            <p className="mt-5 text-lg leading-8 text-slate-600">
-              {page.intro}
-            </p>
-            <div className="mt-7">
-              <CtaRow dictionary={dictionary} locale={locale} />
-            </div>
           </div>
 
-          <PageImageCard
-            asset={imageSet.hero}
-            image={page.heroImage}
-            locale={locale}
-          />
+          <div className="min-w-0 self-start lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            <QuickOfferForm locale={locale} />
+          </div>
+
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2">
+            <p className="text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
+              {page.intro}
+            </p>
+            <div className="mt-5">
+              <CtaRow dictionary={dictionary} locale={locale} />
+            </div>
+            <div className="mt-6">
+              <PageImageCard
+                asset={imageSet.hero}
+                image={page.heroImage}
+                locale={locale}
+                compact
+                sizes="(max-width: 639px) calc(100vw - 32px), (max-width: 1023px) calc(100vw - 64px), 528px"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

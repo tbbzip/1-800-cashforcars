@@ -1,0 +1,12 @@
+Quick vehicle inquiry
+
+This is a quick vehicle inquiry, not a completed condition assessment. Contact the seller to confirm the vehicle, condition, title, exact pickup address, and offer.
+
+First name: Casey Test
+Phone: 6195550103
+Pickup ZIP: 92101
+Vehicle: 1990 Toyota Corolla
+Selection method: manual
+Page: /junk-cars
+Language: en
+Inquiry ID: e5c32756-8518-4784-abec-efaf5ff80059

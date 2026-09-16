@@ -89,9 +89,9 @@
     "guideBody": "Te ayudamos con la oferta, el título, el horario para pasar por el carro y la entrega."
   },
   "offerForm": {
-    "eyebrow": "Oferta instantánea",
-    "title": "Empieza con tu VIN",
-    "body": "Primero busca el carro. Después vemos condición, título y detalles para preparar tu oferta en San Diego County.",
+    "eyebrow": "Solicita una oferta",
+    "title": "VIN o datos del carro",
+    "body": "Ingresa tu VIN o elige año, marca y modelo. Nuestro equipo local revisará tu solicitud.",
     "button": "QUIERO MI OFERTA",
     "vinLabel": "VIN del carro",
     "vinPlaceholder": "Escribe el VIN de 17 caracteres",
