@@ -8,7 +8,7 @@ import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { getOfferPath, type Locale } from "../dictionaries";
 import { isValidPhone, isValidVehicleYear } from "../offer-validation";
 import { useVinVehicle } from "../hooks/use-vin-vehicle";
-import type { InquiryOwnershipStatus, InquiryRunningStatus } from "../inquiry-validation";
+import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
 import { isServiceAreaZip, serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { TurnstileChallenge } from "./turnstile-challenge";
 
@@ -33,14 +33,15 @@ const copy = {
     continue: "Continue", continuing: "Sending…", next: "Next: two quick questions, contact details and pickup address.",
     contactTitle: "A few quick details", contactIntro: "Tell us if it runs and your ownership situation. Our local team will review your request and call you.",
     runningStatus: "Does the vehicle start and run?", ownershipStatus: "Ownership / title", choose: "Select an answer", runs: "Yes", doesNotRun: "No", notSure: "Not sure", ownerTitle: "I own it (title available)", ownerNoTitle: "I own it (title missing)", authorizedSeller: "Authorized by the owner", otherOwnership: "Other / not sure", answerError: "Choose an answer, including “not sure” if needed.",
-    firstName: "First name", phone: "Phone number", zip: "ZIP code", edit: "Edit vehicle", send: "Send my request",
+    fullName: "Full name", phone: "Phone number", zip: "ZIP code", edit: "Edit vehicle", send: "Send my request",
+    notes: "Notes (optional)", notesPlaceholder: "Anything else you’d like us to know about the vehicle or pickup?", notesError: "Keep your notes to 2,000 characters or fewer.",
     pickupAddress: "Where is the vehicle?", streetAddress: "Street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
     security: "Security check", securityError: "The security check could not connect. Please retry or call us.", securityExpired: "The security check expired. Please try it again.", securityRetry: "Retry security check",
     unavailableSecurity: "Online verification is unavailable. Please call us to request an offer.",
     contactNotice: "By sending, you’re asking our team to call you about this vehicle.",
     detailed: "Prefer the detailed Get Offer form?", sent: "Your request was sent", sentBody: "Our local team will review your vehicle information and call you at",
     phoneError: "Enter a 10-digit US phone number.", zipError: "Enter a 5-digit pickup ZIP code.", areaError: "We currently serve San Diego County. Call us to confirm pickup for this ZIP.",
-    deliveryError: "We couldn’t confirm delivery. Your answers are still here. Please retry or call us.", nameError: "Enter your first name.",
+    deliveryError: "We couldn’t confirm delivery. Your answers are still here. Please retry or call us.", nameError: "Enter your full name.",
     reassurance: "Local team. No obligation to accept an offer.",
     manual: "Can't find your car? Enter the details", dropdowns: "Back to vehicle dropdowns",
     unavailable: "The vehicle list is unavailable. You can enter the details instead.",
@@ -61,14 +62,15 @@ const copy = {
     continue: "Continuar", continuing: "Enviando…", next: "Después: dos preguntas, contacto y dirección del carro.",
     contactTitle: "Unos datos rápidos", contactIntro: "Cuéntanos si funciona y tu situación de propiedad. Nuestro equipo local revisará tu solicitud y te llamará.",
     runningStatus: "¿El carro enciende y funciona?", ownershipStatus: "Propiedad / título", choose: "Elige una respuesta", runs: "Sí", doesNotRun: "No", notSure: "No sé", ownerTitle: "Soy dueño y tengo título", ownerNoTitle: "Soy dueño, sin título", authorizedSeller: "Autorizado por el dueño", otherOwnership: "Otra situación / no sé", answerError: "Elige una respuesta; puedes seleccionar “no sé”.",
-    firstName: "Nombre", phone: "Teléfono", zip: "Código ZIP", edit: "Editar vehículo", send: "Enviar mi solicitud",
+    fullName: "Nombre completo", phone: "Teléfono", zip: "Código ZIP", edit: "Editar vehículo", send: "Enviar mi solicitud",
+    notes: "Notas (opcional)", notesPlaceholder: "¿Algo más que quieras contarnos sobre el carro o la recogida?", notesError: "Escribe un máximo de 2,000 caracteres.",
     pickupAddress: "¿Dónde está el carro?", streetAddress: "Calle y número", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
     security: "Verificación de seguridad", securityError: "La verificación no pudo conectar. Reintenta o llámanos.", securityExpired: "La verificación venció. Vuelve a intentarla.", securityRetry: "Reintentar verificación",
     unavailableSecurity: "La verificación no está disponible. Llámanos para solicitar una oferta.",
     contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.",
     detailed: "¿Prefieres el formulario de oferta detallado?", sent: "Tu solicitud fue enviada", sentBody: "Nuestro equipo local revisará los datos de tu carro y te llamará al",
     phoneError: "Ingresa un teléfono de Estados Unidos de 10 dígitos.", zipError: "Ingresa un ZIP de 5 dígitos.", areaError: "Por ahora damos servicio en San Diego County. Llámanos para confirmar este ZIP.",
-    deliveryError: "No pudimos confirmar el envío. Tus respuestas siguen aquí. Reintenta o llámanos.", nameError: "Ingresa tu nombre.",
+    deliveryError: "No pudimos confirmar el envío. Tus respuestas siguen aquí. Reintenta o llámanos.", nameError: "Ingresa tu nombre completo.",
     reassurance: "Equipo local. Sin obligación de aceptar la oferta.",
     manual: "¿No encuentras tu carro? Ingresa los datos", dropdowns: "Volver a las listas de vehículos",
     unavailable: "La lista no está disponible. Puedes ingresar los datos de tu carro.",
@@ -98,8 +100,9 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
   const [modelsStatus, setModelsStatus] = useState<LoadState>("idle");
   const [invalid, setInvalid] = useState<string[]>([]);
   const [stage, setStage] = useState<"vehicle" | "contact" | "success">("vehicle");
-  const [firstName, setFirstName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
+  const [notes, setNotes] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
@@ -218,7 +221,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
       sendGTMEvent({ event: "quick_inquiry_start", selection_method: selectionMethod, language: locale });
       return;
     }
-    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !firstName.trim() && "firstName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !streetAddress.trim() && "streetAddress", !city.trim() && "city", (!/^\d{5}$/.test(zip) || !isServiceAreaZip(zip)) && "zip"].filter(Boolean) as string[];
+    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !streetAddress.trim() && "streetAddress", !city.trim() && "city", (!/^\d{5}$/.test(zip) || !isServiceAreaZip(zip)) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
     if (missing.length) { showErrors(missing); return; }
     if (!turnstileSiteKey || !token) { setSecurityError(text.securityError); return; }
     setInvalid([]);
@@ -228,7 +231,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
     const lead = {
       ...(mode === "vin" ? { vin } : {}),
       year: selectedYear, make: selectedMake, model: selectedModel, runningStatus, ownershipStatus,
-      firstName: firstName.trim(), phone: phone.trim(), zip,
+      fullName: fullName.trim(), phone: phone.trim(), zip, notes: notes.trim(),
       streetAddress: streetAddress.trim(), addressLine2: addressLine2.trim(), city: city.trim(), state: "CA",
     };
     const data = { lead, locale, sourcePath, selectionMethod };
@@ -243,7 +246,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
       const result = await response.json().catch(() => null);
       if (!response.ok || result?.ok !== true) {
         if (Array.isArray(result?.missing)) {
-          const fields = result.missing.filter((field: unknown): field is string => typeof field === "string" && ["vin", "year", "make", "model", "firstName", "phone", "zip", "streetAddress", "city", "state", "runningStatus", "ownershipStatus"].includes(field));
+          const fields = result.missing.filter((field: unknown): field is string => typeof field === "string" && ["vin", "year", "make", "model", "fullName", "phone", "zip", "streetAddress", "city", "state", "runningStatus", "ownershipStatus", "notes"].includes(field));
           if (fields.some((field: string) => ["vin", "year", "make", "model"].includes(field))) setStage("vehicle");
           showErrors(fields);
         }
@@ -264,8 +267,8 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
     }
   }
 
-  const fieldClass = (name: string) => `h-12 w-full min-w-0 rounded-xl border bg-white px-3 text-base font-semibold text-slate-950 outline-none transition focus:border-[#187b36] focus:ring-2 focus:ring-[#187b36]/20 disabled:bg-slate-100 disabled:text-slate-500 ${invalid.includes(name) ? "border-red-600 ring-1 ring-red-600" : "border-slate-300"}`;
-  const fieldProps = (name: string) => ({ name, "aria-invalid": invalid.includes(name), "aria-describedby": invalid.includes(name) ? (["firstName", "phone", "zip", "streetAddress", "city", "state", "runningStatus", "ownershipStatus"].includes(name) ? `${id}-${name}-error` : `${id}-error`) : undefined });
+  const fieldClass = (name: string, multiline = false) => `${multiline ? "min-h-28 resize-y py-3 font-normal" : "h-12 font-semibold"} w-full min-w-0 rounded-xl border bg-white px-3 text-base text-slate-950 outline-none transition focus:border-[#187b36] focus:ring-2 focus:ring-[#187b36]/20 disabled:bg-slate-100 disabled:text-slate-500 ${invalid.includes(name) ? "border-red-600 ring-1 ring-red-600" : "border-slate-300"}`;
+  const fieldProps = (name: string) => ({ name, "aria-invalid": invalid.includes(name), "aria-describedby": invalid.includes(name) ? (["fullName", "phone", "zip", "streetAddress", "city", "state", "runningStatus", "ownershipStatus", "notes"].includes(name) ? `${id}-${name}-error` : `${id}-error`) : undefined });
   const popular = makes.filter((make) => commonMakes.has(make.name.toLowerCase()));
   const other = makes.filter((make) => !commonMakes.has(make.name.toLowerCase()));
   const unavailable = makesStatus === "error" || modelsStatus === "error";
@@ -383,9 +386,9 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
                 </select>
                 {invalid.includes("ownershipStatus") ? <span id={`${id}-ownershipStatus-error`} className="text-xs text-red-700">{text.answerError}</span> : null}
               </label>
-              <label className="grid gap-1.5 text-sm font-bold">{text.firstName}
-                <input aria-label={text.firstName} {...fieldProps("firstName")} value={firstName} onChange={(event) => { setFirstName(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "firstName")); }} autoComplete="given-name" maxLength={100} className={fieldClass("firstName")} />
-                {invalid.includes("firstName") ? <span id={`${id}-firstName-error`} className="text-xs text-red-700">{text.nameError}</span> : null}
+              <label className="grid gap-1.5 text-sm font-bold">{text.fullName}
+                <input aria-label={text.fullName} {...fieldProps("fullName")} value={fullName} onChange={(event) => { setFullName(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "fullName")); }} autoComplete="name" maxLength={200} className={fieldClass("fullName")} />
+                {invalid.includes("fullName") ? <span id={`${id}-fullName-error`} className="text-xs text-red-700">{text.nameError}</span> : null}
               </label>
               <label className="grid gap-1.5 text-sm font-bold">{text.phone}
                 <input aria-label={text.phone} {...fieldProps("phone")} value={phone} onChange={(event) => { setPhone(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "phone")); }} type="tel" autoComplete="tel" maxLength={30} className={fieldClass("phone")} />
@@ -415,6 +418,10 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
               </label>
                 </div>
               </fieldset>
+              <label className="mt-1 grid gap-1.5 text-sm font-bold">{text.notes}
+                <textarea aria-label={text.notes} {...fieldProps("notes")} value={notes} onChange={(event) => { setNotes(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "notes")); }} placeholder={text.notesPlaceholder} maxLength={INQUIRY_NOTES_MAX_LENGTH} rows={3} className={fieldClass("notes", true)} />
+                {invalid.includes("notes") ? <span id={`${id}-notes-error`} className="text-xs text-red-700">{text.notesError}</span> : null}
+              </label>
             </fieldset>
             <div className="mt-4">
               <p className="mb-2 text-xs font-bold text-slate-600">{text.security}</p>
@@ -422,7 +429,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
             </div>
           </>
         )}
-        {invalid.length ? <p id={`${id}-error`} role="alert" className="mt-2 rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-800">{invalid.includes("vin") ? text.invalidVin : `${text.missing} ${invalid.map((name) => text[name as "year" | "make" | "model" | "firstName" | "phone" | "zip" | "streetAddress" | "city" | "state" | "runningStatus" | "ownershipStatus"]).join(", ")}.`}</p> : null}
+        {invalid.length ? <p id={`${id}-error`} role="alert" className="mt-2 rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-800">{invalid.includes("vin") ? text.invalidVin : `${text.missing} ${invalid.map((name) => text[name as "year" | "make" | "model" | "fullName" | "phone" | "zip" | "streetAddress" | "city" | "state" | "runningStatus" | "ownershipStatus" | "notes"]).join(", ")}.`}</p> : null}
         {submitError || securityError ? <p role="alert" className="mt-3 rounded-lg bg-red-50 p-3 text-sm font-semibold leading-5 text-red-800">{submitError || securityError} <a className="underline" href={serviceAreaPhoneHref}>{serviceAreaPhone}</a></p> : null}
         <button type="submit" disabled={isPending || (mode === "vin" && vinVehicle.status === "loading") || (stage === "contact" && (!turnstileSiteKey || !token))} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#187b36] px-4 text-base font-extrabold text-white shadow-[0_6px_16px_rgba(24,123,54,0.18)] outline-none transition hover:bg-[#12612a] focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2 disabled:opacity-60">
           {isPending ? <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" /> : null}

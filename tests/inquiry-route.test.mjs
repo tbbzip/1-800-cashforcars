@@ -1,5 +1,4 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { loadTypeScript } from "./helpers/load-typescript.mjs";
@@ -8,7 +7,7 @@ const routePath = fileURLToPath(new URL("../app/api/inquiry/route.ts", import.me
 const validationPath = fileURLToPath(new URL("../app/inquiry-validation.ts", import.meta.url));
 const formatterPath = fileURLToPath(new URL("../app/server/inquiry-email.ts", import.meta.url));
 const submission = {
-  lead: { year: "2014", make: "Honda", model: "Civic", firstName: "Alex Example", phone: "619-555-0142", streetAddress: "123 Example Street", city: "San Diego", state: "CA", zip: "92154", runningStatus: "runs", ownershipStatus: "owner_with_title" },
+  lead: { year: "2014", make: "Honda", model: "Civic", fullName: "Alex Example", notes: "Call after 5 pm.\nThe vehicle is in the driveway.", phone: "619-555-0142", streetAddress: "123 Example Street", city: "San Diego", state: "CA", zip: "92154", runningStatus: "runs", ownershipStatus: "owner_with_title" },
   locale: "en", sourcePath: "/junk-cars", selectionMethod: "dropdown",
   submissionId: "d0334bc8-8394-4fa3-9f6b-dc0e1c56c210", turnstileToken: "test-only-token",
 };
@@ -34,18 +33,20 @@ test("VIN, dropdown and manual inquiries deliver identity, screening and complet
     assert.equal("reply_to" in email, false);
     assert.deepEqual(email.to, ["leads@example.invalid"]);
     assert.deepEqual(email.bcc, ["copy@example.invalid", "archive@example.invalid"]);
-    assert.match(email.subject, /^Quick vehicle inquiry:/);
-    assert.match(email.text, /not a completed condition assessment/);
-    assert.match(email.text, /Alex Example/);
+    assert.equal(email.subject, `New lead: ${payload.lead.year} ${payload.lead.make} ${payload.lead.model} | Runs | Owner with title | San Diego 92154`);
+    assert.ok(email.text.startsWith("Full name: Alex Example\n"));
+    assert.match(email.text, /Notes: Call after 5 pm\.\nThe vehicle is in the driveway\./);
+    assert.match(email.html, /Call after 5 pm\.<br \/>The vehicle is in the driveway\./);
+    assert.match(email.html, /href="tel:\+16195550142"/);
+    assert.doesNotMatch(email.text, /not a completed condition assessment|All inquiries require|have not been verified/);
     assert.match(email.text, /Pickup street address: 123 Example Street/);
     assert.match(email.text, /Pickup city \/ state \/ ZIP: San Diego, CA 92154/);
     assert.doesNotMatch(email.text, /Apt \/ unit \/ space/);
     assert.match(email.text, /Page: \/junk-cars/);
     assert.match(email.text, new RegExp(`Selection method: ${selectionMethod}`));
     assert.match(email.text, /Language: en/);
-    assert.match(email.text, /Running status \(seller-reported\): Runs/);
-    assert.match(email.text, /Ownership \/ title \(seller-reported\): Seller reports they are the owner and have the title/);
-    assert.match(email.text, /have not been verified/);
+    assert.match(email.text, /Running status: Runs/);
+    assert.match(email.text, /Ownership \/ title: Owner with title/);
     if (selectionMethod === "vin") {
       assert.match(email.subject, /1991 Honda Accord/);
       assert.match(email.text, /Vehicle: 1991 Honda Accord/);
@@ -71,6 +72,75 @@ test("retries keep the same email idempotency key and body", async () => {
   assert.equal(messages[0].body, messages[1].body);
 });
 
+test("full names support Unicode and a single name; legacy firstName remains compatible", async () => {
+  const names = [];
+  const { POST } = loadTypeScript(routePath, async (url, options) => {
+    if (url.includes("turnstile")) return Response.json({ success: true });
+    names.push(JSON.parse(options.body).text.split("\n")[0]);
+    return Response.json({ id: "mock-name-inquiry" });
+  });
+  for (const lead of [
+    { ...submission.lead, fullName: "  María   O’Neill 李  " },
+    { ...submission.lead, fullName: "李" },
+    { ...submission.lead, fullName: undefined, firstName: "Legacy Seller" },
+    { ...submission.lead, fullName: "Canonical Seller", firstName: "Ignored Legacy" },
+  ]) {
+    assert.equal((await POST(request({ ...submission, lead }))).status, 200);
+  }
+  assert.deepEqual(names, [
+    "Full name: María O’Neill 李", "Full name: 李", "Full name: Legacy Seller", "Full name: Canonical Seller",
+  ]);
+  const invalid = await POST(request({ ...submission, lead: { ...submission.lead, fullName: "", firstName: "Legacy must not override an explicit empty name" } }));
+  assert.equal(invalid.status, 400);
+  assert.ok((await invalid.json()).missing.includes("fullName"));
+});
+
+test("omitted or blank optional notes normalize to empty and do not add a notes section", async () => {
+  const { normalizeInquiry } = loadTypeScript(validationPath);
+  const messages = [];
+  const { POST } = loadTypeScript(routePath, async (url, options) => {
+    if (url.includes("turnstile")) return Response.json({ success: true });
+    messages.push(JSON.parse(options.body));
+    return Response.json({ id: "mock-no-notes-inquiry" });
+  });
+  for (const notes of [undefined, "", "  \r\n\t "]) {
+    const payload = { ...submission, lead: { ...submission.lead, notes } };
+    assert.equal(normalizeInquiry(payload).lead.notes, "");
+    assert.equal((await POST(request(payload))).status, 200);
+    assert.doesNotMatch(messages.at(-1).text, /^Notes:/m);
+    assert.doesNotMatch(messages.at(-1).html, />\s*Notes\s*</);
+  }
+});
+
+test("notes enforce the shared length limit without silently truncating the submitted text", async () => {
+  const { INQUIRY_NOTES_MAX_LENGTH, normalizeInquiry, validateInquiry } = loadTypeScript(validationPath);
+  const maximum = { ...submission, lead: { ...submission.lead, notes: "N".repeat(INQUIRY_NOTES_MAX_LENGTH) } };
+  assert.deepEqual(validateInquiry(normalizeInquiry(maximum)), []);
+  const oversized = { ...submission, lead: { ...submission.lead, notes: maximum.lead.notes + "!" } };
+  assert.equal(normalizeInquiry(oversized).lead.notes.length, INQUIRY_NOTES_MAX_LENGTH + 1);
+  let calls = 0;
+  const { POST } = loadTypeScript(routePath, async () => { calls++; throw new Error("Unexpected provider call"); });
+  const result = await POST(request(oversized));
+  assert.equal(result.status, 400);
+  assert.ok((await result.json()).missing.includes("notes"));
+  assert.equal(calls, 0);
+});
+
+test("multiline notes keep their formatting and escape HTML in the delivered message", async () => {
+  let message;
+  const { POST } = loadTypeScript(routePath, async (url, options) => {
+    if (url.includes("turnstile")) return Response.json({ success: true });
+    message = JSON.parse(options.body);
+    return Response.json({ id: "mock-multiline-inquiry" });
+  });
+  const notes = 'First line <img src=x onerror="alert(1)">\r\nSecond & final\rThird line';
+  const result = await POST(request({ ...submission, lead: { ...submission.lead, notes } }));
+  assert.equal(result.status, 200);
+  assert.ok(message.text.includes('Notes: First line <img src=x onerror="alert(1)">\nSecond & final\nThird line'));
+  assert.match(message.html, /&lt;img src=x onerror=&quot;alert\(1\)&quot;&gt;<br \/>Second &amp; final<br \/>Third line/);
+  assert.doesNotMatch(message.html, /<img|<script/);
+});
+
 test("invalid input never reaches Turnstile or email providers", async () => {
   let calls = 0;
   const { POST } = loadTypeScript(routePath, async () => { calls++; throw new Error("Unexpected provider call"); });
@@ -79,7 +149,7 @@ test("invalid input never reaches Turnstile or email providers", async () => {
     { ...submission, sourcePath: "https://external.invalid/page" }, { ...submission, sourcePath: "//external.invalid" },
     { ...submission, sourcePath: "/\\external.invalid" }, { ...submission, submissionId: "not-a-uuid" },
     { ...submission, selectionMethod: "other" },
-    ...["firstName", "phone", "streetAddress", "city", "state", "zip", "year", "make", "model", "runningStatus", "ownershipStatus"].map((field) => ({ ...submission, lead: { ...submission.lead, [field]: "" } })),
+    ...["fullName", "phone", "streetAddress", "city", "state", "zip", "year", "make", "model", "runningStatus", "ownershipStatus"].map((field) => ({ ...submission, lead: { ...submission.lead, [field]: "" } })),
     ...["90210", "92154extra", "921540"].map((zip) => ({ ...submission, lead: { ...submission.lead, zip } })),
     ...["123", "call6195550142", "+446195550142"].map((phone) => ({ ...submission, lead: { ...submission.lead, phone } })),
     ...["1899", String(new Date().getFullYear() + 2), "2014extra"].map((year) => ({ ...submission, lead: { ...submission.lead, year } })),
@@ -170,8 +240,13 @@ test("missing, invalid or incorrectly typed screening answers are rejected befor
   assert.equal(calls, 0);
 });
 
-test("all supported screening answers remain valid inquiries for human review", async () => {
+test("all 12 screening combinations remain valid and show their exact labels in the inbox subject", async () => {
   const { inquiryRunningStatuses, inquiryOwnershipStatuses } = loadTypeScript(validationPath);
+  const runningLabels = { runs: "Runs", does_not_run: "Does not run", not_sure: "Not sure" };
+  const ownershipLabels = {
+    owner_with_title: "Owner with title", owner_without_title: "Owner without title",
+    authorized_seller: "Authorized by the owner", not_sure: "Other / not sure",
+  };
   const emails = [];
   const { POST } = loadTypeScript(routePath, async (url, options) => {
     if (url.includes("turnstile")) return Response.json({ success: true });
@@ -183,10 +258,9 @@ test("all supported screening answers remain valid inquiries for human review", 
       const result = await POST(request({ ...submission, lead: { ...submission.lead, runningStatus, ownershipStatus } }));
       assert.equal(result.status, 200, `${runningStatus}/${ownershipStatus} is accepted for review`);
       const email = emails.at(-1);
-      assert.match(email.text, /All inquiries require human review/);
-      assert.match(email.text, /no offer or eligibility has been confirmed/);
-      if (runningStatus === "not_sure") assert.match(email.text, /Running status \(seller-reported\): Not sure/);
-      if (ownershipStatus === "not_sure") assert.match(email.text, /Seller is not sure about ownership or title status/);
+      assert.equal(email.subject, `New lead: 2014 Honda Civic | ${runningLabels[runningStatus]} | ${ownershipLabels[ownershipStatus]} | San Diego 92154`);
+      assert.ok(email.text.includes(`Running status: ${runningLabels[runningStatus]}\n`));
+      assert.ok(email.text.includes(`Ownership / title: ${ownershipLabels[ownershipStatus]}\n`));
     }
   }
   assert.equal(emails.length, 12);
@@ -195,7 +269,7 @@ test("all supported screening answers remain valid inquiries for human review", 
 test("source URLs are reduced to internal pathnames and HTML values are escaped", async () => {
   const { normalizeInquiry, validateInquiry } = loadTypeScript(validationPath);
   const { formatInquiryEmail } = loadTypeScript(formatterPath);
-  const normalized = normalizeInquiry({ ...submission, locale: "es", sourcePath: "/es/junk-cars?email=private@example.invalid#private", lead: { ...submission.lead, firstName: '<script>alert("test")</script>', model: "Civic & <test>" } });
+  const normalized = normalizeInquiry({ ...submission, locale: "es", sourcePath: "/es/junk-cars?email=private@example.invalid#private", lead: { ...submission.lead, fullName: '<script>alert("test")</script>', model: "Civic & <test>" } });
   assert.deepEqual(validateInquiry(normalized), []);
   assert.equal(normalized.sourcePath, "/es/junk-cars");
   const message = formatInquiryEmail(normalized);
@@ -251,11 +325,19 @@ test("missing provider configuration fails safely without any delivery bypass", 
   }
 });
 
-test("review examples match the exact production formatter", () => {
+test("formatter presents scannable lead information and clickable phone without the lengthy disclaimer", () => {
   const { normalizeInquiry } = loadTypeScript(validationPath);
   const { formatInquiryEmail } = loadTypeScript(formatterPath);
   const message = formatInquiryEmail(normalizeInquiry(submission));
-  const directory = new URL("../audits/2026-09-16-address-update/", import.meta.url);
-  assert.equal(readFileSync(new URL("quick-inquiry-example.html", directory), "utf8"), message.html);
-  assert.equal(readFileSync(new URL("quick-inquiry-example.txt", directory), "utf8"), message.text);
+  assert.equal(message.subject, "New lead: 2014 Honda Civic | Runs | Owner with title | San Diego 92154");
+  assert.ok(message.text.startsWith("Full name: Alex Example\nPhone:"));
+  assert.match(message.html, /<h[1-6]\b[^>]*>\s*2014 Honda Civic\s*<\/h[1-6]>/);
+  for (const section of ["Contact", "Pickup", "Vehicle details", "Notes"]) {
+    assert.ok(message.html.includes(`>${section}</`), `${section} is a distinct section`);
+  }
+  assert.match(message.html, /href="tel:\+16195550142"/);
+  assert.match(message.html, /<div style="[^"]*display:none;[^"]*">Alex Example · 619-555-0142 · 123 Example Street<\/div>/);
+  assert.doesNotMatch(message.html, /not a completed condition assessment|All inquiries require|have not been verified/);
+  assert.ok(message.html.indexOf("Full name") < message.html.indexOf("Selection method"));
+  assert.ok(message.html.indexOf("Notes") < message.html.indexOf("Selection method"));
 });

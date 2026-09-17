@@ -6,13 +6,14 @@ export const inquiryRunningStatuses = ["runs", "does_not_run", "not_sure"] as co
 export const inquiryOwnershipStatuses = ["owner_with_title", "owner_without_title", "authorized_seller", "not_sure"] as const;
 export type InquiryRunningStatus = typeof inquiryRunningStatuses[number];
 export type InquiryOwnershipStatus = typeof inquiryOwnershipStatuses[number];
+export const INQUIRY_NOTES_MAX_LENGTH = 2000;
 
 export type InquiryLead = {
   vin: string;
   year: string;
   make: string;
   model: string;
-  firstName: string;
+  fullName: string;
   phone: string;
   streetAddress: string;
   addressLine2: string;
@@ -21,6 +22,7 @@ export type InquiryLead = {
   zip: string;
   runningStatus: InquiryRunningStatus | "";
   ownershipStatus: InquiryOwnershipStatus | "";
+  notes: string;
 };
 
 export type InquirySubmission = {
@@ -82,7 +84,8 @@ export function normalizeInquiry(input: unknown): InquirySubmission {
       year: text(lead.year, 20),
       make: text(lead.make, 100),
       model: text(lead.model, 100),
-      firstName: text(lead.firstName, 100),
+      // Older open pages send firstName; an explicitly supplied fullName takes precedence.
+      fullName: text(lead.fullName === undefined ? lead.firstName : lead.fullName, 200),
       phone: text(lead.phone, 40),
       streetAddress: text(lead.streetAddress, 240),
       addressLine2: text(lead.addressLine2, 240),
@@ -91,6 +94,8 @@ export function normalizeInquiry(input: unknown): InquirySubmission {
       zip: text(lead.zip, 20),
       runningStatus: isRunningStatus(lead.runningStatus) ? lead.runningStatus : "",
       ownershipStatus: isOwnershipStatus(lead.ownershipStatus) ? lead.ownershipStatus : "",
+      // Keep the complete normalized text so validation can reject excessive notes.
+      notes: typeof lead.notes === "string" ? lead.notes.replace(/\r\n?/g, "\n").trim() : "",
     },
     locale: payload.locale === "es" ? "es" : "en",
     sourcePath: normalizeSourcePath(payload.sourcePath),
@@ -104,7 +109,8 @@ export function normalizeInquiry(input: unknown): InquirySubmission {
 export function validateInquiry(submission: InquirySubmission): InquiryField[] {
   const { lead, selectionMethod } = submission;
   const invalid: InquiryField[] = [];
-  if (!lead.firstName) invalid.push("firstName");
+  if (!lead.fullName) invalid.push("fullName");
+  if (lead.notes.length > INQUIRY_NOTES_MAX_LENGTH) invalid.push("notes");
   if (!isValidPhone(lead.phone) || !/^[+\d\s().-]+$/.test(lead.phone)) invalid.push("phone");
   if (!lead.streetAddress) invalid.push("streetAddress");
   if (!lead.city) invalid.push("city");
