@@ -11,6 +11,8 @@ import { useVinVehicle } from "../hooks/use-vin-vehicle";
 import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
 import { isServiceAreaZip, serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { TurnstileChallenge } from "./turnstile-challenge";
+import { LeadRequestGate } from "./lead-request-gate";
+import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 
 const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -31,7 +33,7 @@ const copy = {
     vinHelp: "Find it on your registration or the driver's side dashboard.",
     vinLoading: "Finding your vehicle…", vinFound: "Review your vehicle details below, then continue.", vinFailed: "Enter your vehicle details below to continue.", vinRetry: "Look up VIN again", vinLimit: "You can update any of these details before continuing.",
     continue: "Continue", continuing: "Sending…", next: "Next: two quick questions, contact details and pickup address.",
-    contactTitle: "A few quick details", contactIntro: "Tell us if it runs and your ownership situation. Our local team will review your request and call you.",
+    contactTitle: "A few quick details", contactIntro: "Send this form once and our local team will call you. You won’t need to complete the detailed Get Offer form afterward.",
     runningStatus: "Does the vehicle start and run?", ownershipStatus: "Ownership / title", choose: "Select an answer", runs: "Yes", doesNotRun: "No", notSure: "Not sure", ownerTitle: "I own it (title available)", ownerNoTitle: "I own it (title missing)", authorizedSeller: "Authorized by the owner", otherOwnership: "Other / not sure", answerError: "Choose an answer, including “not sure” if needed.",
     fullName: "Full name", phone: "Phone number", zip: "ZIP code", edit: "Edit vehicle", send: "Send my request",
     notes: "Notes (optional)", notesPlaceholder: "Anything else you’d like us to know about the vehicle or pickup?", notesError: "Keep your notes to 2,000 characters or fewer.",
@@ -60,7 +62,7 @@ const copy = {
     vinHelp: "Está en tu registro o en el tablero del lado del conductor.",
     vinLoading: "Buscando tu vehículo…", vinFound: "Revisa los datos de tu carro y continúa.", vinFailed: "Ingresa los datos de tu carro abajo para continuar.", vinRetry: "Buscar VIN de nuevo", vinLimit: "Puedes editar estos datos antes de continuar.",
     continue: "Continuar", continuing: "Enviando…", next: "Después: dos preguntas, contacto y dirección del carro.",
-    contactTitle: "Unos datos rápidos", contactIntro: "Cuéntanos si funciona y tu situación de propiedad. Nuestro equipo local revisará tu solicitud y te llamará.",
+    contactTitle: "Unos datos rápidos", contactIntro: "Envía este formulario una sola vez y nuestro equipo local te llamará. No necesitas llenar el formulario de oferta detallado después.",
     runningStatus: "¿El carro enciende y funciona?", ownershipStatus: "Propiedad / título", choose: "Elige una respuesta", runs: "Sí", doesNotRun: "No", notSure: "No sé", ownerTitle: "Soy dueño y tengo título", ownerNoTitle: "Soy dueño, sin título", authorizedSeller: "Autorizado por el dueño", otherOwnership: "Otra situación / no sé", answerError: "Elige una respuesta; puedes seleccionar “no sé”.",
     fullName: "Nombre completo", phone: "Teléfono", zip: "Código ZIP", edit: "Editar vehículo", send: "Enviar mi solicitud",
     notes: "Notas (opcional)", notesPlaceholder: "¿Algo más que quieras contarnos sobre el carro o la recogida?", notesError: "Escribe un máximo de 2,000 caracteres.",
@@ -81,6 +83,10 @@ const copy = {
 };
 
 export function QuickOfferForm({ locale }: { locale: Locale }) {
+  return <LeadRequestGate locale={locale}><QuickOfferFields locale={locale} /></LeadRequestGate>;
+}
+
+function QuickOfferFields({ locale }: { locale: Locale }) {
   const text = copy[locale];
   const sourcePath = usePathname();
   const id = useId();
@@ -207,6 +213,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (getLeadSubmissionReceipt()) return;
     if (sendingRef.current || (mode === "vin" && vinVehicle.status === "loading")) return;
     const missingVehicle = vehicleErrors();
     if (missingVehicle.length) {
@@ -255,6 +262,7 @@ export function QuickOfferForm({ locale }: { locale: Locale }) {
         setResetSignal((current) => current + 1);
         return;
       }
+      saveLeadSubmissionReceipt({ vehicle: { year: selectedYear, make: selectedMake, model: selectedModel }, source: "quick" });
       setStage("success");
       sendGTMEvent({ event: "quick_inquiry_submit_success", selection_method: selectionMethod, language: locale });
     } catch {

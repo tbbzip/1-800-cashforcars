@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { TurnstileChallenge } from "./turnstile-challenge";
+import { LeadRequestGate } from "./lead-request-gate";
 import { sendGTMEvent } from "@next/third-parties/google";
 import {
   FormEvent,
@@ -25,6 +26,7 @@ import {
 import type { Dictionary, Locale } from "../dictionaries";
 import { getOfferSubmissionIdentity, validateOfferStep, type OfferLead, type OfferField, type OfferSubmissionIdentity } from "../offer-validation";
 import { getLocalePath } from "../dictionaries";
+import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 import {
   isServiceAreaZip,
   normalizeZip,
@@ -319,15 +321,7 @@ function SummaryCard({
   );
 }
 
-export function OfferFlow({
-  dictionary,
-  initialVin = "",
-  initialYear = "",
-  initialMake = "",
-  initialModel = "",
-  locale,
-  previewSuccess = false,
-}: {
+type OfferFlowProps = {
   dictionary: Dictionary;
   initialVin?: string;
   initialYear?: string;
@@ -335,7 +329,40 @@ export function OfferFlow({
   initialModel?: string;
   locale: Locale;
   previewSuccess?: boolean;
-}) {
+};
+
+export function OfferFlow(props: OfferFlowProps) {
+  const [freshVehicle, setFreshVehicle] = useState(false);
+  const [formKey, setFormKey] = useState(0);
+
+  function startAnotherVehicle() {
+    setFreshVehicle(true);
+    setFormKey((current) => current + 1);
+  }
+
+  return (
+    <LeadRequestGate locale={props.locale} bypass={props.previewSuccess} fullPage onStartAnother={startAnotherVehicle}>
+      <OfferFlowBody
+        key={formKey}
+        {...props}
+        initialVin={freshVehicle ? "" : props.initialVin}
+        initialYear={freshVehicle ? "" : props.initialYear}
+        initialMake={freshVehicle ? "" : props.initialMake}
+        initialModel={freshVehicle ? "" : props.initialModel}
+      />
+    </LeadRequestGate>
+  );
+}
+
+function OfferFlowBody({
+  dictionary,
+  initialVin = "",
+  initialYear = "",
+  initialMake = "",
+  initialModel = "",
+  locale,
+  previewSuccess = false,
+}: OfferFlowProps) {
   const flow = dictionary.offerFlow;
   const [stepIndex, setStepIndex] = useState(previewSuccess ? 3 : 0);
   const [data, setData] = useState<FlowData>(() =>
@@ -499,7 +526,8 @@ export function OfferFlow({
   }, [initialVin, previewSuccess]);
 
   async function submitOffer() {
-    if (submittingRef.current) return;
+    // Recheck synchronously in case another form/tab completed before this click.
+    if (submittingRef.current || getLeadSubmissionReceipt()) return;
     if (needsTurnstile && !turnstileToken) {
       setValidationError(flow.common.turnstileRequired);
       return;
@@ -544,6 +572,10 @@ export function OfferFlow({
         throw new Error(responseError);
       }
 
+      saveLeadSubmissionReceipt({
+        vehicle: { year: data.year, make: data.make, model: data.model },
+        source: "full",
+      });
       setSubmitStatus("success");
       setTurnstileToken("");
       sendGTMEvent({
