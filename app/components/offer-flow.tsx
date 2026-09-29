@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { TurnstileChallenge } from "./turnstile-challenge";
 import { LeadRequestGate } from "./lead-request-gate";
+import { AdClickHiddenFields } from "./ad-click-fields";
+import { getAdClickAttribution } from "../ad-click-attribution";
 import { sendGTMEvent } from "@next/third-parties/google";
 import {
   FormEvent,
@@ -552,6 +554,7 @@ function OfferFlowBody({
           locale,
           submissionId: submissionRef.current.id,
           turnstileToken,
+          attribution: getAdClickAttribution(),
         }),
         signal: controller.signal,
       });
@@ -686,6 +689,7 @@ function OfferFlowBody({
           onSubmit={handleSubmit}
           className="min-w-0 px-5 py-8 sm:px-8 lg:px-20 lg:py-14"
         >
+          <AdClickHiddenFields />
           <Link
             href={getLocalePath(locale)}
             className="mb-6 inline-flex items-center gap-2 text-sm font-black text-slate-600 transition hover:text-slate-950 lg:hidden"

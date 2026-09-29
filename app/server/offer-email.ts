@@ -2,6 +2,7 @@ import "server-only";
 import { createHash } from "node:crypto";
 import type { OfferLead } from "../offer-validation";
 import type { LeadEmail } from "./lead-delivery";
+import { adClickRows, type AdClickAttribution } from "../ad-click-attribution";
 
 function booleanLabel(value: boolean | null) {
   if (value === true) {
@@ -39,7 +40,8 @@ function buildSubject(lead: OfferLead) {
   return `New cash offer lead: ${vehicle || "Vehicle"}${location}`;
 }
 
-function buildTextEmail(lead: OfferLead, locale: string) {
+function buildTextEmail(lead: OfferLead, locale: string, attribution: AdClickAttribution) {
+  const adClick = adClickRows(attribution);
   return [
     "New cash offer lead",
     "",
@@ -74,10 +76,12 @@ function buildTextEmail(lead: OfferLead, locale: string) {
     `Airbags deployed: ${booleanLabel(lead.airbagsDeployed)}`,
     `Has keys: ${booleanLabel(lead.hasKeys)}`,
     `Vehicle location: ${lead.access}`,
+    ...(adClick.length ? ["", ...adClick.map(([label, value]) => `${label}: ${value}`)] : []),
   ].join("\n");
 }
 
-function buildHtmlEmail(lead: OfferLead, locale: string) {
+function buildHtmlEmail(lead: OfferLead, locale: string, attribution: AdClickAttribution) {
+  const adClick = adClickRows(attribution);
   const name = [lead.firstName, lead.lastName].filter(Boolean).join(" ");
   const vehicle = [lead.year, lead.make, lead.model, lead.trim]
     .filter(Boolean)
@@ -133,6 +137,11 @@ function buildHtmlEmail(lead: OfferLead, locale: string) {
             ${row("Airbags deployed", booleanLabel(lead.airbagsDeployed))}
             ${row("Has keys", booleanLabel(lead.hasKeys))}
           </table>
+          ${adClick.length ? `
+          <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Ad click</h2>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            ${adClick.map(([label, value]) => row(label, value)).join("\n            ")}
+          </table>` : ""}
         </div>
       </div>
     </div>
@@ -140,7 +149,7 @@ function buildHtmlEmail(lead: OfferLead, locale: string) {
 </html>`;
 }
 
-export function formatOfferEmail(lead: OfferLead, locale: "en" | "es", submissionId?: string): LeadEmail {
+export function formatOfferEmail(lead: OfferLead, locale: "en" | "es", submissionId?: string, attribution: AdClickAttribution = {}): LeadEmail {
   // Older pages already open during a deployment do not send an ID. Deduplicate
   // their normalized payload too, without placing seller details in the key.
   const idempotencyKey = submissionId
@@ -148,8 +157,8 @@ export function formatOfferEmail(lead: OfferLead, locale: "en" | "es", submissio
     : `offer-form/legacy/${createHash("sha256").update(JSON.stringify({ lead, locale })).digest("hex")}`;
   return {
     subject: buildSubject(lead),
-    html: buildHtmlEmail(lead, locale),
-    text: buildTextEmail(lead, locale),
+    html: buildHtmlEmail(lead, locale, attribution),
+    text: buildTextEmail(lead, locale, attribution),
     source: "offer_form",
     idempotencyKey,
     replyTo: lead.email,

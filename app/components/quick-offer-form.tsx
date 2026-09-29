@@ -11,6 +11,8 @@ import { useVinVehicle } from "../hooks/use-vin-vehicle";
 import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
 import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { TurnstileChallenge } from "./turnstile-challenge";
+import { AdClickHiddenFields } from "./ad-click-fields";
+import { getAdClickAttribution } from "../ad-click-attribution";
 import { LeadRequestGate } from "./lead-request-gate";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 
@@ -251,7 +253,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       fullName: fullName.trim(), phone: phone.trim(), zip, notes: notes.trim(),
       streetAddress: streetAddress.trim(), addressLine2: addressLine2.trim(), city: city.trim(), state: "CA",
     };
-    const data = { lead, locale, sourcePath, selectionMethod };
+    const data = { lead, locale, sourcePath, selectionMethod, attribution: getAdClickAttribution() };
     const fingerprint = JSON.stringify(data);
     try {
       if (submissionRef.current?.fingerprint !== fingerprint) submissionRef.current = { fingerprint, id: crypto.randomUUID() };
@@ -304,6 +306,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       ) : <>
       <p className="mt-1 text-sm leading-5 text-slate-600">{stage === "contact" ? text.contactIntro : text.intro}</p>
       <form ref={formRef} onSubmit={handleSubmit} noValidate aria-busy={isPending} className="mt-4 min-w-0">
+        <AdClickHiddenFields />
         {stage === "vehicle" ? <>
         <div role="group" aria-label={text.method} className="grid grid-cols-[minmax(0,1fr)_minmax(0,0.55fr)] gap-1 rounded-xl bg-slate-100 p-1">
           {(["details", "vin"] as const).map((item) => (

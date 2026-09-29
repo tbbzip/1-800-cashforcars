@@ -2,6 +2,7 @@ import { formatOfferEmail } from "../../server/offer-email";
 import { getClientIp, sendLeadEmail, verifyTurnstile } from "../../server/lead-delivery";
 import { normalizeOfferSubmissionId, validateOfferLead, type OfferLead } from "../../offer-validation";
 import { normalizeZip } from "../../service-area";
+import { normalizeAdClickAttribution } from "../../ad-click-attribution";
 
 const MAX_STRING_LENGTH = 240;
 const MAX_TOKEN_LENGTH = 2048;
@@ -13,6 +14,7 @@ type OfferPayload = {
   locale?: string;
   turnstileToken?: string;
   submissionId?: unknown;
+  attribution?: unknown;
 };
 
 function asString(value: unknown, maxLength = MAX_STRING_LENGTH) {
@@ -116,7 +118,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const email = await sendLeadEmail(formatOfferEmail(lead, locale, submissionId), locale);
+  const attribution = normalizeAdClickAttribution(payload.attribution);
+  const email = await sendLeadEmail(formatOfferEmail(lead, locale, submissionId, attribution), locale);
 
   if (!email.ok) {
     return Response.json({ error: email.error }, { status: email.status });

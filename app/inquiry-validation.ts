@@ -1,4 +1,5 @@
 import { isValidVehicleYear, isValidPhone } from "./offer-validation";
+import { normalizeAdClickAttribution, type AdClickAttribution } from "./ad-click-attribution";
 
 export type InquirySelectionMethod = "vin" | "dropdown" | "manual";
 export const inquiryRunningStatuses = ["runs", "does_not_run", "not_sure"] as const;
@@ -31,6 +32,7 @@ export type InquirySubmission = {
   submissionId: string;
   selectionMethod: InquirySelectionMethod | "";
   turnstileToken: string;
+  attribution: AdClickAttribution;
 };
 
 export type InquiryField = keyof InquiryLead | "sourcePath" | "submissionId" | "selectionMethod";
@@ -102,6 +104,7 @@ export function normalizeInquiry(input: unknown): InquirySubmission {
     selectionMethod: method === "vin" || method === "dropdown" || method === "manual" ? method : "",
     turnstileToken: typeof payload.turnstileToken === "string" && payload.turnstileToken.length <= 2048
       ? payload.turnstileToken.trim() : "",
+    attribution: normalizeAdClickAttribution(payload.attribution),
   };
 }
 

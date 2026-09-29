@@ -5,6 +5,7 @@ import "../globals.css";
 import { getDictionary } from "../dictionaries";
 import { createPageMetadata } from "../seo";
 import { GtmPhoneClickEvents } from "../components/gtm-events";
+import { AdClickCapture } from "../components/ad-click-fields";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -55,6 +56,7 @@ export default function SpanishRootLayout({
           />
         </noscript>
         <GtmPhoneClickEvents />
+        <AdClickCapture />
         {children}
       </body>
     </html>

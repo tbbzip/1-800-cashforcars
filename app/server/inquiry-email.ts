@@ -1,6 +1,7 @@
 import "server-only";
 import type { InquirySubmission, InquiryRunningStatus, InquiryOwnershipStatus } from "../inquiry-validation";
 import type { LeadEmail } from "./lead-delivery";
+import { adClickRows } from "../ad-click-attribution";
 
 function escapeHtml(value: string) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -22,7 +23,7 @@ const ownershipLabels: Record<InquiryOwnershipStatus, string> = {
 
 /** Shared by delivery and local review fixtures; no recipient data or provider call lives here. */
 export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
-  const { lead, locale, selectionMethod, sourcePath, submissionId } = submission;
+  const { lead, locale, selectionMethod, sourcePath, submissionId, attribution } = submission;
   const vehicle = [lead.year, lead.make, lead.model].join(" ");
   const running = lead.runningStatus ? runningLabels[lead.runningStatus] : "Not provided";
   const ownership = lead.ownershipStatus ? ownershipLabels[lead.ownershipStatus] : "Not provided";
@@ -49,6 +50,7 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
     ["Page", sourcePath],
     ["Language", locale],
     ["Inquiry ID", submissionId],
+    ...adClickRows(attribution ?? {}),
   ];
   const section = (title: string, entries: string[][]) => `
         <h2 style="margin:22px 0 8px;color:#166534;font-size:12px;line-height:1.5;letter-spacing:0.08em;text-transform:uppercase;">${title}</h2>
