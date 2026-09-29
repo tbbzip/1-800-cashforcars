@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, PhoneCall } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getLocalePath, getOfferPath } from "../dictionaries";
+import { getLocalePath, getOfferPath, getPrivacyPath } from "../dictionaries";
 import {
   getIncorporatedCitiesPath,
   getLocationPath,
@@ -217,6 +217,11 @@ export function SiteFooter({
           <div className="grid gap-2">
             <p>
               © {year} Cash For Cars. {dictionary.footer.rights}
+            </p>
+            <p>
+              <Link href={getPrivacyPath(locale)} className="text-slate-300 underline underline-offset-4 transition hover:text-[#6ee28d]">
+                {dictionary.footer.privacy}
+              </Link>
             </p>
             <p>
               done with {"<3"} by{" "}

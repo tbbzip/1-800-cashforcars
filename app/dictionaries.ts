@@ -30,3 +30,7 @@ export function getLocalePath(locale: Locale): string {
 export function getOfferPath(locale: Locale): string {
   return locale === "en" ? "/offer" : "/es/oferta";
 }
+
+export function getPrivacyPath(locale: Locale): string {
+  return locale === "en" ? "/privacy" : "/es/privacidad";
+}

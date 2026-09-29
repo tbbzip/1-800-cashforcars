@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getOfferSubmissionIdentity, validateOfferStep, type OfferLead, type OfferField, type OfferSubmissionIdentity } from "../offer-validation";
-import { getLocalePath } from "../dictionaries";
+import { getLocalePath, getPrivacyPath } from "../dictionaries";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 import {
   normalizeZip,
@@ -1294,7 +1294,8 @@ function ReviewStep({
 
       <h2 tabIndex={-1} className="scroll-mt-24 outline-none text-3xl font-black text-slate-950">{flow.review.title}</h2>
       <p className="mt-3 max-w-2xl text-base font-semibold leading-7 text-slate-600">
-        {flow.review.body}
+        {flow.review.body}{" "}
+        <Link href={getPrivacyPath(locale)} className="text-[#146c30] underline underline-offset-4">{locale === "es" ? "Política de privacidad" : "Privacy policy"}</Link>
       </p>
 
       <div className="mt-8 grid min-w-0 gap-4 sm:grid-cols-2">

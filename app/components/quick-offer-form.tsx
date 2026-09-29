@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { ArrowRight, Check, ChevronDown, Loader2 } from "lucide-react";
-import { getOfferPath, type Locale } from "../dictionaries";
+import { getOfferPath, getPrivacyPath, type Locale } from "../dictionaries";
 import { isValidPhone, isValidVehicleYear } from "../offer-validation";
 import { useVinVehicle } from "../hooks/use-vin-vehicle";
 import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
@@ -42,7 +42,7 @@ const copy = {
     optionalDetails: "Add pickup address or notes (optional)", streetAddress: "Street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
     security: "Security check", securityWaiting: "Finishing a quick security check…", securityError: "The security check could not connect. Please retry or call us.", securityExpired: "The security check expired. Please try it again.", securityRetry: "Retry security check",
     unavailableSecurity: "Online verification is unavailable. Please call us to request an offer.",
-    contactNotice: "By sending, you’re asking our team to call you about this vehicle.",
+    contactNotice: "By sending, you’re asking our team to call you about this vehicle.", privacy: "Privacy policy",
     detailed: "Prefer the detailed Get Offer form?", sent: "Your request was sent", sentBody: "Our local team will review your vehicle information and call you at",
     phoneError: "Enter a 10-digit US phone number.", zipError: "Enter a 5-digit pickup ZIP code.",
     deliveryError: "We couldn’t confirm delivery. Your answers are still here. Please retry or call us.", nameError: "Enter your full name.",
@@ -71,7 +71,7 @@ const copy = {
     optionalDetails: "Agregar dirección o notas (opcional)", streetAddress: "Calle y número", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
     security: "Verificación de seguridad", securityWaiting: "Terminando una verificación rápida de seguridad…", securityError: "La verificación no pudo conectar. Reintenta o llámanos.", securityExpired: "La verificación venció. Vuelve a intentarla.", securityRetry: "Reintentar verificación",
     unavailableSecurity: "La verificación no está disponible. Llámanos para solicitar una oferta.",
-    contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.",
+    contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.", privacy: "Política de privacidad",
     detailed: "¿Prefieres el formulario de oferta detallado?", sent: "Tu solicitud fue enviada", sentBody: "Nuestro equipo local revisará los datos de tu carro y te llamará al",
     phoneError: "Ingresa un teléfono de Estados Unidos de 10 dígitos.", zipError: "Ingresa un ZIP de 5 dígitos.",
     deliveryError: "No pudimos confirmar el envío. Tus respuestas siguen aquí. Reintenta o llámanos.", nameError: "Ingresa tu nombre completo.",
@@ -492,7 +492,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
           {!isPending ? <ArrowRight aria-hidden="true" className="h-4 w-4" /> : null}
         </button>
         {stage === "contact" && turnstileSiteKey && !token && !securityError && !isPending ? <p role="status" className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold leading-5 text-slate-600"><Loader2 aria-hidden="true" className="h-3.5 w-3.5 animate-spin" />{text.securityWaiting}</p> : null}
-        <p className="mt-2 text-center text-xs leading-5 text-slate-600">{stage === "contact" ? text.contactNotice : text.next}</p>
+        <p className="mt-2 text-center text-xs leading-5 text-slate-600">{stage === "contact" ? <>{text.contactNotice} <Link href={getPrivacyPath(locale)} className="underline underline-offset-2">{text.privacy}</Link></> : text.next}</p>
         <p className="mt-3 flex items-start justify-center gap-1.5 border-t border-slate-100 pt-3 text-center text-xs leading-5 text-slate-600"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#187b36]" />{text.reassurance}</p>
       </form>
       {stage === "vehicle" ? <Link href={getOfferPath(locale)} className="mt-3 block text-center text-xs font-semibold leading-5 text-[#146c30] underline">{text.detailed}</Link> : null}

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getOfferPath } from "./dictionaries";
+import { getOfferPath, getPrivacyPath } from "./dictionaries";
 import { getInternalPages, getInternalPath } from "./internal-pages";
 import { getLocationPages } from "./location-pages";
 import { getLocationPath } from "./location-paths";
@@ -83,5 +83,11 @@ export function getSiteRoutes(): SiteRoute[] {
     }),
     ...internalRoutes(),
     ...locationRoutes(),
+    ...localizedRoute({
+      en: getPrivacyPath("en"),
+      es: getPrivacyPath("es"),
+      changeFrequency: "yearly",
+      priority: 0.2,
+    }),
   ];
 }
