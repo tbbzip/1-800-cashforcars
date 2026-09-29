@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,35 +9,8 @@ import {
   PhoneCall,
   Truck,
 } from "lucide-react";
-import { motion } from "motion/react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { mascotImages, sceneImages, type SiteImageAsset } from "../image-assets";
-
-const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const sectionMotion = {
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.55, ease: smoothEase },
-};
-
-const gridMotion = {
-  whileInView: {
-    transition: {
-      staggerChildren: 0.075,
-      delayChildren: 0.12,
-    },
-  },
-  viewport: { once: true, amount: 0.18 },
-};
-
-const cardMotion = {
-  initial: { opacity: 0, y: 22, scale: 0.985 },
-  whileInView: { opacity: 1, y: 0, scale: 1 },
-  viewport: { once: true, amount: 0.22 },
-  transition: { duration: 0.5, ease: smoothEase },
-};
 
 const cardAssets: Array<{
   asset: SiteImageAsset;
@@ -103,10 +74,7 @@ export function CashForCarsShowcase({
       id="cash-for-cars-proof"
       className="scroll-mt-32 overflow-hidden border-y border-slate-200 bg-[#f6f8fb] px-5 py-14 sm:px-8 lg:py-16"
     >
-      <motion.div
-        {...sectionMotion}
-        className="mx-auto max-w-[1160px] text-center"
-      >
+      <div className="mx-auto max-w-[1160px] text-center">
         <div className="inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-extrabold uppercase text-[#228b40] shadow-[0_1px_0_rgba(15,23,42,0.04)]">
           {section.eyebrow}
         </div>
@@ -116,12 +84,9 @@ export function CashForCarsShowcase({
         <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-slate-600">
           {section.body}
         </p>
-      </motion.div>
+      </div>
 
-      <motion.div
-        {...gridMotion}
-        className="mx-auto mt-10 grid max-w-[1160px] gap-4 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <div className="mx-auto mt-10 grid max-w-[1160px] gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {section.cards.map((card, index) => {
           const Icon = cardIcons[index] ?? BadgeDollarSign;
           const visual = cardAssets[index] ?? cardAssets[0];
@@ -129,9 +94,8 @@ export function CashForCarsShowcase({
           const isScene = visual.asset.kind === "scene";
 
           return (
-            <motion.article
+            <article
               key={card.title}
-              {...cardMotion}
               className={`group relative flex min-h-[300px] overflow-hidden rounded-[22px] border p-5 text-left shadow-[0_18px_46px_rgba(15,23,42,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.1)] ${
                 isDark
                   ? "border-slate-800 bg-slate-950 text-white"
@@ -193,13 +157,12 @@ export function CashForCarsShowcase({
                 />
               </div>
 
-            </motion.article>
+            </article>
           );
         })}
-      </motion.div>
+      </div>
 
-      <motion.div
-        {...sectionMotion}
+      <div
         className="mx-auto mt-8 flex max-w-[1160px] flex-col items-center justify-between gap-4 rounded-[22px] border border-slate-200 bg-white p-4 shadow-[0_18px_46px_rgba(15,23,42,0.06)] sm:flex-row sm:p-5"
       >
         <p className="max-w-2xl text-center text-sm font-bold leading-6 text-slate-600 sm:text-left">
@@ -220,7 +183,7 @@ export function CashForCarsShowcase({
             {section.callCta}
           </a>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

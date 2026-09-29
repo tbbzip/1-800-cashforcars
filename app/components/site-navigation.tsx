@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { ChevronDown, Globe2, Menu, Phone, X } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getLocalePath, getOfferPath } from "../locale-paths";
@@ -16,38 +15,6 @@ const phoneHref = "tel:16198307005";
 
 type NavigationItem = Dictionary["navigation"]["items"][number];
 type AreaGroup = Dictionary["serviceAreas"]["items"][number];
-
-const smoothEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const popoverMotion = {
-  initial: { opacity: 0, y: 10, scale: 0.98 },
-  animate: { opacity: 1, y: 0, scale: 1 },
-  exit: { opacity: 0, y: 8, scale: 0.98 },
-  transition: { duration: 0.18, ease: smoothEase },
-};
-
-const dropdownMotion = {
-  initial: { opacity: 0, y: 12, x: "-50%", scale: 0.98 },
-  animate: { opacity: 1, y: 0, x: "-50%", scale: 1 },
-  exit: { opacity: 0, y: 10, x: "-50%", scale: 0.98 },
-  transition: { duration: 0.2, ease: smoothEase },
-};
-
-const listMotion = {
-  animate: {
-    transition: {
-      staggerChildren: 0.035,
-      delayChildren: 0.035,
-    },
-  },
-};
-
-const listItemMotion = {
-  initial: { opacity: 0, y: 6 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: 4 },
-  transition: { duration: 0.16, ease: smoothEase },
-};
 
 function isAreasMenu(item: NavigationItem) {
   return "areasMenu" in item && item.areasMenu === true;
@@ -341,33 +308,30 @@ function LanguageMenu({
         <Globe2 aria-hidden="true" className="h-[18px] w-[18px]" />
       </button>
 
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            {...popoverMotion}
-            className="absolute right-0 top-[calc(100%+10px)] z-[70] w-40 origin-top-right rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.18)]"
-          >
-            {languageOptions.map((option) => {
-              const isActive = option.locale === locale;
+      {isOpen ? (
+        <div
+          className="nav-enter absolute right-0 top-[calc(100%+10px)] z-[70] w-40 origin-top-right rounded-2xl border border-slate-200 bg-white p-2 shadow-[0_18px_45px_rgba(15,23,42,0.18)]"
+        >
+          {languageOptions.map((option) => {
+            const isActive = option.locale === locale;
 
-              return (
-                <Link
-                  key={option.locale}
-                  href={getLocalePath(option.locale)}
-                  aria-current={isActive ? "page" : undefined}
-                  onClick={() => setIsOpen(false)}
-                  className={`flex h-11 items-center gap-3 rounded-xl px-3 text-sm font-bold transition hover:bg-slate-50 ${
-                    isActive ? "text-[#2fad50]" : "text-slate-600"
-                  }`}
-                >
-                  <FlagMark locale={option.locale} />
-                  <span>{option.label}</span>
-                </Link>
-              );
-            })}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+            return (
+              <Link
+                key={option.locale}
+                href={getLocalePath(option.locale)}
+                aria-current={isActive ? "page" : undefined}
+                onClick={() => setIsOpen(false)}
+                className={`flex h-11 items-center gap-3 rounded-xl px-3 text-sm font-bold transition hover:bg-slate-50 ${
+                  isActive ? "text-[#2fad50]" : "text-slate-600"
+                }`}
+              >
+                <FlagMark locale={option.locale} />
+                <span>{option.label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -433,49 +397,38 @@ function DesktopNavItem({
         />
       </button>
 
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            id={menuId}
-            {...dropdownMotion}
-            className={`absolute left-1/2 top-full z-[60] origin-top rounded-2xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] ${
-              hasAreasMegaMenu
-                ? "max-h-[calc(100vh-150px)] w-[min(1040px,calc(100vw-32px))] overflow-y-auto p-4"
-                : "w-72 p-2"
-            }`}
-          >
-            {hasAreasMegaMenu ? (
-              <AreasDesktopMenu
-                dictionary={dictionary}
-                item={item}
-                locale={locale}
-                onNavigate={onNavigate}
-              />
-            ) : (
-              <motion.div
-                variants={listMotion}
-                initial="initial"
-                animate="animate"
-              >
-                {item.menuItems.map((menuItem) => (
-                  <motion.div
-                    key={`${item.label}-${menuItem.label}`}
-                    variants={listItemMotion}
-                  >
-                    <Link
-                      href={menuItem.href}
-                      onClick={onNavigate}
-                      className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-[#ecfdf1] hover:text-slate-950"
-                    >
-                      {menuItem.label}
-                    </Link>
-                  </motion.div>
-                ))}
-              </motion.div>
-            )}
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {isOpen ? (
+        <div
+          id={menuId}
+          className={`nav-enter absolute left-1/2 top-full z-[60] origin-top -translate-x-1/2 rounded-2xl border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.16)] ${
+            hasAreasMegaMenu
+              ? "max-h-[calc(100vh-150px)] w-[min(1040px,calc(100vw-32px))] overflow-y-auto p-4"
+              : "w-72 p-2"
+          }`}
+        >
+          {hasAreasMegaMenu ? (
+            <AreasDesktopMenu
+              dictionary={dictionary}
+              item={item}
+              locale={locale}
+              onNavigate={onNavigate}
+            />
+          ) : (
+            <div>
+              {item.menuItems.map((menuItem) => (
+                <Link
+                  key={`${item.label}-${menuItem.label}`}
+                  href={menuItem.href}
+                  onClick={onNavigate}
+                  className="block rounded-xl px-4 py-3 text-sm font-bold text-slate-700 transition hover:bg-[#ecfdf1] hover:text-slate-950"
+                >
+                  {menuItem.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -532,51 +485,29 @@ function MobileNavItem({
         />
       </button>
 
-      <AnimatePresence initial={false}>
-        {isOpen ? (
-          <motion.div
-            id={menuId}
-            initial={{ height: 0, opacity: 0, y: -6 }}
-            animate={{ height: "auto", opacity: 1, y: 0 }}
-            exit={{ height: 0, opacity: 0, y: -6 }}
-            transition={{ duration: 0.24, ease: smoothEase }}
-            className="overflow-hidden"
-          >
-            <motion.div
-              variants={listMotion}
-              initial="initial"
-              animate="animate"
-              className="grid gap-2 px-3 pb-2 pt-1"
-            >
-              {hasAreasMegaMenu ? (
-                <motion.div variants={listItemMotion}>
-                  <AreasMobileMenu
-                    dictionary={dictionary}
-                    item={item}
-                    locale={locale}
-                    onNavigate={onNavigate}
-                  />
-                </motion.div>
-              ) : (
-                item.menuItems.map((menuItem) => (
-                  <motion.div
-                    key={`${item.label}-${menuItem.label}`}
-                    variants={listItemMotion}
-                  >
-                    <Link
-                      href={menuItem.href}
-                      onClick={onNavigate}
-                      className="block rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
-                    >
-                      {menuItem.label}
-                    </Link>
-                  </motion.div>
-                ))
-              )}
-            </motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      {isOpen ? (
+        <div id={menuId} className="nav-enter grid gap-2 px-3 pb-2 pt-1">
+          {hasAreasMegaMenu ? (
+            <AreasMobileMenu
+              dictionary={dictionary}
+              item={item}
+              locale={locale}
+              onNavigate={onNavigate}
+            />
+          ) : (
+            item.menuItems.map((menuItem) => (
+              <Link
+                key={`${item.label}-${menuItem.label}`}
+                href={menuItem.href}
+                onClick={onNavigate}
+                className="block rounded-xl border border-slate-200 bg-[#f8fafc] px-4 py-3 text-center text-sm font-bold text-slate-700 transition hover:border-[#bde9c9] hover:bg-[#ecfdf1] hover:text-slate-950"
+              >
+                {menuItem.label}
+              </Link>
+            ))
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }
@@ -650,7 +581,7 @@ export function SiteNavigation({
   }
 
   return (
-    <MotionConfig reducedMotion="user">
+    <>
       <header className="sticky top-0 z-40 hidden border-b border-slate-200 bg-white/95 shadow-[0_1px_16px_rgba(15,23,42,0.04)] backdrop-blur lg:block">
         <div className="mx-auto flex h-16 max-w-[1160px] items-center justify-between px-6">
           <Logo dictionary={dictionary} locale={locale} />
@@ -725,101 +656,70 @@ export function SiteNavigation({
               onClick={toggleMobileMenu}
               className="relative inline-flex h-11 w-11 cursor-pointer items-center justify-center rounded-full text-slate-950 transition hover:bg-slate-100"
             >
-              <motion.span
+              <span
                 aria-hidden="true"
-                initial={false}
-                animate={
-                  isMobileMenuOpen
-                    ? { opacity: 0, rotate: 90, scale: 0.72 }
-                    : { opacity: 1, rotate: 0, scale: 1 }
-                }
-                transition={{ duration: 0.2, ease: smoothEase }}
-                className="absolute"
+                className={`absolute transition duration-200 motion-reduce:transition-none ${
+                  isMobileMenuOpen ? "rotate-90 scale-75 opacity-0" : "opacity-100"
+                }`}
               >
                 <Menu className="h-8 w-8" strokeWidth={2.2} />
-              </motion.span>
-              <motion.span
+              </span>
+              <span
                 aria-hidden="true"
-                initial={false}
-                animate={
-                  isMobileMenuOpen
-                    ? { opacity: 1, rotate: 0, scale: 1 }
-                    : { opacity: 0, rotate: -90, scale: 0.72 }
-                }
-                transition={{ duration: 0.2, ease: smoothEase }}
-                className="absolute"
+                className={`absolute transition duration-200 motion-reduce:transition-none ${
+                  isMobileMenuOpen ? "opacity-100" : "-rotate-90 scale-75 opacity-0"
+                }`}
               >
                 <X className="h-8 w-8" strokeWidth={2.2} />
-              </motion.span>
+              </span>
             </button>
           </div>
         </div>
 
-        <AnimatePresence>
-          {isMobileMenuOpen ? (
-            <motion.nav
-              id="mobile-navigation"
-              aria-label="Mobile navigation"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.24, ease: smoothEase }}
-              className="fixed inset-x-0 bottom-0 top-[58px] z-50 flex flex-col justify-between overflow-y-auto border-t border-slate-100 bg-white px-5 pb-7 pt-5"
-            >
-              <motion.div
-                variants={listMotion}
-                initial="initial"
-                animate="animate"
-                className="flex flex-col items-center gap-2 py-2"
-              >
-                {dictionary.navigation.items.map((item, index) => (
-                  <motion.div
-                    key={item.label}
-                    variants={listItemMotion}
-                    className="flex w-full justify-center"
-                  >
-                    <MobileNavItem
-                      dictionary={dictionary}
-                      item={item}
-                      index={index}
-                      isOpen={openMobileMenu === item.label}
-                      locale={locale}
-                      onToggle={() =>
-                        setOpenMobileMenu((current) =>
-                          current === item.label ? null : item.label,
-                        )
-                      }
-                      onNavigate={closeNavigation}
-                    />
-                  </motion.div>
-                ))}
-              </motion.div>
+        {isMobileMenuOpen ? (
+          <nav
+            id="mobile-navigation"
+            aria-label="Mobile navigation"
+            className="nav-enter fixed inset-x-0 bottom-0 top-[58px] z-50 flex flex-col justify-between overflow-y-auto border-t border-slate-100 bg-white px-5 pb-7 pt-5"
+          >
+            <div className="flex flex-col items-center gap-2 py-2">
+              {dictionary.navigation.items.map((item, index) => (
+                <div key={item.label} className="flex w-full justify-center">
+                  <MobileNavItem
+                    dictionary={dictionary}
+                    item={item}
+                    index={index}
+                    isOpen={openMobileMenu === item.label}
+                    locale={locale}
+                    onToggle={() =>
+                      setOpenMobileMenu((current) =>
+                        current === item.label ? null : item.label,
+                      )
+                    }
+                    onNavigate={closeNavigation}
+                  />
+                </div>
+              ))}
+            </div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.2, ease: smoothEase }}
-                className="grid gap-3"
+            <div className="grid gap-3">
+              <Link
+                href={phoneHref}
+                onClick={closeNavigation}
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-extrabold text-slate-950 shadow-[0_1px_0_rgba(15,23,42,0.04)]"
               >
-                <Link
-                  href={phoneHref}
-                  onClick={closeNavigation}
-                  className="inline-flex h-12 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 text-sm font-extrabold text-slate-950 shadow-[0_1px_0_rgba(15,23,42,0.04)]"
-                >
-                  {dictionary.navigation.callUs} {phoneNumber}
-                </Link>
-                <GetOfferLink
-                  href={offerHref}
-                  onClick={closeNavigation}
-                  className="h-12 rounded-xl text-base"
-                >
-                  {dictionary.navigation.getInstantOffer}
-                </GetOfferLink>
-              </motion.div>
-            </motion.nav>
-          ) : null}
-        </AnimatePresence>
+                {dictionary.navigation.callUs} {phoneNumber}
+              </Link>
+              <GetOfferLink
+                href={offerHref}
+                onClick={closeNavigation}
+                className="h-12 rounded-xl text-base"
+              >
+                {dictionary.navigation.getInstantOffer}
+              </GetOfferLink>
+            </div>
+          </nav>
+        ) : null}
       </header>
 
       <MobileCtaBar
@@ -827,6 +727,6 @@ export function SiteNavigation({
         offerLabel={dictionary.navigation.mobileBarOffer}
         callLabel={dictionary.navigation.callUs}
       />
-    </MotionConfig>
+    </>
   );
 }

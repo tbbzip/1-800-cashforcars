@@ -43,8 +43,29 @@ a {
   box-shadow: 0 0 0 4px rgba(47, 173, 80, 0.12);
 }
 
+/* Header menu enter animation (CSS instead of a JavaScript animation library). */
+@keyframes nav-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nav-enter {
+  animation: nav-enter 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .nav-enter {
+    animation: none;
   }
 }

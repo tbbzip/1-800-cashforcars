@@ -14,7 +14,7 @@ import {
   Wrench,
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getLocalePath, getOfferPath } from "../dictionaries";
+import { getLocalePath } from "../dictionaries";
 import {
   homeCarsWeBuyImages,
   mascotImages,
@@ -77,7 +77,6 @@ export function LocalizedHome({
   dictionary: Dictionary;
   locale: Locale;
 }) {
-  const offerPath = getOfferPath(locale);
   const structuredData = createSchemaGraph([
     createLocalBusinessJsonLd({
       description: dictionary.meta.description,
@@ -233,7 +232,7 @@ export function LocalizedHome({
       <CashForCarsShowcase
         dictionary={dictionary}
         locale={locale}
-        offerPath={offerPath}
+        offerPath="#get-offer"
       />
 
       <section
