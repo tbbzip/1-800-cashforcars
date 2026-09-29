@@ -7,20 +7,21 @@ export const privacyPolicyUpdated = { en: "September 29, 2026", es: "29 de septi
 
 type Section = { title: string; paragraphs?: string[]; items?: string[] };
 
-// Describes what this website actually does. Business practices outside the site
-// (retention, sharing) should be confirmed by the owner before publishing changes.
-const content: Record<Locale, { title: string; updated: string; intro: string; sections: Section[]; contactTitle: string; contactBody: string }> = {
+const businessAddress = ["552 Alta Rd #4", "San Diego, CA 92154"];
+
+// Describes what this website actually does; update it when tags or providers change.
+const content: Record<Locale, { title: string; updated: string; intro: string; sections: Section[]; contactTitle: string; ownedBy: string; phone: string }> = {
   en: {
     title: "Privacy Policy",
     updated: "Last updated",
-    intro: "1-800 Cash for Cars (“we,” “us”) is owned by Quick Auto Wrecking and buys whole vehicles in San Diego County. This policy explains what information we collect through www.1-800-cashforcars.com, how we use it, and the choices you have.",
+    intro: "1-800 Cash for Cars (“we,” “us”) is owned by Quick Auto Wrecking, 552 Alta Rd #4, San Diego, CA 92154, and buys whole vehicles in San Diego County. This policy explains what information we collect through www.1-800-cashforcars.com, how we use it, and the choices you have.",
     sections: [
       {
         title: "Information you give us",
         items: [
           "When you request an offer: your name, phone number, ZIP code, and vehicle details such as year, make, model, VIN, mileage, condition, and ownership or title status.",
           "If you choose to add them: the pickup address, notes, and (on the detailed offer form) your email address.",
-          "When you call, text, or chat with us: the information you share in that conversation.",
+          "When you call or text us: the information you share in that conversation.",
         ],
       },
       {
@@ -50,7 +51,6 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "Cloudflare Turnstile, which checks that form submissions come from people.",
           "Google (Google Analytics, Google Ads, and Google Tag Manager), for site analytics, ad measurement, and advertising, including showing our ads to people who visited this site.",
           "Microsoft Clarity, which records how visitors use our pages (such as clicks, scrolling, and page layout) so we can improve them.",
-          "LiveChat, which provides website chat.",
         ],
       },
       {
@@ -79,19 +79,20 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
       },
     ],
     contactTitle: "Contact us",
-    contactBody: "1-800 Cash for Cars, 552 Alta Rd #4, San Diego, CA 92154.",
+    ownedBy: "Owned by Quick Auto Wrecking",
+    phone: "Phone",
   },
   es: {
     title: "Política de privacidad",
     updated: "Última actualización",
-    intro: "1-800 Cash for Cars (“nosotros”) pertenece a Quick Auto Wrecking y compra vehículos completos en San Diego County. Esta política explica qué información recopilamos en www.1-800-cashforcars.com, cómo la usamos y qué opciones tienes.",
+    intro: "1-800 Cash for Cars (“nosotros”) pertenece a Quick Auto Wrecking, 552 Alta Rd #4, San Diego, CA 92154, y compra vehículos completos en San Diego County. Esta política explica qué información recopilamos en www.1-800-cashforcars.com, cómo la usamos y qué opciones tienes.",
     sections: [
       {
         title: "Información que nos das",
         items: [
           "Cuando pides una oferta: tu nombre, teléfono, código ZIP y los datos del vehículo, como año, marca, modelo, VIN, millaje, condición y situación de propiedad o título.",
           "Si decides agregarlos: la dirección de recogida, notas y (en el formulario de oferta detallado) tu correo electrónico.",
-          "Cuando nos llamas, nos escribes o chateas con nosotros: la información que compartes en esa conversación.",
+          "Cuando nos llamas o nos envías un mensaje de texto: la información que compartes en esa conversación.",
         ],
       },
       {
@@ -121,7 +122,6 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "Cloudflare Turnstile, que verifica que los formularios los envíen personas.",
           "Google (Google Analytics, Google Ads y Google Tag Manager), para análisis del sitio, medición de anuncios y publicidad, incluido mostrar nuestros anuncios a personas que visitaron este sitio.",
           "Microsoft Clarity, que registra cómo se usan nuestras páginas (como clics, desplazamiento y diseño de la página) para mejorarlas.",
-          "LiveChat, que ofrece el chat del sitio.",
         ],
       },
       {
@@ -150,7 +150,8 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
       },
     ],
     contactTitle: "Contáctanos",
-    contactBody: "1-800 Cash for Cars, 552 Alta Rd #4, San Diego, CA 92154.",
+    ownedBy: "Propiedad de Quick Auto Wrecking",
+    phone: "Teléfono",
   },
 };
 
@@ -181,10 +182,20 @@ export function PrivacyPolicy({ dictionary, locale }: { dictionary: Dictionary; 
         ))}
         <section className="mt-8">
           <h2 className="text-xl font-black">{page.contactTitle}</h2>
-          <p className="mt-3 text-base leading-7 text-slate-700">
-            {page.contactBody}{" "}
+          <address className="mt-3 text-base not-italic leading-7 text-slate-700">
+            1-800 Cash for Cars
+            <br />
+            {page.ownedBy}
+            {businessAddress.map((line) => (
+              <span key={line}>
+                <br />
+                {line}
+              </span>
+            ))}
+            <br />
+            {page.phone}:{" "}
             <a href={serviceAreaPhoneHref} className="font-bold text-[#146c30] underline underline-offset-4">{serviceAreaPhone}</a>
-          </p>
+          </address>
         </section>
       </article>
       <SiteFooter dictionary={dictionary} locale={locale} />
