@@ -9,7 +9,7 @@ import { getOfferPath, type Locale } from "../dictionaries";
 import { isValidPhone, isValidVehicleYear } from "../offer-validation";
 import { useVinVehicle } from "../hooks/use-vin-vehicle";
 import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
-import { isServiceAreaZip, serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
+import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { TurnstileChallenge } from "./turnstile-challenge";
 import { LeadRequestGate } from "./lead-request-gate";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
@@ -42,7 +42,7 @@ const copy = {
     unavailableSecurity: "Online verification is unavailable. Please call us to request an offer.",
     contactNotice: "By sending, you’re asking our team to call you about this vehicle.",
     detailed: "Prefer the detailed Get Offer form?", sent: "Your request was sent", sentBody: "Our local team will review your vehicle information and call you at",
-    phoneError: "Enter a 10-digit US phone number.", zipError: "Enter a 5-digit pickup ZIP code.", areaError: "We currently serve San Diego County. Call us to confirm pickup for this ZIP.",
+    phoneError: "Enter a 10-digit US phone number.", zipError: "Enter a 5-digit pickup ZIP code.",
     deliveryError: "We couldn’t confirm delivery. Your answers are still here. Please retry or call us.", nameError: "Enter your full name.",
     reassurance: "Local team. No obligation to accept an offer.",
     manual: "Can't find your car? Enter the details", dropdowns: "Back to vehicle dropdowns",
@@ -71,7 +71,7 @@ const copy = {
     unavailableSecurity: "La verificación no está disponible. Llámanos para solicitar una oferta.",
     contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.",
     detailed: "¿Prefieres el formulario de oferta detallado?", sent: "Tu solicitud fue enviada", sentBody: "Nuestro equipo local revisará los datos de tu carro y te llamará al",
-    phoneError: "Ingresa un teléfono de Estados Unidos de 10 dígitos.", zipError: "Ingresa un ZIP de 5 dígitos.", areaError: "Por ahora damos servicio en San Diego County. Llámanos para confirmar este ZIP.",
+    phoneError: "Ingresa un teléfono de Estados Unidos de 10 dígitos.", zipError: "Ingresa un ZIP de 5 dígitos.",
     deliveryError: "No pudimos confirmar el envío. Tus respuestas siguen aquí. Reintenta o llámanos.", nameError: "Ingresa tu nombre completo.",
     reassurance: "Equipo local. Sin obligación de aceptar la oferta.",
     manual: "¿No encuentras tu carro? Ingresa los datos", dropdowns: "Volver a las listas de vehículos",
@@ -228,7 +228,7 @@ function QuickOfferFields({ locale }: { locale: Locale }) {
       sendGTMEvent({ event: "quick_inquiry_start", selection_method: selectionMethod, language: locale });
       return;
     }
-    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !streetAddress.trim() && "streetAddress", !city.trim() && "city", (!/^\d{5}$/.test(zip) || !isServiceAreaZip(zip)) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
+    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !streetAddress.trim() && "streetAddress", !city.trim() && "city", !/^\d{5}$/.test(zip) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
     if (missing.length) { showErrors(missing); return; }
     if (!turnstileSiteKey || !token) { setSecurityError(text.securityError); return; }
     setInvalid([]);
@@ -422,7 +422,7 @@ function QuickOfferFields({ locale }: { locale: Locale }) {
                   </label>
               <label className="grid gap-1.5 text-sm font-bold">{text.zip}
                 <input aria-label={text.zip} {...fieldProps("zip")} value={zip} onChange={(event) => { setZip(event.target.value.replace(/\D/g, "").slice(0, 5)); setInvalid((fields) => fields.filter((field) => field !== "zip")); }} inputMode="numeric" autoComplete="section-pickup postal-code" maxLength={5} className={fieldClass("zip")} />
-                {invalid.includes("zip") ? <span id={`${id}-zip-error`} className="text-xs leading-5 text-red-700">{/^\d{5}$/.test(zip) ? text.areaError : text.zipError}</span> : null}
+                {invalid.includes("zip") ? <span id={`${id}-zip-error`} className="text-xs leading-5 text-red-700">{text.zipError}</span> : null}
               </label>
                 </div>
               </fieldset>

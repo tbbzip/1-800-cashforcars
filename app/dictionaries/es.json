@@ -538,7 +538,6 @@
       "turnstileError": "Hubo un problema con la verificación de seguridad. Intenta otra vez.",
       "turnstileExpired": "La verificación de seguridad expiró. Intenta otra vez.",
       "turnstileMissing": "La verificación de seguridad todavía no está configurada.",
-      "outsideServiceArea": "Por ahora solo damos servicio en San Diego County. Para este ZIP, manda un correo a referrals@1-800-cashforcars.com o un mensaje de texto al 619-830-7005 y confirmamos si podemos pasar por el carro.",
       "source": "Fuente"
     },
     "vehicle": {
@@ -560,11 +559,6 @@
       "city": "Ciudad",
       "state": "Estado",
       "zip": "ZIP donde está el carro",
-      "zipAccepted": "Perfecto, damos servicio en este ZIP.",
-      "zipRejected": "Este ZIP está fuera de nuestra área actual en San Diego County.",
-      "zipRejectedEmail": "Manda un correo a referrals@1-800-cashforcars.com",
-      "zipRejectedOr": "o",
-      "zipRejectedText": "un mensaje de texto al 619-830-7005",
       "phone": "Teléfono",
       "firstName": "Nombre",
       "lastName": "Apellido",

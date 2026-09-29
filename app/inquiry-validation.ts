@@ -1,4 +1,3 @@
-import { isServiceAreaZip } from "./service-area";
 import { isValidVehicleYear, isValidPhone } from "./offer-validation";
 
 export type InquirySelectionMethod = "vin" | "dropdown" | "manual";
@@ -115,7 +114,7 @@ export function validateInquiry(submission: InquirySubmission): InquiryField[] {
   if (!lead.streetAddress) invalid.push("streetAddress");
   if (!lead.city) invalid.push("city");
   if (lead.state !== "CA") invalid.push("state");
-  if (!/^\d{5}$/.test(lead.zip) || !isServiceAreaZip(lead.zip)) invalid.push("zip");
+  if (!/^\d{5}$/.test(lead.zip)) invalid.push("zip");
   if (!submission.sourcePath) invalid.push("sourcePath");
   if (!isValidSubmissionId(submission.submissionId)) invalid.push("submissionId");
   if (!selectionMethod) invalid.push("selectionMethod");

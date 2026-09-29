@@ -1,7 +1,6 @@
 import { normalizeInquiry, validateInquiry } from "../../inquiry-validation";
 import { formatInquiryEmail } from "../../server/inquiry-email";
 import { getClientIp, sendLeadEmail, verifyTurnstile } from "../../server/lead-delivery";
-import { referralEmail, serviceAreaPhone } from "../../service-area";
 
 export const runtime = "nodejs";
 
@@ -22,9 +21,7 @@ export async function POST(request: Request) {
   const missing = validateInquiry(submission);
   if (missing.length) {
     const error = missing.includes("zip")
-      ? locale === "es"
-        ? `Ingresa un ZIP válido de nuestra área de servicio. Para confirmar otro ZIP, manda un correo a ${referralEmail} o un mensaje al ${serviceAreaPhone}.`
-        : `Enter a valid ZIP in our service area. To check another ZIP, email ${referralEmail} or text ${serviceAreaPhone}.`
+      ? locale === "es" ? "Ingresa un código ZIP de 5 dígitos." : "Enter a 5-digit ZIP code."
       : locale === "es" ? "Revisa los datos requeridos antes de enviar tu solicitud." : "Please check the required inquiry details before sending.";
     return Response.json({ error, missing }, { status: 400 });
   }

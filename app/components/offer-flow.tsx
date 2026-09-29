@@ -28,12 +28,9 @@ import { getOfferSubmissionIdentity, validateOfferStep, type OfferLead, type Off
 import { getLocalePath } from "../dictionaries";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 import {
-  isServiceAreaZip,
   normalizeZip,
-  referralEmailHref,
   serviceAreaPhone,
   serviceAreaPhoneHref,
-  serviceAreaTextHref,
 } from "../service-area";
 
 type LookupVehicle = {
@@ -425,7 +422,6 @@ function OfferFlowBody({
 
   function errorsForStep(step: number) {
     const fields = validateOfferStep(data, step);
-    if (step === 0 && !isServiceAreaZip(data.zip) && !fields.includes("zip")) fields.push("zip");
     const labels: Partial<Record<OfferField, string>> = {
       year: flow.vehicle.year, make: flow.vehicle.make, model: flow.vehicle.model,
       firstName: flow.vehicle.firstName, zip: flow.vehicle.zip, phone: flow.vehicle.phone,
@@ -442,7 +438,7 @@ function OfferFlowBody({
       if (field === "phone") errors[field] = locale === "es" ? "Ingresa un teléfono de 10 dígitos." : "Enter a 10-digit phone number.";
       else if (field === "email") errors[field] = locale === "es" ? "Ingresa un correo válido." : "Enter a valid email address.";
       else if (field === "year") errors[field] = locale === "es" ? "Ingresa un año válido de 4 dígitos." : "Enter a valid 4-digit vehicle year.";
-      else if (field === "zip") errors[field] = data.zip.length === 5 ? flow.common.outsideServiceArea : (locale === "es" ? "Ingresa el código postal de 5 dígitos del vehículo." : "Enter the vehicle’s 5-digit ZIP code.");
+      else if (field === "zip") errors[field] = locale === "es" ? "Ingresa el código postal de 5 dígitos del vehículo." : "Enter the vehicle’s 5-digit ZIP code.";
       else errors[field] = `${labels[field]}: ${locale === "es" ? "completa esta respuesta." : "please complete this answer."}`;
     }
     return errors;
@@ -848,8 +844,6 @@ function VehicleStep({
   setField: <K extends keyof FlowData>(key: K, value: FlowData[K]) => void;
 }) {
   const vehicleTitle = [data.year, data.make, data.model].filter(Boolean).join(" ");
-  const zipHasFiveDigits = data.zip.length === 5;
-  const zipIsAllowed = isServiceAreaZip(data.zip);
 
   return (
     <div className="min-w-0">
@@ -997,51 +991,6 @@ function VehicleStep({
               />
             </div>
 
-            {zipHasFiveDigits ? (
-              <div
-                className={`flex items-start gap-3 rounded-xl border p-3 text-sm font-bold ${
-                  zipIsAllowed
-                    ? "border-[#bde9c9] bg-[#ecfdf1] text-[#1f7a38]"
-                    : "border-red-200 bg-red-50 text-red-700"
-                }`}
-              >
-                {zipIsAllowed ? (
-                  <CheckCircle2
-                    aria-hidden="true"
-                    className="mt-0.5 h-4 w-4 shrink-0"
-                  />
-                ) : (
-                  <AlertCircle
-                    aria-hidden="true"
-                    className="mt-0.5 h-4 w-4 shrink-0"
-                  />
-                )}
-                <p>
-                  {zipIsAllowed ? (
-                    flow.vehicle.zipAccepted
-                  ) : (
-                    <>
-                      {flow.vehicle.zipRejected}{" "}
-                      <a
-                        href={referralEmailHref}
-                        className="underline decoration-current underline-offset-4"
-                      >
-                        {flow.vehicle.zipRejectedEmail}
-                      </a>
-                      {" "}
-                      {flow.vehicle.zipRejectedOr}{" "}
-                      <a
-                        href={serviceAreaTextHref}
-                        className="underline decoration-current underline-offset-4"
-                      >
-                        {flow.vehicle.zipRejectedText}
-                      </a>
-                      .
-                    </>
-                  )}
-                </p>
-              </div>
-            ) : null}
           </section>
           <TextField
             name="phone"

@@ -57,6 +57,19 @@ test("VIN, dropdown and manual inquiries deliver identity, screening and complet
   }
 });
 
+test("any well-formed 5-digit ZIP is accepted and delivered", async () => {
+  for (const zip of ["92118", "92040", "91977", "92173", "90210"]) {
+    const calls = [];
+    const { POST } = loadTypeScript(routePath, async (url, options) => {
+      calls.push({ url, options });
+      return Response.json(calls.length === 1 ? { success: true } : { id: "mock-inquiry" });
+    });
+    const result = await POST(request({ ...submission, lead: { ...submission.lead, zip } }));
+    assert.equal(result.status, 200, `${zip} is accepted`);
+    assert.match(JSON.parse(calls[1].options.body).text, new RegExp(`San Diego, CA ${zip}`));
+  }
+});
+
 test("retries keep the same email idempotency key and body", async () => {
   const messages = [];
   const { POST } = loadTypeScript(routePath, async (url, options) => {
@@ -150,7 +163,7 @@ test("invalid input never reaches Turnstile or email providers", async () => {
     { ...submission, sourcePath: "/\\external.invalid" }, { ...submission, submissionId: "not-a-uuid" },
     { ...submission, selectionMethod: "other" },
     ...["fullName", "phone", "streetAddress", "city", "state", "zip", "year", "make", "model", "runningStatus", "ownershipStatus"].map((field) => ({ ...submission, lead: { ...submission.lead, [field]: "" } })),
-    ...["90210", "92154extra", "921540"].map((zip) => ({ ...submission, lead: { ...submission.lead, zip } })),
+    ...["9215", "92154extra", "921540", "abcde"].map((zip) => ({ ...submission, lead: { ...submission.lead, zip } })),
     ...["123", "call6195550142", "+446195550142"].map((phone) => ({ ...submission, lead: { ...submission.lead, phone } })),
     ...["1899", String(new Date().getFullYear() + 2), "2014extra"].map((year) => ({ ...submission, lead: { ...submission.lead, year } })),
     ...["", "1HGBH41JXMN10918", "1HGBH41JXMN1091867", "IHGBH41JXMN109186"].map((vin) => ({ ...submission, selectionMethod: "vin", lead: { ...submission.lead, vin } })),

@@ -1,12 +1,7 @@
 import { formatOfferEmail } from "../../server/offer-email";
 import { getClientIp, sendLeadEmail, verifyTurnstile } from "../../server/lead-delivery";
 import { normalizeOfferSubmissionId, validateOfferLead, type OfferLead } from "../../offer-validation";
-import {
-  isServiceAreaZip,
-  normalizeZip,
-  referralEmail,
-  serviceAreaPhone,
-} from "../../service-area";
+import { normalizeZip } from "../../service-area";
 
 const MAX_STRING_LENGTH = 240;
 const MAX_TOKEN_LENGTH = 2048;
@@ -64,17 +59,6 @@ function normalizeLead(input: Partial<OfferLead> | undefined): OfferLead {
   };
 }
 
-function validateLead(lead: OfferLead) {
-  const missing: string[] = validateOfferLead(lead);
-  if (!isServiceAreaZip(lead.zip)) missing.push("serviceAreaZip");
-  return missing;
-}
-
-function serviceAreaError(locale: string) {
-  return locale === "es"
-    ? `Por ahora solo damos servicio en San Diego County. Para este ZIP, manda un correo a ${referralEmail} o un mensaje de texto al ${serviceAreaPhone} y confirmamos si podemos pasar por el carro.`
-    : `We currently serve San Diego County only. For this ZIP code, email ${referralEmail} or text ${serviceAreaPhone} so we can confirm if pickup is possible.`;
-}
 
 export async function POST(request: Request) {
   let payload: OfferPayload;
@@ -114,16 +98,9 @@ export async function POST(request: Request) {
   }
 
   const lead = normalizeLead(payload.lead);
-  const missing = validateLead(lead);
+  const missing: string[] = validateOfferLead(lead);
 
   if (missing.length > 0) {
-    if (missing.includes("serviceAreaZip")) {
-      return Response.json(
-        { error: serviceAreaError(locale), missing },
-        { status: 400 },
-      );
-    }
-
     return Response.json(
       { error: "Please complete the required offer details.", missing },
       { status: 400 },

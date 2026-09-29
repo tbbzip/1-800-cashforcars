@@ -52,17 +52,30 @@ test("detailed offers still require full contact, address and condition fields",
   assert.equal(calls, 0);
 });
 
-test("malformed, missing security, invalid contact and outside-area payloads never call a provider", async () => {
+test("malformed, missing security and invalid contact payloads never call a provider", async () => {
   let calls = 0;
   const { POST } = loadRoute(async () => { calls++; throw new Error("Unexpected provider call"); });
   for (const payload of [null, [], "invalid", { lead: null }, { lead: [] }, { lead },
     { lead: { ...lead, email: "invalid" }, turnstileToken: "test-only-token" },
-    { lead: { ...lead, zip: "90210" }, turnstileToken: "test-only-token" }]) {
+    { lead: { ...lead, zip: "921" }, turnstileToken: "test-only-token" }]) {
     const response = await POST(request(payload));
     assert.equal(response.status, 400);
     assert.equal(typeof (await response.json()).error, "string");
   }
   assert.equal(calls, 0);
+});
+
+test("any well-formed 5-digit ZIP is accepted for detailed offers", async () => {
+  for (const zip of ["92118", "92040", "90210"]) {
+    const calls = [];
+    const { POST } = loadRoute(async (url, options) => {
+      calls.push({ url, options });
+      return Response.json(calls.length === 1 ? { success: true } : { id: "mock-delivery" });
+    });
+    const result = await POST(request({ lead: { ...lead, zip }, turnstileToken: "test-only-token" }));
+    assert.equal(result.status, 200, `${zip} is accepted`);
+    assert.equal(calls.length, 2);
+  }
 });
 
 test("failed security cannot send a lead and returns a retryable message", async () => {
