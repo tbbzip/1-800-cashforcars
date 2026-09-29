@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getOfferSubmissionIdentity, validateOfferStep, type OfferLead, type OfferField, type OfferSubmissionIdentity } from "../offer-validation";
-import { getLocalePath, getPrivacyPath } from "../dictionaries";
+import { getLocalePath, getPrivacyPath } from "../locale-paths";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 import {
   normalizeZip,

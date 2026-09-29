@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, MotionConfig } from "motion/react";
 import { ChevronDown, Globe2, Menu, Phone, X } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getLocalePath, getOfferPath } from "../dictionaries";
+import { getLocalePath, getOfferPath } from "../locale-paths";
 import { getIncorporatedCitiesPath, getLocationPath } from "../location-paths";
 import { MobileCtaBar } from "./mobile-cta-bar";
 

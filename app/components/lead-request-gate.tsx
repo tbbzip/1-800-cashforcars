@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, type ReactNode } from "react";
 import { CheckCircle2, Phone } from "lucide-react";
-import { getLocalePath, type Locale } from "../dictionaries";
+import { getLocalePath, type Locale } from "../locale-paths";
 import { useLeadSubmissionReceipt } from "../hooks/use-lead-submission-receipt";
 import { clearLeadSubmissionReceipt } from "../lead-submission-receipt";
 import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import { AlertCircle, CheckCircle2, Loader2, Search } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
-import { getOfferPath } from "../dictionaries";
+import { getOfferPath } from "../locale-paths";
 
 type VehicleLookupResponse = {
   error?: string;

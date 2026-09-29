@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sendGTMEvent } from "@next/third-parties/google";
 import { ArrowRight, Check, ChevronDown, Loader2 } from "lucide-react";
-import { getOfferPath, getPrivacyPath, type Locale } from "../dictionaries";
+import { getOfferPath, getPrivacyPath, type Locale } from "../locale-paths";
 import { isValidPhone, isValidVehicleYear } from "../offer-validation";
 import { useVinVehicle } from "../hooks/use-vin-vehicle";
 import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunningStatus } from "../inquiry-validation";
