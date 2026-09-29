@@ -32,6 +32,7 @@ import { SiteNavigation } from "./site-navigation";
 import { CashForCarsShowcase } from "./cash-for-cars-showcase";
 import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 import { QuickOfferForm } from "./quick-offer-form";
+import { latestVehicleYear } from "../offer-validation";
 
 const processIcons = [CarFront, BadgeDollarSign, Truck];
 const localSeoIcons = [BadgeDollarSign, Wrench, Truck];
@@ -127,7 +128,7 @@ export function LocalizedHome({
             </h1>
           </div>
           <div className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-            <QuickOfferForm locale={locale} />
+            <QuickOfferForm locale={locale} maxYear={latestVehicleYear()} />
           </div>
           <div className="min-w-0 lg:col-start-1 lg:row-start-2">
             <p className="max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">

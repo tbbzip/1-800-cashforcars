@@ -50,8 +50,13 @@ export function getOfferSubmissionIdentity(
   return previous?.fingerprint === fingerprint ? previous : { fingerprint, id: createId() };
 }
 
+/** Newest model year we accept: next calendar year. */
+export function latestVehicleYear() {
+  return new Date().getFullYear() + 1;
+}
+
 export function isValidVehicleYear(value: string) {
-  return /^\d{4}$/.test(value) && Number(value) >= 1900 && Number(value) <= new Date().getFullYear() + 1;
+  return /^\d{4}$/.test(value) && Number(value) >= 1900 && Number(value) <= latestVehicleYear();
 }
 
 export function isValidPhone(value: string) {

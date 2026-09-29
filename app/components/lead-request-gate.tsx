@@ -11,7 +11,6 @@ import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 
 const copy = {
   en: {
-    loading: "Getting your request ready…",
     received: "Request received",
     title: "You’re all set. We have your request.",
     noRepeat: "No need to fill out another form.",
@@ -24,7 +23,6 @@ const copy = {
     home: "Back to home",
   },
   es: {
-    loading: "Preparando tu solicitud…",
     received: "Solicitud recibida",
     title: "Listo. Ya recibimos tu solicitud.",
     noRepeat: "No necesitas llenar otro formulario.",
@@ -38,7 +36,11 @@ const copy = {
   },
 };
 
-/** Both forms use the same confirmed receipt across pages, languages and tabs. */
+/**
+ * Both forms use the same confirmed receipt across pages, languages and tabs.
+ * The form itself is server-rendered so it paints immediately without a layout shift;
+ * a saved receipt swaps in the confirmation after hydration.
+ */
 export function LeadRequestGate({
   locale,
   children,
@@ -75,36 +77,30 @@ export function LeadRequestGate({
     }
   }, [receipt, bypass]);
 
-  if (bypass || (ready && !receipt)) return <div ref={formContainerRef} className="contents">{children}</div>;
+  if (bypass || !receipt) return <div ref={formContainerRef} className="contents">{children}</div>;
 
   const confirmation = (
-    <section id="get-offer" aria-labelledby={`${id}-title`} aria-busy={!ready} className="w-full min-w-0 scroll-mt-36 rounded-3xl border border-[#bde9c9] bg-white p-5 text-slate-950 shadow-[0_18px_55px_rgba(15,23,42,0.08)] sm:p-7">
-      {!receipt ? (
-        <h2 id={`${id}-title`} role="status" className="py-8 text-lg font-bold text-slate-600">{text.loading}</h2>
-      ) : (
-        <>
-          <div className="flex items-center gap-2 text-sm font-extrabold text-[#146c30]">
-            <CheckCircle2 aria-hidden="true" className="h-6 w-6 shrink-0" />
-            {text.received}
-          </div>
-          <Heading ref={headingRef} id={`${id}-title`} tabIndex={-1} className="mt-3 scroll-mt-28 text-2xl font-black leading-tight tracking-tight outline-none">{text.title}</Heading>
-          <p className="mt-3 break-words text-sm font-bold text-slate-600">{[receipt.vehicle.year, receipt.vehicle.make, receipt.vehicle.model].join(" ")}</p>
-          <div className="mt-5 rounded-2xl border border-[#bde9c9] bg-[#ecfdf1] p-4">
-            <p className="text-base font-extrabold text-[#146c30]">{text.noRepeat}</p>
-            <p className="mt-2 text-sm leading-6 text-slate-700">{text.body}</p>
-          </div>
-          <p className="mt-5 text-sm leading-6 text-slate-600">{text.help}</p>
-          <a href={serviceAreaPhoneHref} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#187b36] px-4 py-3 text-base font-extrabold text-white outline-none transition hover:bg-[#12612a] focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2">
-            <Phone aria-hidden="true" className="h-4 w-4 shrink-0" />
-            {text.call} {serviceAreaPhone}
-          </a>
-          <p className="mt-2 text-xs leading-5 text-slate-600">{text.optional}</p>
-          <div className="mt-6 border-t border-slate-200 pt-4">
-            <p className="text-xs font-semibold text-slate-600">{text.another}</p>
-            <button type="button" onClick={() => { focusNewRequest.current = true; onStartAnother?.(); clearLeadSubmissionReceipt(); }} className="min-h-11 text-left text-sm font-bold text-[#146c30] underline underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2">{text.newRequest}</button>
-          </div>
-        </>
-      )}
+    <section id="get-offer" aria-labelledby={`${id}-title`} className="w-full min-w-0 scroll-mt-36 rounded-3xl border border-[#bde9c9] bg-white p-5 text-slate-950 shadow-[0_18px_55px_rgba(15,23,42,0.08)] sm:p-7">
+      <div className="flex items-center gap-2 text-sm font-extrabold text-[#146c30]">
+        <CheckCircle2 aria-hidden="true" className="h-6 w-6 shrink-0" />
+        {text.received}
+      </div>
+      <Heading ref={headingRef} id={`${id}-title`} tabIndex={-1} className="mt-3 scroll-mt-28 text-2xl font-black leading-tight tracking-tight outline-none">{text.title}</Heading>
+      <p className="mt-3 break-words text-sm font-bold text-slate-600">{[receipt.vehicle.year, receipt.vehicle.make, receipt.vehicle.model].join(" ")}</p>
+      <div className="mt-5 rounded-2xl border border-[#bde9c9] bg-[#ecfdf1] p-4">
+        <p className="text-base font-extrabold text-[#146c30]">{text.noRepeat}</p>
+        <p className="mt-2 text-sm leading-6 text-slate-700">{text.body}</p>
+      </div>
+      <p className="mt-5 text-sm leading-6 text-slate-600">{text.help}</p>
+      <a href={serviceAreaPhoneHref} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#187b36] px-4 py-3 text-base font-extrabold text-white outline-none transition hover:bg-[#12612a] focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2">
+        <Phone aria-hidden="true" className="h-4 w-4 shrink-0" />
+        {text.call} {serviceAreaPhone}
+      </a>
+      <p className="mt-2 text-xs leading-5 text-slate-600">{text.optional}</p>
+      <div className="mt-6 border-t border-slate-200 pt-4">
+        <p className="text-xs font-semibold text-slate-600">{text.another}</p>
+        <button type="button" onClick={() => { focusNewRequest.current = true; onStartAnother?.(); clearLeadSubmissionReceipt(); }} className="min-h-11 text-left text-sm font-bold text-[#146c30] underline underline-offset-4 outline-none focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2">{text.newRequest}</button>
+      </div>
     </section>
   );
 

@@ -10,6 +10,7 @@ import {
 import type { Locale } from "../dictionaries";
 import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { QuickOfferForm } from "./quick-offer-form";
+import { latestVehicleYear } from "../offer-validation";
 
 type NotFoundCopy = {
   eyebrow: string;
@@ -157,7 +158,7 @@ export function NotFoundContent({ locale }: { locale: Locale }) {
               {content.title}
             </h1>
             <div className="mt-5">
-              <QuickOfferForm locale={locale} />
+              <QuickOfferForm locale={locale} maxYear={latestVehicleYear()} />
             </div>
             <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-slate-300">
               {content.body}

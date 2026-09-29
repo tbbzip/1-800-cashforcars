@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useId, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sendGTMEvent } from "@next/third-parties/google";
@@ -82,11 +82,14 @@ const copy = {
   },
 };
 
-export function QuickOfferForm({ locale }: { locale: Locale }) {
-  return <LeadRequestGate locale={locale}><QuickOfferFields locale={locale} /></LeadRequestGate>;
+const subscribeNever = () => () => {};
+
+/** `maxYear` comes from the server render so the prerendered year list always matches hydration. */
+export function QuickOfferForm({ locale, maxYear }: { locale: Locale; maxYear: number }) {
+  return <LeadRequestGate locale={locale}><QuickOfferFields locale={locale} maxYear={maxYear} /></LeadRequestGate>;
 }
 
-function QuickOfferFields({ locale }: { locale: Locale }) {
+function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number }) {
   const text = copy[locale];
   const sourcePath = usePathname();
   const id = useId();
@@ -124,6 +127,8 @@ function QuickOfferFields({ locale }: { locale: Locale }) {
   const sendingRef = useRef(false);
   const focusFieldRef = useRef<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
+  // Until hydration the button must not natively submit the server-rendered form.
+  const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false);
   const onTokenChange = useCallback((value: string) => {
     setToken(value);
     if (value) setSecurityError("");
@@ -145,8 +150,13 @@ function QuickOfferFields({ locale }: { locale: Locale }) {
       focusFieldRef.current = null;
     }
   }, [stage, isPending, invalid]);
-  const currentYear = new Date().getFullYear() + 1;
-  const years = Array.from({ length: currentYear - 1899 }, (_, index) => String(currentYear - index));
+  const years = Array.from({ length: maxYear - 1899 }, (_, index) => String(maxYear - index));
+
+  useEffect(() => {
+    // A year picked before hydration lives only in the DOM; adopt it so Make unlocks.
+    const picked = formRef.current?.querySelector<HTMLSelectElement>('select[name="year"]')?.value;
+    if (picked) setYear(picked);
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -439,7 +449,7 @@ function QuickOfferFields({ locale }: { locale: Locale }) {
         )}
         {invalid.length ? <p id={`${id}-error`} role="alert" className="mt-2 rounded-lg bg-red-50 p-3 text-sm font-semibold text-red-800">{invalid.includes("vin") ? text.invalidVin : `${text.missing} ${invalid.map((name) => text[name as "year" | "make" | "model" | "fullName" | "phone" | "zip" | "streetAddress" | "city" | "state" | "runningStatus" | "ownershipStatus" | "notes"]).join(", ")}.`}</p> : null}
         {submitError || securityError ? <p role="alert" className="mt-3 rounded-lg bg-red-50 p-3 text-sm font-semibold leading-5 text-red-800">{submitError || securityError} <a className="underline" href={serviceAreaPhoneHref}>{serviceAreaPhone}</a></p> : null}
-        <button type="submit" disabled={isPending || (mode === "vin" && vinVehicle.status === "loading") || (stage === "contact" && (!turnstileSiteKey || !token))} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#187b36] px-4 text-base font-extrabold text-white shadow-[0_6px_16px_rgba(24,123,54,0.18)] outline-none transition hover:bg-[#12612a] focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2 disabled:opacity-60">
+        <button type={hydrated ? "submit" : "button"} disabled={isPending || (mode === "vin" && vinVehicle.status === "loading") || (stage === "contact" && (!turnstileSiteKey || !token))} className="mt-3 flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#187b36] px-4 text-base font-extrabold text-white shadow-[0_6px_16px_rgba(24,123,54,0.18)] outline-none transition hover:bg-[#12612a] focus-visible:ring-2 focus-visible:ring-[#187b36] focus-visible:ring-offset-2 disabled:opacity-60">
           {isPending ? <Loader2 aria-hidden="true" className="h-4 w-4 animate-spin" /> : null}
           {isPending ? text.continuing : stage === "contact" ? text.send : text.continue}
           {!isPending ? <ArrowRight aria-hidden="true" className="h-4 w-4" /> : null}

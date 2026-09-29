@@ -25,6 +25,7 @@ import {
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 import { QuickOfferForm } from "./quick-offer-form";
+import { latestVehicleYear } from "../offer-validation";
 import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 
 const phoneHref = "tel:16198307005";
@@ -117,7 +118,7 @@ export function LocationPageTemplate({
             </div>
 
             <div className="min-w-0 self-start lg:col-start-2 lg:row-span-3 lg:row-start-1">
-              <QuickOfferForm locale={locale} />
+              <QuickOfferForm locale={locale} maxYear={latestVehicleYear()} />
             </div>
 
             <div className="min-w-0 lg:col-start-1 lg:row-start-2">

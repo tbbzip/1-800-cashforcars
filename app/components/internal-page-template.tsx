@@ -29,6 +29,7 @@ import {
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 import { QuickOfferForm } from "./quick-offer-form";
+import { latestVehicleYear } from "../offer-validation";
 
 const PHONE_NUMBER = "619-830-7005";
 const PHONE_HREF = "tel:16198307005";
@@ -200,7 +201,7 @@ export function InternalPageTemplate({
           </div>
 
           <div className="min-w-0 self-start lg:col-start-2 lg:row-span-2 lg:row-start-1">
-            <QuickOfferForm locale={locale} />
+            <QuickOfferForm locale={locale} maxYear={latestVehicleYear()} />
           </div>
 
           <div className="min-w-0 lg:col-start-1 lg:row-start-2">
