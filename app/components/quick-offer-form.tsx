@@ -293,7 +293,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
   const noModels = modelsStatus === "ready" && !models.length && !!makeId;
 
   return (
-    <section id="get-offer" aria-labelledby={`${id}-title`} className="w-full min-w-0 scroll-mt-36 rounded-3xl border border-slate-200 bg-white p-5 text-slate-950 shadow-[0_18px_55px_rgba(15,23,42,0.08)] sm:p-7">
+    <section id="get-offer" aria-labelledby={`${id}-title`} className="w-full min-w-0 scroll-mt-20 lg:scroll-mt-36 rounded-3xl border border-slate-200 bg-white p-5 text-slate-950 shadow-[0_18px_55px_rgba(15,23,42,0.08)] sm:p-7">
       <h2 ref={headingRef} tabIndex={-1} id={`${id}-title`} className="text-2xl font-black tracking-tight outline-none">{stage === "success" ? text.sent : stage === "contact" ? text.contactTitle : text.title}</h2>
       {stage === "success" ? (
         <div role="status" className="mt-4 space-y-4">

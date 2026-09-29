@@ -102,7 +102,7 @@ export function LocationPageTemplate({
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
       />
-      <SiteNavigation dictionary={dictionary} locale={locale} />
+      <SiteNavigation dictionary={dictionary} locale={locale} offerHref="#get-offer" />
 
       <section className="relative overflow-hidden border-b border-slate-200 bg-[#f6f8fb]">
         <div className="mx-auto max-w-[1160px] px-4 py-5 sm:px-8 sm:py-8 lg:py-10">

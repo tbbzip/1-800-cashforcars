@@ -36,7 +36,7 @@ export function SiteFooter({
 
   return (
     <footer className="bg-slate-950 text-white">
-      <div className="mx-auto max-w-[1160px] px-5 py-12 sm:px-8 lg:py-16">
+      <div className="mx-auto max-w-[1160px] px-5 pt-12 pb-28 sm:px-8 lg:py-16">
         <div className="flex flex-col gap-6 border-b border-white/10 pb-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <p className="text-sm font-black uppercase text-[#6ee28d]">

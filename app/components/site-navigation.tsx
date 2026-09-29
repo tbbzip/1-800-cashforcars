@@ -9,6 +9,7 @@ import { ChevronDown, Globe2, Menu, Phone, X } from "lucide-react";
 import type { Dictionary, Locale } from "../dictionaries";
 import { getLocalePath, getOfferPath } from "../dictionaries";
 import { getIncorporatedCitiesPath, getLocationPath } from "../location-paths";
+import { MobileCtaBar } from "./mobile-cta-bar";
 
 const phoneNumber = "619-830-7005";
 const phoneHref = "tel:16198307005";
@@ -255,22 +256,21 @@ function Logo({
 function GetOfferLink({
   children = "GET OFFER",
   className = "",
-  locale,
+  href,
   onClick,
 }: {
   children?: ReactNode;
   className?: string;
-  locale: Locale;
+  href: string;
   onClick?: () => void;
 }) {
-  return (
-    <Link
-      href={getOfferPath(locale)}
-      onClick={onClick}
-      className={`inline-flex h-11 items-center justify-center rounded-full bg-[#2fad50] px-7 text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(47,173,80,0.22)] transition hover:bg-[#279746] ${className}`}
-    >
-      {children}
-    </Link>
+  const classes = `inline-flex h-11 items-center justify-center rounded-full bg-[#2fad50] px-7 text-sm font-extrabold text-white shadow-[0_8px_18px_rgba(47,173,80,0.22)] transition hover:bg-[#279746] ${className}`;
+
+  // An on-page form is reached with a plain anchor; other pages link to the detailed offer page.
+  return href.startsWith("#") ? (
+    <a href={href} onClick={onClick} className={classes}>{children}</a>
+  ) : (
+    <Link href={href} onClick={onClick} className={classes}>{children}</Link>
   );
 }
 
@@ -584,9 +584,12 @@ function MobileNavItem({
 export function SiteNavigation({
   dictionary,
   locale,
+  offerHref = getOfferPath(locale),
 }: {
   dictionary: Dictionary;
   locale: Locale;
+  /** "#get-offer" on pages that include the quick offer form. */
+  offerHref?: string;
 }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDesktopMenu, setOpenDesktopMenu] = useState<string | null>(null);
@@ -661,7 +664,7 @@ export function SiteNavigation({
               <Phone aria-hidden="true" className="h-4 w-4" />
               {phoneNumber}
             </Link>
-            <GetOfferLink locale={locale}>
+            <GetOfferLink href={offerHref}>
               {dictionary.navigation.getOffer}
             </GetOfferLink>
           </div>
@@ -700,7 +703,15 @@ export function SiteNavigation({
         <div className="mobile-menu-shell flex h-[58px] items-center justify-between bg-white px-5">
           <Logo dictionary={dictionary} locale={locale} />
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 min-[360px]:gap-3">
+            <a
+              href={phoneHref}
+              aria-label={`${dictionary.navigation.callUs} ${phoneNumber}`}
+              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-full bg-[#187b36] px-3 text-xs font-extrabold text-white shadow-[0_6px_14px_rgba(24,123,54,0.2)]"
+            >
+              <Phone aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <span className="max-[359px]:sr-only">{dictionary.navigation.callUs}</span>
+            </a>
             <LanguageMenu
               dictionary={dictionary}
               locale={locale}
@@ -716,6 +727,7 @@ export function SiteNavigation({
             >
               <motion.span
                 aria-hidden="true"
+                initial={false}
                 animate={
                   isMobileMenuOpen
                     ? { opacity: 0, rotate: 90, scale: 0.72 }
@@ -728,6 +740,7 @@ export function SiteNavigation({
               </motion.span>
               <motion.span
                 aria-hidden="true"
+                initial={false}
                 animate={
                   isMobileMenuOpen
                     ? { opacity: 1, rotate: 0, scale: 1 }
@@ -741,41 +754,6 @@ export function SiteNavigation({
             </button>
           </div>
         </div>
-
-        <motion.div
-          animate={
-            isMobileMenuOpen
-              ? {
-                  borderColor: "rgba(241,245,249,0)",
-                  height: 0,
-                  opacity: 0,
-                  paddingBottom: 0,
-                  paddingTop: 0,
-                  y: -8,
-                }
-              : {
-                  borderColor: "rgb(241,245,249)",
-                  height: "auto",
-                  opacity: 1,
-                  paddingBottom: 10,
-                  paddingTop: 10,
-                  y: 0,
-                }
-          }
-          transition={{ duration: 0.22, ease: smoothEase }}
-          className="grid grid-cols-2 gap-2 overflow-hidden border-t border-slate-100 px-4"
-        >
-          <Link
-            href={phoneHref}
-            className="inline-flex h-11 min-w-0 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-[#f8f8f8] px-3 text-sm font-extrabold text-slate-950"
-          >
-            <Phone aria-hidden="true" className="h-4 w-4" />
-            <span>{dictionary.navigation.callUs}</span>
-          </Link>
-          <GetOfferLink locale={locale} className="h-11 rounded-lg px-4">
-            {dictionary.navigation.getOffer}
-          </GetOfferLink>
-        </motion.div>
 
         <AnimatePresence>
           {isMobileMenuOpen ? (
@@ -832,7 +810,7 @@ export function SiteNavigation({
                   {dictionary.navigation.callUs} {phoneNumber}
                 </Link>
                 <GetOfferLink
-                  locale={locale}
+                  href={offerHref}
                   onClick={closeNavigation}
                   className="h-12 rounded-xl text-base"
                 >
@@ -843,6 +821,12 @@ export function SiteNavigation({
           ) : null}
         </AnimatePresence>
       </header>
+
+      <MobileCtaBar
+        offerHref={offerHref}
+        offerLabel={dictionary.navigation.mobileBarOffer}
+        callLabel={dictionary.navigation.callUs}
+      />
     </MotionConfig>
   );
 }

@@ -114,7 +114,7 @@ export function LocalizedHome({
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLdScriptProps(structuredData)}
       />
-      <SiteNavigation dictionary={dictionary} locale={locale} />
+      <SiteNavigation dictionary={dictionary} locale={locale} offerHref="#get-offer" />
 
       <section className="border-b border-slate-200 bg-[#f6f8fb]">
         <div className="mx-auto grid max-w-[1160px] min-w-0 gap-5 px-4 py-5 sm:gap-8 sm:px-8 sm:py-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-12 lg:py-12">
