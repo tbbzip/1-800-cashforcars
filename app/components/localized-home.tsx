@@ -30,7 +30,6 @@ import {
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 import { CashForCarsShowcase } from "./cash-for-cars-showcase";
-import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 import { QuickOfferForm } from "./quick-offer-form";
 import { latestVehicleYear } from "../offer-validation";
 
@@ -147,8 +146,6 @@ export function LocalizedHome({
           </div>
         </div>
       </section>
-
-      <VehicleShowcaseMarquee dictionary={dictionary} locale={locale} />
 
       <section
         id="local-cash-for-cars"

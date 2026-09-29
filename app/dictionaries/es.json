@@ -131,64 +131,6 @@
       }
     ]
   },
-  "vehicleShowcase": {
-    "eyebrow": "Carros que revisamos",
-    "title": "Carros reales, situaciones reales y ayuda local de cinco estrellas.",
-    "body": "Chocados, limpios, con muchas millas, funcionando o parados en la entrada. Estos son los tipos de carros que vendedores de San Diego nos piden revisar cada semana.",
-    "ratingLabel": "Reseña de cinco estrellas",
-    "testimonials": [
-      {
-        "name": "Maria G.",
-        "area": "Chula Vista",
-        "quote": "Entendieron el daño de la defensa rápido y me dieron el siguiente paso sin hacerme perder la tarde."
-      },
-      {
-        "name": "Elena M.",
-        "area": "San Diego",
-        "quote": "Mi Accord tenía daño frontal y no quería tratar con compradores privados. Esto fue mucho más fácil."
-      },
-      {
-        "name": "Jose L.",
-        "area": "El Cajon",
-        "quote": "Revisaron mi hatchback rápido y me explicaron qué detalles importaban para la oferta."
-      },
-      {
-        "name": "Anthony S.",
-        "area": "La Mesa",
-        "quote": "Tenía un sedán limpio pero necesitaba venderlo rápido. La llamada fue corta y clara."
-      },
-      {
-        "name": "Nora P.",
-        "area": "Carlsbad",
-        "quote": "Trataron mi SUV como un carro real, no como un estimado automático de internet."
-      },
-      {
-        "name": "Carlos T.",
-        "area": "Otay Mesa",
-        "quote": "El golpe de atrás me complicaba venderlo. Ellos hicieron que la revisión se sintiera normal."
-      },
-      {
-        "name": "Miguel A.",
-        "area": "Oceanside",
-        "quote": "El daño del frente se veía fuerte, pero igual me explicaron mis opciones."
-      },
-      {
-        "name": "Rachel B.",
-        "area": "Santee",
-        "quote": "La van de trabajo llevaba tiempo parada. Nos ayudaron a saber qué información necesitaban."
-      },
-      {
-        "name": "Luis F.",
-        "area": "Escondido",
-        "quote": "La minivan tenía muchas millas, pero el proceso fue respetuoso y práctico."
-      },
-      {
-        "name": "Brandon W.",
-        "area": "Encinitas",
-        "quote": "Mostré el daño lateral y me explicaron claro cómo podía afectar la oferta."
-      }
-    ]
-  },
   "cashForCarsProof": {
     "eyebrow": "Hecho para vendedores reales",
     "title": "Seis formas de hacer más simple vender un carro que ya no quieres.",

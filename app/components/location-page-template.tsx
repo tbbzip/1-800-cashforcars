@@ -26,7 +26,6 @@ import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 import { QuickOfferForm } from "./quick-offer-form";
 import { latestVehicleYear } from "../offer-validation";
-import { VehicleShowcaseMarquee } from "./vehicle-showcase-marquee";
 
 const phoneHref = "tel:16198307005";
 const detailIcons = [BadgeDollarSign, Truck, FileCheck2];
@@ -188,8 +187,6 @@ export function LocationPageTemplate({
           </div>
         </div>
       </section>
-
-      <VehicleShowcaseMarquee dictionary={dictionary} locale={locale} />
 
       <section className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1160px] px-5 py-14 sm:px-8 lg:py-16">

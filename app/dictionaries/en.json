@@ -131,64 +131,6 @@
       }
     ]
   },
-  "vehicleShowcase": {
-    "eyebrow": "Recently reviewed vehicles",
-    "title": "Real cars. Real situations. Local five-star help.",
-    "body": "Damaged, clean, high-mileage, running, or stuck in the driveway. These are the kinds of vehicles San Diego sellers ask us to review every week.",
-    "ratingLabel": "Five star review",
-    "testimonials": [
-      {
-        "name": "Maria G.",
-        "area": "Chula Vista",
-        "quote": "They understood the bumper damage right away and gave me a clear next step without wasting my afternoon."
-      },
-      {
-        "name": "Elena M.",
-        "area": "San Diego",
-        "quote": "My Accord had front-end damage and I did not want to deal with private buyers. This was much easier."
-      },
-      {
-        "name": "Jose L.",
-        "area": "El Cajon",
-        "quote": "They reviewed my small hatchback quickly and explained what mattered for the offer."
-      },
-      {
-        "name": "Anthony S.",
-        "area": "La Mesa",
-        "quote": "I had a clean sedan but needed it gone fast. The call was short and the details were clear."
-      },
-      {
-        "name": "Nora P.",
-        "area": "Carlsbad",
-        "quote": "They treated my SUV like a real vehicle, not just a generic online estimate."
-      },
-      {
-        "name": "Carlos T.",
-        "area": "Otay Mesa",
-        "quote": "Rear bumper damage made selling it stressful. They made the review feel normal."
-      },
-      {
-        "name": "Miguel A.",
-        "area": "Oceanside",
-        "quote": "The front damage looked bad, but they still walked me through the options."
-      },
-      {
-        "name": "Rachel B.",
-        "area": "Santee",
-        "quote": "Our work van was sitting too long. They helped us understand what information they needed."
-      },
-      {
-        "name": "Luis F.",
-        "area": "Escondido",
-        "quote": "The minivan had high miles, but the process was still respectful and practical."
-      },
-      {
-        "name": "Brandon W.",
-        "area": "Encinitas",
-        "quote": "I showed the side damage and got a clear explanation of how it affected the offer."
-      }
-    ]
-  },
   "cashForCarsProof": {
     "eyebrow": "Built for real sellers",
     "title": "Six ways we make selling an unwanted car feel simple.",
