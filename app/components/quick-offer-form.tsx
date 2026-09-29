@@ -4,7 +4,7 @@ import { useCallback, useEffect, useId, useRef, useState, useSyncExternalStore, 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { sendGTMEvent } from "@next/third-parties/google";
-import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Loader2 } from "lucide-react";
 import { getOfferPath, type Locale } from "../dictionaries";
 import { isValidPhone, isValidVehicleYear } from "../offer-validation";
 import { useVinVehicle } from "../hooks/use-vin-vehicle";
@@ -34,13 +34,13 @@ const copy = {
     vinLabel: "Vehicle identification number (VIN)", vinPlaceholder: "Enter 17-character VIN",
     vinHelp: "Find it on your registration or the driver's side dashboard.",
     vinLoading: "Finding your vehicle…", vinFound: "Review your vehicle details below, then continue.", vinFailed: "Enter your vehicle details below to continue.", vinRetry: "Look up VIN again", vinLimit: "You can update any of these details before continuing.",
-    continue: "Continue", continuing: "Sending…", next: "Next: two quick questions, contact details and pickup address.",
-    contactTitle: "A few quick details", contactIntro: "Send this form once and our local team will call you. You won’t need to complete the detailed Get Offer form afterward.",
-    runningStatus: "Does the vehicle start and run?", ownershipStatus: "Ownership / title", choose: "Select an answer", runs: "Yes", doesNotRun: "No", notSure: "Not sure", ownerTitle: "I own it (title available)", ownerNoTitle: "I own it (title missing)", authorizedSeller: "Authorized by the owner", otherOwnership: "Other / not sure", answerError: "Choose an answer, including “not sure” if needed.",
+    continue: "Continue", continuing: "Sending…", next: "Next: 2 quick questions and your phone number.",
+    contactTitle: "Where should we call you?", contactIntro: "Our local team will call you about your cash offer.",
+    runningStatus: "Does the vehicle start and run?", ownershipStatus: "Ownership / title", choose: "Select an answer", runs: "Yes", doesNotRun: "No", notSure: "Not sure", ownerTitle: "I own it, have title", ownerNoTitle: "I own it, no title", authorizedSeller: "Selling for the owner", otherOwnership: "Other / not sure", answerError: "Choose an answer, including “not sure” if needed.",
     fullName: "Full name", phone: "Phone number", zip: "ZIP code", edit: "Edit vehicle", send: "Send my request",
     notes: "Notes (optional)", notesPlaceholder: "Anything else you’d like us to know about the vehicle or pickup?", notesError: "Keep your notes to 2,000 characters or fewer.",
-    pickupAddress: "Where is the vehicle?", streetAddress: "Street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
-    security: "Security check", securityError: "The security check could not connect. Please retry or call us.", securityExpired: "The security check expired. Please try it again.", securityRetry: "Retry security check",
+    optionalDetails: "Add pickup address or notes (optional)", streetAddress: "Street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
+    security: "Security check", securityWaiting: "Finishing a quick security check…", securityError: "The security check could not connect. Please retry or call us.", securityExpired: "The security check expired. Please try it again.", securityRetry: "Retry security check",
     unavailableSecurity: "Online verification is unavailable. Please call us to request an offer.",
     contactNotice: "By sending, you’re asking our team to call you about this vehicle.",
     detailed: "Prefer the detailed Get Offer form?", sent: "Your request was sent", sentBody: "Our local team will review your vehicle information and call you at",
@@ -63,13 +63,13 @@ const copy = {
     vinLabel: "Número de identificación del carro (VIN)", vinPlaceholder: "VIN de 17 caracteres",
     vinHelp: "Está en tu registro o en el tablero del lado del conductor.",
     vinLoading: "Buscando tu vehículo…", vinFound: "Revisa los datos de tu carro y continúa.", vinFailed: "Ingresa los datos de tu carro abajo para continuar.", vinRetry: "Buscar VIN de nuevo", vinLimit: "Puedes editar estos datos antes de continuar.",
-    continue: "Continuar", continuing: "Enviando…", next: "Después: dos preguntas, contacto y dirección del carro.",
-    contactTitle: "Unos datos rápidos", contactIntro: "Envía este formulario una sola vez y nuestro equipo local te llamará. No necesitas llenar el formulario de oferta detallado después.",
-    runningStatus: "¿El carro enciende y funciona?", ownershipStatus: "Propiedad / título", choose: "Elige una respuesta", runs: "Sí", doesNotRun: "No", notSure: "No sé", ownerTitle: "Soy dueño y tengo título", ownerNoTitle: "Soy dueño, sin título", authorizedSeller: "Autorizado por el dueño", otherOwnership: "Otra situación / no sé", answerError: "Elige una respuesta; puedes seleccionar “no sé”.",
+    continue: "Continuar", continuing: "Enviando…", next: "Después: 2 preguntas rápidas y tu teléfono.",
+    contactTitle: "¿A qué número te llamamos?", contactIntro: "Nuestro equipo local te llamará para darte tu oferta en efectivo.",
+    runningStatus: "¿El carro enciende y funciona?", ownershipStatus: "Propiedad / título", choose: "Elige una respuesta", runs: "Sí", doesNotRun: "No", notSure: "No sé", ownerTitle: "Soy dueño, con título", ownerNoTitle: "Soy dueño, sin título", authorizedSeller: "Vendo por el dueño", otherOwnership: "Otro / no sé", answerError: "Elige una respuesta; puedes seleccionar “no sé”.",
     fullName: "Nombre completo", phone: "Teléfono", zip: "Código ZIP", edit: "Editar vehículo", send: "Enviar mi solicitud",
     notes: "Notas (opcional)", notesPlaceholder: "¿Algo más que quieras contarnos sobre el carro o la recogida?", notesError: "Escribe un máximo de 2,000 caracteres.",
-    pickupAddress: "¿Dónde está el carro?", streetAddress: "Calle y número", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
-    security: "Verificación de seguridad", securityError: "La verificación no pudo conectar. Reintenta o llámanos.", securityExpired: "La verificación venció. Vuelve a intentarla.", securityRetry: "Reintentar verificación",
+    optionalDetails: "Agregar dirección o notas (opcional)", streetAddress: "Calle y número", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
+    security: "Verificación de seguridad", securityWaiting: "Terminando una verificación rápida de seguridad…", securityError: "La verificación no pudo conectar. Reintenta o llámanos.", securityExpired: "La verificación venció. Vuelve a intentarla.", securityRetry: "Reintentar verificación",
     unavailableSecurity: "La verificación no está disponible. Llámanos para solicitar una oferta.",
     contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.",
     detailed: "¿Prefieres el formulario de oferta detallado?", sent: "Tu solicitud fue enviada", sentBody: "Nuestro equipo local revisará los datos de tu carro y te llamará al",
@@ -85,6 +85,34 @@ const copy = {
 };
 
 const subscribeNever = () => () => {};
+
+/** One-tap answers instead of a dropdown; real radios keep keyboard and screen reader support. */
+function ChoiceGroup({ name, legend, options, value, onChange, columns, invalid, errorId, errorText }: {
+  name: string;
+  legend: string;
+  options: [string, string][];
+  value: string;
+  onChange: (value: string) => void;
+  columns: 2 | 3;
+  invalid: boolean;
+  errorId: string;
+  errorText: string;
+}) {
+  return (
+    <fieldset aria-describedby={invalid ? errorId : undefined} className="grid min-w-0 gap-1.5">
+      <legend className="mb-1.5 text-sm font-bold">{legend}</legend>
+      <div className={`grid min-w-0 gap-2 ${columns === 3 ? "grid-cols-3" : "grid-cols-2"}`}>
+        {options.map(([optionValue, label]) => (
+          <label key={optionValue} className={`flex min-h-12 min-w-0 cursor-pointer items-center justify-center rounded-xl border bg-white px-2 py-1.5 text-center text-sm font-bold leading-tight text-slate-800 transition has-[:checked]:border-[#187b36] has-[:checked]:bg-[#ecfdf1] has-[:checked]:text-[#146c30] has-[:checked]:ring-1 has-[:checked]:ring-[#187b36] has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-[#187b36] ${invalid ? "border-red-600" : "border-slate-300"}`}>
+            <input type="radio" name={name} value={optionValue} checked={value === optionValue} onChange={() => onChange(optionValue)} className="sr-only" />
+            {label}
+          </label>
+        ))}
+      </div>
+      {invalid ? <span id={errorId} className="text-xs text-red-700">{errorText}</span> : null}
+    </fieldset>
+  );
+}
 
 /** `maxYear` comes from the server render so the prerendered year list always matches hydration. */
 export function QuickOfferForm({ locale, maxYear }: { locale: Locale; maxYear: number }) {
@@ -114,6 +142,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [showOptional, setShowOptional] = useState(false);
   const [streetAddress, setStreetAddress] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
@@ -240,8 +269,12 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       sendGTMEvent({ event: "quick_inquiry_start", selection_method: selectionMethod, language: locale });
       return;
     }
-    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !streetAddress.trim() && "streetAddress", !city.trim() && "city", !/^\d{5}$/.test(zip) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
-    if (missing.length) { showErrors(missing); return; }
+    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !/^\d{5}$/.test(zip) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
+    if (missing.length) {
+      if (missing.includes("notes")) setShowOptional(true);
+      showErrors(missing);
+      return;
+    }
     if (!turnstileSiteKey || !token) { setSecurityError(text.securityError); return; }
     setInvalid([]);
     setSubmitError("");
@@ -394,55 +427,56 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
               <div className="min-w-0 break-words text-sm font-bold"><p>{vehicleSummary}</p>{mode === "vin" ? <p className="mt-1 break-all text-xs font-normal text-slate-600">VIN: {vin}</p> : null}</div>
               <button type="button" disabled={isPending} onClick={() => { focusFieldRef.current = mode === "vin" ? "vin" : "year"; setStage("vehicle"); setInvalid([]); setToken(""); setSecurityError(""); }} className="shrink-0 text-xs font-bold text-[#146c30] underline">{text.edit}</button>
             </div>
-            <fieldset disabled={isPending} className="grid gap-3">
-              <label className="grid min-w-0 gap-1.5 text-sm font-bold">{text.runningStatus}
-                <select aria-label={text.runningStatus} {...fieldProps("runningStatus")} value={runningStatus} onChange={(event) => { setRunningStatus(event.target.value as InquiryRunningStatus | ""); setInvalid((fields) => fields.filter((field) => field !== "runningStatus")); }} className={fieldClass("runningStatus")}>
-                  <option value="">{text.choose}</option><option value="runs">{text.runs}</option><option value="does_not_run">{text.doesNotRun}</option><option value="not_sure">{text.notSure}</option>
-                </select>
-                {invalid.includes("runningStatus") ? <span id={`${id}-runningStatus-error`} className="text-xs text-red-700">{text.answerError}</span> : null}
-              </label>
-              <label className="grid min-w-0 gap-1.5 text-sm font-bold">{text.ownershipStatus}
-                <select aria-label={text.ownershipStatus} {...fieldProps("ownershipStatus")} value={ownershipStatus} onChange={(event) => { setOwnershipStatus(event.target.value as InquiryOwnershipStatus | ""); setInvalid((fields) => fields.filter((field) => field !== "ownershipStatus")); }} className={fieldClass("ownershipStatus")}>
-                  <option value="">{text.choose}</option><option value="owner_with_title">{text.ownerTitle}</option><option value="owner_without_title">{text.ownerNoTitle}</option><option value="authorized_seller">{text.authorizedSeller}</option><option value="not_sure">{text.otherOwnership}</option>
-                </select>
-                {invalid.includes("ownershipStatus") ? <span id={`${id}-ownershipStatus-error`} className="text-xs text-red-700">{text.answerError}</span> : null}
-              </label>
+            <fieldset disabled={isPending} className="grid min-w-0 gap-4">
+              <ChoiceGroup
+                name="runningStatus" legend={text.runningStatus} columns={3} value={runningStatus}
+                options={[["runs", text.runs], ["does_not_run", text.doesNotRun], ["not_sure", text.notSure]]}
+                onChange={(value) => { setRunningStatus(value as InquiryRunningStatus); setInvalid((fields) => fields.filter((field) => field !== "runningStatus")); }}
+                invalid={invalid.includes("runningStatus")} errorId={`${id}-runningStatus-error`} errorText={text.answerError}
+              />
+              <ChoiceGroup
+                name="ownershipStatus" legend={text.ownershipStatus} columns={2} value={ownershipStatus}
+                options={[["owner_with_title", text.ownerTitle], ["owner_without_title", text.ownerNoTitle], ["authorized_seller", text.authorizedSeller], ["not_sure", text.otherOwnership]]}
+                onChange={(value) => { setOwnershipStatus(value as InquiryOwnershipStatus); setInvalid((fields) => fields.filter((field) => field !== "ownershipStatus")); }}
+                invalid={invalid.includes("ownershipStatus")} errorId={`${id}-ownershipStatus-error`} errorText={text.answerError}
+              />
               <label className="grid gap-1.5 text-sm font-bold">{text.fullName}
                 <input aria-label={text.fullName} {...fieldProps("fullName")} value={fullName} onChange={(event) => { setFullName(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "fullName")); }} autoComplete="name" maxLength={200} className={fieldClass("fullName")} />
                 {invalid.includes("fullName") ? <span id={`${id}-fullName-error`} className="text-xs text-red-700">{text.nameError}</span> : null}
               </label>
-              <label className="grid gap-1.5 text-sm font-bold">{text.phone}
-                <input aria-label={text.phone} {...fieldProps("phone")} value={phone} onChange={(event) => { setPhone(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "phone")); }} type="tel" autoComplete="tel" maxLength={30} className={fieldClass("phone")} />
-                {invalid.includes("phone") ? <span id={`${id}-phone-error`} className="text-xs text-red-700">{text.phoneError}</span> : null}
-              </label>
-              <fieldset className="mt-2 grid min-w-0 gap-3 border-t border-slate-200 pt-3">
-                <legend className="pr-2 text-sm font-extrabold">{text.pickupAddress}</legend>
-                <label className="grid gap-1.5 text-sm font-bold">{text.streetAddress}
-                  <input aria-label={text.streetAddress} {...fieldProps("streetAddress")} value={streetAddress} onChange={(event) => { setStreetAddress(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "streetAddress")); }} autoComplete="section-pickup address-line1" maxLength={240} className={fieldClass("streetAddress")} />
-                  {invalid.includes("streetAddress") ? <span id={`${id}-streetAddress-error`} className="text-xs text-red-700">{text.streetError}</span> : null}
+              <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,0.62fr)] items-start gap-3">
+                <label className="grid min-w-0 gap-1.5 text-sm font-bold">{text.phone}
+                  <input aria-label={text.phone} {...fieldProps("phone")} value={phone} onChange={(event) => { setPhone(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "phone")); }} type="tel" inputMode="tel" autoComplete="tel" maxLength={30} className={fieldClass("phone")} />
+                  {invalid.includes("phone") ? <span id={`${id}-phone-error`} className="text-xs font-normal leading-5 text-red-700">{text.phoneError}</span> : null}
                 </label>
-                <label className="grid gap-1.5 text-sm font-bold">{text.addressLine2}
-                  <input aria-label={text.addressLine2} name="addressLine2" value={addressLine2} onChange={(event) => setAddressLine2(event.target.value)} autoComplete="section-pickup address-line2" maxLength={240} className={fieldClass("addressLine2")} />
+                <label className="grid min-w-0 gap-1.5 text-sm font-bold">{text.zip}
+                  <input aria-label={text.zip} {...fieldProps("zip")} value={zip} onChange={(event) => { setZip(event.target.value.replace(/\D/g, "").slice(0, 5)); setInvalid((fields) => fields.filter((field) => field !== "zip")); }} inputMode="numeric" autoComplete="section-pickup postal-code" maxLength={5} className={fieldClass("zip")} />
+                  {invalid.includes("zip") ? <span id={`${id}-zip-error`} className="text-xs font-normal leading-5 text-red-700">{text.zipError}</span> : null}
                 </label>
-                <label className="grid gap-1.5 text-sm font-bold">{text.city}
-                  <input aria-label={text.city} {...fieldProps("city")} value={city} onChange={(event) => { setCity(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "city")); }} autoComplete="section-pickup address-level2" maxLength={240} className={fieldClass("city")} />
-                  {invalid.includes("city") ? <span id={`${id}-city-error`} className="text-xs text-red-700">{text.cityError}</span> : null}
-                </label>
-                <div className="grid min-w-0 grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] items-start gap-3">
-                  <label className="grid gap-1.5 text-sm font-bold">{text.state}
-                    <input aria-label={text.state} {...fieldProps("state")} value="CA" readOnly autoComplete="section-pickup address-level1" className={`${fieldClass("state")} bg-slate-50`} />
-                    {invalid.includes("state") ? <span id={`${id}-state-error`} className="text-xs text-red-700">{text.stateError}</span> : null}
-                  </label>
-              <label className="grid gap-1.5 text-sm font-bold">{text.zip}
-                <input aria-label={text.zip} {...fieldProps("zip")} value={zip} onChange={(event) => { setZip(event.target.value.replace(/\D/g, "").slice(0, 5)); setInvalid((fields) => fields.filter((field) => field !== "zip")); }} inputMode="numeric" autoComplete="section-pickup postal-code" maxLength={5} className={fieldClass("zip")} />
-                {invalid.includes("zip") ? <span id={`${id}-zip-error`} className="text-xs leading-5 text-red-700">{text.zipError}</span> : null}
-              </label>
-                </div>
-              </fieldset>
-              <label className="mt-1 grid gap-1.5 text-sm font-bold">{text.notes}
-                <textarea aria-label={text.notes} {...fieldProps("notes")} value={notes} onChange={(event) => { setNotes(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "notes")); }} placeholder={text.notesPlaceholder} maxLength={INQUIRY_NOTES_MAX_LENGTH} rows={3} className={fieldClass("notes", true)} />
-                {invalid.includes("notes") ? <span id={`${id}-notes-error`} className="text-xs text-red-700">{text.notesError}</span> : null}
-              </label>
+              </div>
+              <div className="min-w-0 border-t border-slate-200 pt-2">
+                <button type="button" data-optional-toggle aria-expanded={showOptional} aria-controls={`${id}-optional`} onClick={() => setShowOptional((open) => !open)} className="flex min-h-11 w-full items-center justify-between gap-2 text-left text-sm font-extrabold text-[#146c30] outline-none focus-visible:ring-2 focus-visible:ring-[#187b36]">
+                  {text.optionalDetails}
+                  <ChevronDown aria-hidden="true" className={`h-4 w-4 shrink-0 transition ${showOptional ? "rotate-180" : ""}`} />
+                </button>
+                {showOptional ? (
+                  <div id={`${id}-optional`} className="grid min-w-0 gap-3 pt-1">
+                    <label className="grid gap-1.5 text-sm font-bold">{text.streetAddress}
+                      <input aria-label={text.streetAddress} name="streetAddress" value={streetAddress} onChange={(event) => setStreetAddress(event.target.value)} autoComplete="section-pickup address-line1" maxLength={240} className={fieldClass("streetAddress")} />
+                    </label>
+                    <label className="grid gap-1.5 text-sm font-bold">{text.addressLine2}
+                      <input aria-label={text.addressLine2} name="addressLine2" value={addressLine2} onChange={(event) => setAddressLine2(event.target.value)} autoComplete="section-pickup address-line2" maxLength={240} className={fieldClass("addressLine2")} />
+                    </label>
+                    <label className="grid gap-1.5 text-sm font-bold">{text.city}
+                      <input aria-label={text.city} name="city" value={city} onChange={(event) => setCity(event.target.value)} autoComplete="section-pickup address-level2" maxLength={240} className={fieldClass("city")} />
+                    </label>
+                    <label className="grid gap-1.5 text-sm font-bold">{text.notes}
+                      <textarea aria-label={text.notes} {...fieldProps("notes")} value={notes} onChange={(event) => { setNotes(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "notes")); }} placeholder={text.notesPlaceholder} maxLength={INQUIRY_NOTES_MAX_LENGTH} rows={3} className={fieldClass("notes", true)} />
+                      {invalid.includes("notes") ? <span id={`${id}-notes-error`} className="text-xs text-red-700">{text.notesError}</span> : null}
+                    </label>
+                  </div>
+                ) : null}
+              </div>
             </fieldset>
             <div className="mt-4">
               <p className="mb-2 text-xs font-bold text-slate-600">{text.security}</p>
@@ -457,6 +491,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
           {isPending ? text.continuing : stage === "contact" ? text.send : text.continue}
           {!isPending ? <ArrowRight aria-hidden="true" className="h-4 w-4" /> : null}
         </button>
+        {stage === "contact" && turnstileSiteKey && !token && !securityError && !isPending ? <p role="status" className="mt-2 flex items-center justify-center gap-2 text-xs font-semibold leading-5 text-slate-600"><Loader2 aria-hidden="true" className="h-3.5 w-3.5 animate-spin" />{text.securityWaiting}</p> : null}
         <p className="mt-2 text-center text-xs leading-5 text-slate-600">{stage === "contact" ? text.contactNotice : text.next}</p>
         <p className="mt-3 flex items-start justify-center gap-1.5 border-t border-slate-100 pt-3 text-center text-xs leading-5 text-slate-600"><Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#187b36]" />{text.reassurance}</p>
       </form>

@@ -33,10 +33,12 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
     ["Full name", lead.fullName],
     ["Phone", lead.phone],
   ];
+  // Street and city are optional on the quick form; the team confirms them on the call.
+  const location = `${lead.city ? `${lead.city}, ` : ""}${lead.state} ${lead.zip}`;
   const pickupRows = [
-    ["Pickup street address", lead.streetAddress],
+    ["Pickup street address", lead.streetAddress || "Not provided (confirm on call)"],
     ...(lead.addressLine2 ? [["Apt / unit / space", lead.addressLine2]] : []),
-    ["Pickup city / state / ZIP", `${lead.city}, ${lead.state} ${lead.zip}`],
+    ["Pickup city / state / ZIP", location],
   ];
   const vehicleRows = [
     ["Vehicle", vehicle],
@@ -58,17 +60,17 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
           ${entries.map(([label, value]) => `<tr><th scope="row" style="width:38%;padding:8px 12px 8px 0;border-bottom:1px solid #e2e8f0;color:#64748b;font-weight:400;text-align:left;vertical-align:top;overflow-wrap:anywhere;">${escapeHtml(label)}</th><td style="padding:8px 0;border-bottom:1px solid #e2e8f0;color:#0f172a;font-weight:600;vertical-align:top;overflow-wrap:anywhere;word-break:break-word;">${label === "Phone" ? `<a href="${phoneHref}" style="color:#166534;text-decoration:underline;">${escapeHtml(value)}</a>` : escapeHtml(value)}</td></tr>`).join("\n          ")}
         </table>`;
   return {
-    subject: `New lead: ${vehicle} | ${running} | ${ownership} | ${lead.city} ${lead.zip}`,
+    subject: `New lead: ${vehicle} | ${running} | ${ownership} | ${[lead.city, lead.zip].filter(Boolean).join(" ")}`,
     text: [...rows.map(([label, value]) => `${label}: ${value}`), "", metadata.map(([label, value]) => `${label}: ${value}`).join(" · ")].join("\n"),
     html: `<!doctype html>
 <html lang="en">
   <body style="margin:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;">
-    <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${escapeHtml(`${lead.fullName} · ${lead.phone} · ${lead.streetAddress}`)}</div>
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${escapeHtml([lead.fullName, lead.phone, lead.streetAddress].filter(Boolean).join(" · "))}</div>
     <div style="max-width:600px;margin:0 auto;padding:20px 12px;">
       <div style="border:1px solid #e2e8f0;border-top:4px solid #187b36;background:#ffffff;border-radius:12px;padding:20px;">
         <p style="margin:0 0 5px;color:#166534;font-size:11px;line-height:1.5;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">New vehicle lead</p>
         <h1 style="margin:0;color:#0f172a;font-size:22px;line-height:1.3;overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(vehicle)}</h1>
-        <p style="margin:6px 0 0;color:#64748b;font-size:13px;line-height:1.5;overflow-wrap:anywhere;">${escapeHtml(`${lead.city}, ${lead.state} ${lead.zip}`)} &middot; Quick form</p>
+        <p style="margin:6px 0 0;color:#64748b;font-size:13px;line-height:1.5;overflow-wrap:anywhere;">${escapeHtml(location)} &middot; Quick form</p>
         ${section("Contact", contactRows)}
         ${section("Pickup", pickupRows)}
         ${section("Vehicle details", vehicleRows)}
