@@ -72,9 +72,14 @@
     ]
   },
   "hero": {
-    "badge": "San Diego County cash offers",
-    "headline": "Sell your car for cash in San Diego County.",
-    "body": "Get a local cash offer for your used, junk, damaged, or non-running car. If we buy it, pickup or standard towing is included anywhere in San Diego County.",
+    "badge": "San Diego County only",
+    "headline": "Cash for cars in San Diego",
+    "highlights": [
+      "Junk, damaged, high-mileage, or not running",
+      "Free pickup or towing when we buy",
+      "We buy whole vehicles. No parts sales."
+    ],
+    "body": "Get a local cash offer for your used, junk, damaged, or non-running car. We buy whole vehicles, and if we buy yours, pickup or standard towing is included anywhere in San Diego County.",
     "primaryCta": "Get My Cash Offer",
     "callCta": "Call 619-830-7005",
     "proofPoints": [

@@ -72,9 +72,14 @@
     ]
   },
   "hero": {
-    "badge": "Ofertas en efectivo en San Diego County",
-    "headline": "Vende tu carro por efectivo en San Diego County.",
-    "body": "Te damos una oferta local por tu carro usado, chocado, para yonke o que no prende. Si lo compramos, pasar por él o mandar grúa estándar va incluido en San Diego County.",
+    "badge": "Solo en San Diego County",
+    "headline": "Efectivo por tu carro en San Diego",
+    "highlights": [
+      "Para yonke, chocado, con muchas millas o que no prende",
+      "Recogida o grúa sin costo si lo compramos",
+      "Compramos el vehículo completo. No vendemos partes."
+    ],
+    "body": "Te damos una oferta local por tu carro usado, chocado, para yonke o que no prende. Compramos el vehículo completo y, si lo compramos, pasar por él o mandar grúa estándar va incluido en San Diego County.",
     "primaryCta": "Obtén tu oferta",
     "callCta": "Llama al 619-830-7005",
     "proofPoints": [

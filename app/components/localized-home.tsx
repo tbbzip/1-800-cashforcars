@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   BadgeDollarSign,
   CarFront,
+  Check,
   CircleHelp,
   FileCheck2,
   FileText,
@@ -122,9 +123,17 @@ export function LocalizedHome({
               <MapPin aria-hidden="true" className="h-4 w-4 shrink-0" />
               {dictionary.hero.badge}
             </p>
-            <h1 className="max-w-xl text-[30px] font-black leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-[54px]">
+            <h1 className="max-w-xl text-balance text-[30px] font-black leading-[1.08] tracking-tight text-slate-950 sm:text-5xl lg:text-[54px]">
               {dictionary.hero.headline}
             </h1>
+            <ul className="mt-3 grid gap-1.5 text-[15px] font-bold leading-5 text-slate-700 sm:mt-5 sm:text-base">
+              {dictionary.hero.highlights.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-[#187b36]" strokeWidth={3} />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <QuickOfferForm locale={locale} maxYear={latestVehicleYear()} />
@@ -137,15 +146,95 @@ export function LocalizedHome({
               <PhoneCall aria-hidden="true" className="h-4 w-4 shrink-0" />
               {dictionary.hero.callCta}
             </a>
-            <p className="mt-3 text-sm font-semibold leading-6 text-slate-600">
-              {dictionary.hero.proofPoints[0]}
-            </p>
             <div className="mt-4 hidden max-w-[300px] lg:block">
               <MascotImage alt={mascotImages.homeHero.alt[locale]} sizes="300px" />
             </div>
           </div>
         </div>
       </section>
+
+      <section
+        id="how-it-works"
+        className="scroll-mt-32 border-y border-slate-200 bg-white"
+      >
+        <div className="mx-auto max-w-[1160px] px-5 py-14 sm:px-8 lg:py-16">
+          <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+            <div>
+              <p className="text-sm font-extrabold uppercase text-[#2fad50]">
+                {dictionary.process.eyebrow}
+              </p>
+              <h2 className="mt-2 max-w-2xl text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
+                {dictionary.process.title}
+              </h2>
+            </div>
+            <p className="max-w-md text-base leading-7 text-slate-600">
+              {dictionary.process.body}
+            </p>
+          </div>
+
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {dictionary.process.steps.map((step, index) => {
+              const Icon = processIcons[index] ?? CarFront;
+              const isFeatured = index === 1;
+              const stepNumber = String(index + 1).padStart(2, "0");
+
+              return (
+                <article
+                  key={step.title}
+                  className={`group relative overflow-hidden rounded-[24px] border p-5 shadow-[0_18px_46px_rgba(15,23,42,0.05)] sm:p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.1)] ${
+                    isFeatured
+                      ? "border-[#bde9c9] bg-[#ecfdf1]"
+                      : "border-slate-200 bg-white"
+                  }`}
+                >
+                  <div className="relative z-10 flex items-start justify-between gap-4">
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
+                        isFeatured
+                          ? "bg-[#2fad50] text-white"
+                          : "bg-slate-950 text-white"
+                      }`}
+                    >
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                    </div>
+                    <span className="text-5xl font-black leading-none text-slate-950/10">
+                      {stepNumber}
+                    </span>
+                  </div>
+
+                  <p className="relative z-10 mt-4 text-xs font-black uppercase tracking-[0.12em] text-[#2fad50] sm:mt-8">
+                    {dictionary.process.stepLabel} {index + 1}
+                  </p>
+                  <h3 className="relative z-10 mt-2 text-2xl font-black leading-tight text-slate-950">
+                    {step.title}
+                  </h3>
+                  <p className="relative z-10 mt-3 text-sm font-semibold leading-6 text-slate-600">
+                    {step.body}
+                  </p>
+
+                  <div className="relative z-10 mt-6 hidden items-center gap-2 sm:flex">
+                    <span
+                      className={`h-2.5 w-2.5 rounded-full ${
+                        isFeatured ? "bg-[#2fad50]" : "bg-slate-950"
+                      }`}
+                    />
+                    <span className="h-px flex-1 bg-slate-200" />
+                    <span className="text-xs font-black text-slate-400">
+                      {stepNumber}/03
+                    </span>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <CashForCarsShowcase
+        dictionary={dictionary}
+        locale={locale}
+        offerPath={offerPath}
+      />
 
       <section
         id="local-cash-for-cars"
@@ -187,89 +276,6 @@ export function LocalizedHome({
                 );
               })}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <CashForCarsShowcase
-        dictionary={dictionary}
-        locale={locale}
-        offerPath={offerPath}
-      />
-
-      <section
-        id="how-it-works"
-        className="scroll-mt-32 border-y border-slate-200 bg-white"
-      >
-        <div className="mx-auto max-w-[1160px] px-5 py-14 sm:px-8 lg:py-16">
-          <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-            <div>
-              <p className="text-sm font-extrabold uppercase text-[#2fad50]">
-                {dictionary.process.eyebrow}
-              </p>
-              <h2 className="mt-2 max-w-2xl text-3xl font-black leading-tight text-slate-950 sm:text-4xl">
-                {dictionary.process.title}
-              </h2>
-            </div>
-            <p className="max-w-md text-base leading-7 text-slate-600">
-              {dictionary.process.body}
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-4 lg:grid-cols-3">
-            {dictionary.process.steps.map((step, index) => {
-              const Icon = processIcons[index] ?? CarFront;
-              const isFeatured = index === 1;
-              const stepNumber = String(index + 1).padStart(2, "0");
-
-              return (
-                <article
-                  key={step.title}
-                  className={`group relative overflow-hidden rounded-[24px] border p-6 shadow-[0_18px_46px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_64px_rgba(15,23,42,0.1)] ${
-                    isFeatured
-                      ? "border-[#bde9c9] bg-[#ecfdf1]"
-                      : "border-slate-200 bg-white"
-                  }`}
-                >
-                  <div className="relative z-10 flex items-start justify-between gap-4">
-                    <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-2xl ${
-                        isFeatured
-                          ? "bg-[#2fad50] text-white"
-                          : "bg-slate-950 text-white"
-                      }`}
-                    >
-                      <Icon aria-hidden="true" className="h-5 w-5" />
-                    </div>
-                    <span className="text-5xl font-black leading-none text-slate-950/10">
-                      {stepNumber}
-                    </span>
-                  </div>
-
-                  <p className="relative z-10 mt-8 text-xs font-black uppercase tracking-[0.12em] text-[#2fad50]">
-                    {dictionary.process.stepLabel} {index + 1}
-                  </p>
-                  <h3 className="relative z-10 mt-2 text-2xl font-black leading-tight text-slate-950">
-                    {step.title}
-                  </h3>
-                  <p className="relative z-10 mt-3 text-sm font-semibold leading-6 text-slate-600">
-                    {step.body}
-                  </p>
-
-                  <div className="relative z-10 mt-6 flex items-center gap-2">
-                    <span
-                      className={`h-2.5 w-2.5 rounded-full ${
-                        isFeatured ? "bg-[#2fad50]" : "bg-slate-950"
-                      }`}
-                    />
-                    <span className="h-px flex-1 bg-slate-200" />
-                    <span className="text-xs font-black text-slate-400">
-                      {stepNumber}/03
-                    </span>
-                  </div>
-                </article>
-              );
-            })}
           </div>
         </div>
       </section>
