@@ -114,6 +114,7 @@ export function validateInquiry(submission: InquirySubmission): InquiryField[] {
   if (!lead.fullName) invalid.push("fullName");
   if (lead.notes.length > INQUIRY_NOTES_MAX_LENGTH) invalid.push("notes");
   if (!isValidPhone(lead.phone) || !/^[+\d\s().-]+$/.test(lead.phone)) invalid.push("phone");
+  if (!lead.streetAddress) invalid.push("streetAddress");
   if (lead.state !== "CA") invalid.push("state");
   if (!/^\d{5}$/.test(lead.zip)) invalid.push("zip");
   if (!submission.sourcePath) invalid.push("sourcePath");

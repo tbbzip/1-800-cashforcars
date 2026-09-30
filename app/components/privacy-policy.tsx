@@ -19,8 +19,8 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
       {
         title: "Information you give us",
         items: [
-          "When you request an offer: your name, phone number, ZIP code, and vehicle details such as year, make, model, VIN, mileage, condition, and ownership or title status.",
-          "If you choose to add them: the pickup address, notes, and (on the detailed offer form) your email address.",
+          "When you request an offer: your name, phone number, the vehicle’s pickup address, and vehicle details such as year, make, model, VIN, mileage, condition, and ownership or title status.",
+          "If you choose to add them: notes and (on the detailed offer form) your email address.",
           "When you call or text us: the information you share in that conversation.",
         ],
       },
@@ -90,8 +90,8 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
       {
         title: "Información que nos das",
         items: [
-          "Cuando pides una oferta: tu nombre, teléfono, código ZIP y los datos del vehículo, como año, marca, modelo, VIN, millaje, condición y situación de propiedad o título.",
-          "Si decides agregarlos: la dirección de recogida, notas y (en el formulario de oferta detallado) tu correo electrónico.",
+          "Cuando pides una oferta: tu nombre, teléfono, la dirección donde está el vehículo y los datos del vehículo, como año, marca, modelo, VIN, millaje, condición y situación de propiedad o título.",
+          "Si decides agregarlos: notas y (en el formulario de oferta detallado) tu correo electrónico.",
           "Cuando nos llamas o nos envías un mensaje de texto: la información que compartes en esa conversación.",
         ],
       },

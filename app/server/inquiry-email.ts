@@ -33,10 +33,10 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
     ["Full name", lead.fullName],
     ["Phone", lead.phone],
   ];
-  // Street and city are optional on the quick form; the team confirms them on the call.
+  // City is optional on the quick form; street and ZIP are required.
   const location = `${lead.city ? `${lead.city}, ` : ""}${lead.state} ${lead.zip}`;
   const pickupRows = [
-    ["Pickup street address", lead.streetAddress || "Not provided (confirm on call)"],
+    ["Pickup street address", lead.streetAddress],
     ...(lead.addressLine2 ? [["Apt / unit / space", lead.addressLine2]] : []),
     ["Pickup city / state / ZIP", location],
   ];
@@ -65,7 +65,7 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
     html: `<!doctype html>
 <html lang="en">
   <body style="margin:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;">
-    <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${escapeHtml([lead.fullName, lead.phone, lead.streetAddress].filter(Boolean).join(" · "))}</div>
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;">${escapeHtml(`${lead.fullName} · ${lead.phone} · ${lead.streetAddress}`)}</div>
     <div style="max-width:600px;margin:0 auto;padding:20px 12px;">
       <div style="border:1px solid #e2e8f0;border-top:4px solid #187b36;background:#ffffff;border-radius:12px;padding:20px;">
         <p style="margin:0 0 5px;color:#166534;font-size:11px;line-height:1.5;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;">New vehicle lead</p>

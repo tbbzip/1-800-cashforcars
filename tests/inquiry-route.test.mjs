@@ -162,7 +162,7 @@ test("invalid input never reaches Turnstile or email providers", async () => {
     { ...submission, sourcePath: "https://external.invalid/page" }, { ...submission, sourcePath: "//external.invalid" },
     { ...submission, sourcePath: "/\\external.invalid" }, { ...submission, submissionId: "not-a-uuid" },
     { ...submission, selectionMethod: "other" },
-    ...["fullName", "phone", "state", "zip", "year", "make", "model", "runningStatus", "ownershipStatus"].map((field) => ({ ...submission, lead: { ...submission.lead, [field]: "" } })),
+    ...["fullName", "phone", "streetAddress", "state", "zip", "year", "make", "model", "runningStatus", "ownershipStatus"].map((field) => ({ ...submission, lead: { ...submission.lead, [field]: "" } })),
     ...["9215", "92154extra", "921540", "abcde"].map((zip) => ({ ...submission, lead: { ...submission.lead, zip } })),
     ...["123", "call6195550142", "+446195550142"].map((phone) => ({ ...submission, lead: { ...submission.lead, phone } })),
     ...["1899", String(new Date().getFullYear() + 2), "2014extra"].map((year) => ({ ...submission, lead: { ...submission.lead, year } })),
@@ -178,24 +178,24 @@ test("invalid input never reaches Turnstile or email providers", async () => {
   assert.equal(calls, 0);
 });
 
-test("pickup street and city are optional and marked for confirmation on the call", async () => {
+test("pickup city is optional; street and ZIP still reach the email", async () => {
   const calls = [];
   const { POST } = loadTypeScript(routePath, async (url, options) => {
     calls.push({ url, options });
     return Response.json(calls.length % 2 === 1 ? { success: true } : { id: "mock-inquiry" });
   });
-  const result = await POST(request({ ...submission, lead: { ...submission.lead, streetAddress: "", city: " " } }));
+  const result = await POST(request({ ...submission, lead: { ...submission.lead, city: " " } }));
   assert.equal(result.status, 200);
   const email = JSON.parse(calls[1].options.body);
-  assert.match(email.text, /Pickup street address: Not provided \(confirm on call\)/);
+  assert.match(email.text, /Pickup street address: 123 Example Street/);
   assert.match(email.text, /Pickup city \/ state \/ ZIP: CA 92154/);
   assert.match(email.subject, /\| 92154$/);
 });
 
-test("missing or malformed pickup state is rejected before provider calls", async () => {
+test("missing or malformed pickup street and state are rejected before provider calls", async () => {
   let calls = 0;
   const { POST } = loadTypeScript(routePath, async () => { calls++; throw new Error("Unexpected provider call"); });
-  for (const field of ["state"]) {
+  for (const field of ["streetAddress", "state"]) {
     for (const value of [undefined, null, true, false, 123, {}, [], "", " \n\t "]) {
       const result = await POST(request({ ...submission, lead: { ...submission.lead, [field]: value } }));
       assert.equal(result.status, 400);

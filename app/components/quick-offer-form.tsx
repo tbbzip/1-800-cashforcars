@@ -34,12 +34,12 @@ const copy = {
     vinLabel: "Vehicle identification number (VIN)", vinPlaceholder: "Enter 17-character VIN",
     vinHelp: "Find it on your registration or the driver's side dashboard.",
     vinLoading: "Finding your vehicle…", vinFound: "Review your vehicle details below, then continue.", vinFailed: "Enter your vehicle details below to continue.", vinRetry: "Look up VIN again", vinLimit: "You can update any of these details before continuing.",
-    continue: "Continue", continuing: "Sending…", next: "Next: 2 quick questions and your phone number.",
+    continue: "Continue", continuing: "Sending…", next: "Next: 2 quick questions, your phone and pickup address.",
     contactTitle: "Where should we call you?", contactIntro: "Our local team will call you about your cash offer.",
     runningStatus: "Does the vehicle start and run?", ownershipStatus: "Ownership / title", choose: "Select an answer", runs: "Yes", doesNotRun: "No", notSure: "Not sure", ownerTitle: "I own it, have title", ownerNoTitle: "I own it, no title", authorizedSeller: "Selling for the owner", otherOwnership: "Other / not sure", answerError: "Choose an answer, including “not sure” if needed.",
     fullName: "Full name", phone: "Phone number", zip: "ZIP code", edit: "Edit vehicle", send: "Send my request",
     notes: "Notes (optional)", notesPlaceholder: "Anything else you’d like us to know about the vehicle or pickup?", notesError: "Keep your notes to 2,000 characters or fewer.",
-    optionalDetails: "Add pickup address or notes (optional)", streetAddress: "Street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
+    optionalDetails: "Add unit, city or notes (optional)", streetAddress: "Pickup street address", addressLine2: "Apartment, suite or unit (optional)", city: "City", state: "State", streetError: "Enter the vehicle’s street address.", cityError: "Enter the pickup city.", stateError: "Pickup is available in California within our service area.",
     security: "Security check", securityWaiting: "Finishing a quick security check…", securityError: "The security check could not connect. Please retry or call us.", securityExpired: "The security check expired. Please try it again.", securityRetry: "Retry security check",
     unavailableSecurity: "Online verification is unavailable. Please call us to request an offer.",
     contactNotice: "By sending, you’re asking our team to call you about this vehicle.", privacy: "Privacy policy",
@@ -63,12 +63,12 @@ const copy = {
     vinLabel: "Número de identificación del carro (VIN)", vinPlaceholder: "VIN de 17 caracteres",
     vinHelp: "Está en tu registro o en el tablero del lado del conductor.",
     vinLoading: "Buscando tu vehículo…", vinFound: "Revisa los datos de tu carro y continúa.", vinFailed: "Ingresa los datos de tu carro abajo para continuar.", vinRetry: "Buscar VIN de nuevo", vinLimit: "Puedes editar estos datos antes de continuar.",
-    continue: "Continuar", continuing: "Enviando…", next: "Después: 2 preguntas rápidas y tu teléfono.",
+    continue: "Continuar", continuing: "Enviando…", next: "Después: 2 preguntas rápidas, tu teléfono y la dirección del carro.",
     contactTitle: "¿A qué número te llamamos?", contactIntro: "Nuestro equipo local te llamará para darte tu oferta en efectivo.",
     runningStatus: "¿El carro enciende y funciona?", ownershipStatus: "Propiedad / título", choose: "Elige una respuesta", runs: "Sí", doesNotRun: "No", notSure: "No sé", ownerTitle: "Soy dueño, con título", ownerNoTitle: "Soy dueño, sin título", authorizedSeller: "Vendo por el dueño", otherOwnership: "Otro / no sé", answerError: "Elige una respuesta; puedes seleccionar “no sé”.",
     fullName: "Nombre completo", phone: "Teléfono", zip: "Código ZIP", edit: "Editar vehículo", send: "Enviar mi solicitud",
     notes: "Notas (opcional)", notesPlaceholder: "¿Algo más que quieras contarnos sobre el carro o la recogida?", notesError: "Escribe un máximo de 2,000 caracteres.",
-    optionalDetails: "Agregar dirección o notas (opcional)", streetAddress: "Calle y número", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
+    optionalDetails: "Agregar unidad, ciudad o notas (opcional)", streetAddress: "Dirección donde está el carro (calle y número)", addressLine2: "Departamento, suite o unidad (opcional)", city: "Ciudad", state: "Estado", streetError: "Ingresa la calle y el número donde está el carro.", cityError: "Ingresa la ciudad donde está el carro.", stateError: "Recogemos carros en California dentro de nuestra área de servicio.",
     security: "Verificación de seguridad", securityWaiting: "Terminando una verificación rápida de seguridad…", securityError: "La verificación no pudo conectar. Reintenta o llámanos.", securityExpired: "La verificación venció. Vuelve a intentarla.", securityRetry: "Reintentar verificación",
     unavailableSecurity: "La verificación no está disponible. Llámanos para solicitar una oferta.",
     contactNotice: "Al enviar, solicitas que nuestro equipo te llame sobre este vehículo.", privacy: "Política de privacidad",
@@ -269,7 +269,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       sendGTMEvent({ event: "quick_inquiry_start", selection_method: selectionMethod, language: locale });
       return;
     }
-    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !/^\d{5}$/.test(zip) && "zip", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
+    const missing = [!runningStatus && "runningStatus", !ownershipStatus && "ownershipStatus", !fullName.trim() && "fullName", (!isValidPhone(phone) || !/^[+\d\s().-]+$/.test(phone)) && "phone", !/^\d{5}$/.test(zip) && "zip", !streetAddress.trim() && "streetAddress", notes.length > INQUIRY_NOTES_MAX_LENGTH && "notes"].filter(Boolean) as string[];
     if (missing.length) {
       if (missing.includes("notes")) setShowOptional(true);
       showErrors(missing);
@@ -454,6 +454,10 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
                   {invalid.includes("zip") ? <span id={`${id}-zip-error`} className="text-xs font-normal leading-5 text-red-700">{text.zipError}</span> : null}
                 </label>
               </div>
+              <label className="grid gap-1.5 text-sm font-bold">{text.streetAddress}
+                <input aria-label={text.streetAddress} {...fieldProps("streetAddress")} value={streetAddress} onChange={(event) => { setStreetAddress(event.target.value); setInvalid((fields) => fields.filter((field) => field !== "streetAddress")); }} autoComplete="section-pickup address-line1" maxLength={240} className={fieldClass("streetAddress")} />
+                {invalid.includes("streetAddress") ? <span id={`${id}-streetAddress-error`} className="text-xs text-red-700">{text.streetError}</span> : null}
+              </label>
               <div className="min-w-0 border-t border-slate-200 pt-2">
                 <button type="button" data-optional-toggle aria-expanded={showOptional} aria-controls={`${id}-optional`} onClick={() => setShowOptional((open) => !open)} className="flex min-h-11 w-full items-center justify-between gap-2 text-left text-sm font-extrabold text-[#146c30] outline-none focus-visible:ring-2 focus-visible:ring-[#187b36]">
                   {text.optionalDetails}
@@ -461,9 +465,6 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
                 </button>
                 {showOptional ? (
                   <div id={`${id}-optional`} className="grid min-w-0 gap-3 pt-1">
-                    <label className="grid gap-1.5 text-sm font-bold">{text.streetAddress}
-                      <input aria-label={text.streetAddress} name="streetAddress" value={streetAddress} onChange={(event) => setStreetAddress(event.target.value)} autoComplete="section-pickup address-line1" maxLength={240} className={fieldClass("streetAddress")} />
-                    </label>
                     <label className="grid gap-1.5 text-sm font-bold">{text.addressLine2}
                       <input aria-label={text.addressLine2} name="addressLine2" value={addressLine2} onChange={(event) => setAddressLine2(event.target.value)} autoComplete="section-pickup address-line2" maxLength={240} className={fieldClass("addressLine2")} />
                     </label>
