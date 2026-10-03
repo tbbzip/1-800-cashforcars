@@ -12,7 +12,8 @@ import { INQUIRY_NOTES_MAX_LENGTH, type InquiryOwnershipStatus, type InquiryRunn
 import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { TurnstileChallenge } from "./turnstile-challenge";
 import { AdClickHiddenFields } from "./ad-click-fields";
-import { getAdClickAttribution } from "../ad-click-attribution";
+import { getLeadAttribution } from "../lead-attribution-client";
+import type { LeadAttribution } from "../lead-attribution";
 import { LeadRequestGate } from "./lead-request-gate";
 import { getLeadSubmissionReceipt, saveLeadSubmissionReceipt } from "../lead-submission-receipt";
 
@@ -154,7 +155,7 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
   const [securityError, setSecurityError] = useState("");
   const [token, setToken] = useState("");
   const [resetSignal, setResetSignal] = useState(0);
-  const submissionRef = useRef<{ fingerprint: string; id: string } | null>(null);
+  const submissionRef = useRef<{ fingerprint: string; id: string; attribution: LeadAttribution } | null>(null);
   const sendingRef = useRef(false);
   const focusFieldRef = useRef<string | null>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -286,13 +287,15 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       fullName: fullName.trim(), phone: phone.trim(), zip, notes: notes.trim(),
       streetAddress: streetAddress.trim(), addressLine2: addressLine2.trim(), city: city.trim(), state: "CA",
     };
-    const data = { lead, locale, sourcePath, selectionMethod, attribution: getAdClickAttribution() };
+    const data = { lead, locale, sourcePath, selectionMethod };
     const fingerprint = JSON.stringify(data);
     try {
-      if (submissionRef.current?.fingerprint !== fingerprint) submissionRef.current = { fingerprint, id: crypto.randomUUID() };
+      if (submissionRef.current?.fingerprint !== fingerprint) {
+        submissionRef.current = { fingerprint, id: crypto.randomUUID(), attribution: getLeadAttribution() };
+      }
       const response = await fetch("/api/inquiry", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, submissionId: submissionRef.current.id, turnstileToken: token }),
+        body: JSON.stringify({ ...data, submissionId: submissionRef.current.id, attribution: submissionRef.current.attribution, turnstileToken: token }),
         signal: AbortSignal.timeout(30_000),
       });
       const result = await response.json().catch(() => null);
@@ -309,7 +312,13 @@ function QuickOfferFields({ locale, maxYear }: { locale: Locale; maxYear: number
       }
       saveLeadSubmissionReceipt({ vehicle: { year: selectedYear, make: selectedMake, model: selectedModel }, source: "quick" });
       setStage("success");
-      sendGTMEvent({ event: "quick_inquiry_submit_success", selection_method: selectionMethod, language: locale });
+      sendGTMEvent({
+        event: "quick_inquiry_submit_success",
+        event_id: submissionRef.current.id,
+        form_name: "quick_inquiry",
+        selection_method: selectionMethod,
+        language: locale,
+      });
     } catch {
       setSubmitError(text.deliveryError);
       setToken("");

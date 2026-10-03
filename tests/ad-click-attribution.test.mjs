@@ -75,5 +75,5 @@ test("detailed offer emails carry the click IDs", async () => {
   assert.equal(response.status, 200);
   const email = JSON.parse(calls[1].options.body);
   assert.match(email.text, /Google Ads click ID \(wbraid\): CjkKwb_1/);
-  assert.match(email.html, />Ad click</);
+  assert.match(email.html, />Lead attribution</);
 });

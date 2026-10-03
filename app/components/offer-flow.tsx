@@ -5,7 +5,8 @@ import Link from "next/link";
 import { TurnstileChallenge } from "./turnstile-challenge";
 import { LeadRequestGate } from "./lead-request-gate";
 import { AdClickHiddenFields } from "./ad-click-fields";
-import { getAdClickAttribution } from "../ad-click-attribution";
+import { getLeadAttribution } from "../lead-attribution-client";
+import type { LeadAttribution } from "../lead-attribution";
 import { sendGTMEvent } from "@next/third-parties/google";
 import {
   FormEvent,
@@ -384,7 +385,7 @@ function OfferFlowBody({
   const [turnstileResetSignal, setTurnstileResetSignal] = useState(0);
   const lookupAbortRef = useRef<AbortController | null>(null);
   const submitAbortRef = useRef<AbortController | null>(null);
-  const submissionRef = useRef<OfferSubmissionIdentity | null>(null);
+  const submissionRef = useRef<(OfferSubmissionIdentity & { attribution: LeadAttribution }) | null>(null);
   const submittingRef = useRef(false);
 
   useEffect(() => () => {
@@ -543,7 +544,10 @@ function OfferFlowBody({
     let responseError = "";
 
     try {
-      submissionRef.current = getOfferSubmissionIdentity(data, locale, submissionRef.current, () => crypto.randomUUID());
+      const identity = getOfferSubmissionIdentity(data, locale, submissionRef.current, () => crypto.randomUUID());
+      submissionRef.current = submissionRef.current?.id === identity.id
+        ? submissionRef.current
+        : { ...identity, attribution: getLeadAttribution() };
       const response = await fetch("/api/offer", {
         method: "POST",
         headers: {
@@ -554,7 +558,7 @@ function OfferFlowBody({
           locale,
           submissionId: submissionRef.current.id,
           turnstileToken,
-          attribution: getAdClickAttribution(),
+          attribution: submissionRef.current.attribution,
         }),
         signal: controller.signal,
       });
@@ -579,6 +583,7 @@ function OfferFlowBody({
       setTurnstileToken("");
       sendGTMEvent({
         event: "offer_form_submit_success",
+        event_id: submissionRef.current.id,
         form_name: "cash_offer",
         language: locale,
       });

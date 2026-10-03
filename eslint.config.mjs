@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Local, git-ignored audit output (screenshots, reports, helper scripts).
     "audits/**",
+    // Local, git-ignored ad creative and campaign exports.
+    "outputs/**",
   ]),
 ]);
 

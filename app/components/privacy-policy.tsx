@@ -3,7 +3,7 @@ import { serviceAreaPhone, serviceAreaPhoneHref } from "../service-area";
 import { SiteFooter } from "./site-footer";
 import { SiteNavigation } from "./site-navigation";
 
-export const privacyPolicyUpdated = { en: "September 29, 2026", es: "29 de septiembre de 2026" };
+export const privacyPolicyUpdated = { en: "October 3, 2026", es: "3 de octubre de 2026" };
 
 type Section = { title: string; paragraphs?: string[]; items?: string[] };
 
@@ -29,6 +29,8 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
         paragraphs: [
           "Like most websites, we and the services listed below use cookies and similar technologies to collect information such as your browser and device type, pages visited, the site that referred you, approximate location based on your IP address, and how you interact with pages (for example clicks and scrolling).",
           "If you arrive by clicking one of our Google ads, the ad click identifier (gclid, gbraid, or wbraid) is stored in your browser for up to 90 days and sent with your offer request. This lets us tell Google Ads whether an ad led to a request or a vehicle purchase.",
+          "We also store first-visit and latest-source details in your browser for up to 90 days, including campaign tags, the advertiser keyword when provided, landing page and referring website. These details, your current visit, browser language and approximate device category are included with your request to help us understand which advertising produces useful inquiries. We strip URL query strings and fragments from stored page addresses and retain only the referring site's origin. The advertiser keyword is not your private search query.",
+          "Meta Pixel measures page visits, successfully submitted offer requests, and clicks on phone buttons to help us measure our Facebook and Instagram ads. A phone-button click does not confirm that a call connected. Successful-form events include a random request identifier and form information such as form type and language, rather than the contact or vehicle details entered in the form.",
           "Third-party services on this site may collect information about your online activities over time and across different websites.",
         ],
       },
@@ -38,7 +40,7 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "To review your vehicle, prepare an offer, and call or text you about your request.",
           "To schedule pickup or towing and help with title and DMV paperwork.",
           "To protect our forms from spam and abuse.",
-          "To measure and improve our website and advertising, including reporting ad results to Google Ads.",
+          "To measure and improve our website and advertising, including reporting ad results to Google Ads and Meta.",
           "To meet legal and record-keeping obligations.",
         ],
       },
@@ -50,6 +52,7 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "Resend, which delivers your offer request to our team by email.",
           "Cloudflare Turnstile, which checks that form submissions come from people.",
           "Google (Google Analytics, Google Ads, and Google Tag Manager), for site analytics, ad measurement, and advertising, including showing our ads to people who visited this site.",
+          "Meta (Meta Pixel), for Facebook and Instagram ad measurement and advertising, including showing our ads to people who visited this site.",
           "Microsoft Clarity, which records how visitors use our pages (such as clicks, scrolling, and page layout) so we can improve them.",
         ],
       },
@@ -100,6 +103,8 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
         paragraphs: [
           "Como la mayoría de los sitios web, nosotros y los servicios que aparecen abajo usamos cookies y tecnologías similares para recopilar información como tu navegador y tipo de dispositivo, las páginas que visitas, el sitio que te trajo, tu ubicación aproximada según tu dirección IP y cómo interactúas con las páginas (por ejemplo, clics y desplazamiento).",
           "Si llegas al hacer clic en uno de nuestros anuncios de Google, el identificador del clic (gclid, gbraid o wbraid) se guarda en tu navegador hasta por 90 días y se envía con tu solicitud de oferta. Así podemos informar a Google Ads si un anuncio llevó a una solicitud o a la compra de un vehículo.",
+          "También guardamos en tu navegador, hasta por 90 días, datos de la primera visita y la fuente más reciente: etiquetas de campaña, la palabra clave del anunciante cuando se proporciona, la página de entrada y el sitio de referencia. Estos datos, tu visita actual, el idioma del navegador y el tipo aproximado de dispositivo se incluyen con tu solicitud para entender qué publicidad genera consultas útiles. Eliminamos los parámetros y fragmentos de las direcciones guardadas y conservamos solo el origen del sitio de referencia. La palabra clave del anunciante no es tu consulta de búsqueda privada.",
+          "Meta Pixel mide las visitas a páginas, las solicitudes de oferta enviadas correctamente y los clics en botones de teléfono para ayudarnos a medir nuestros anuncios de Facebook e Instagram. Un clic en un botón de teléfono no confirma que se haya conectado una llamada. Los eventos de envío correcto incluyen un identificador aleatorio de la solicitud y datos del formulario, como su tipo e idioma, en lugar de los datos de contacto o del vehículo ingresados en el formulario.",
           "Los servicios de terceros en este sitio pueden recopilar información sobre tu actividad en línea a lo largo del tiempo y en distintos sitios web.",
         ],
       },
@@ -109,7 +114,7 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "Para revisar tu vehículo, preparar una oferta y llamarte o escribirte sobre tu solicitud.",
           "Para programar la recogida o la grúa y ayudarte con el título y los trámites del DMV.",
           "Para proteger nuestros formularios contra spam y abuso.",
-          "Para medir y mejorar nuestro sitio y nuestra publicidad, incluido el reporte de resultados a Google Ads.",
+          "Para medir y mejorar nuestro sitio y nuestra publicidad, incluido el reporte de resultados a Google Ads y Meta.",
           "Para cumplir obligaciones legales y de registro.",
         ],
       },
@@ -121,6 +126,7 @@ const content: Record<Locale, { title: string; updated: string; intro: string; s
           "Resend, que entrega tu solicitud de oferta a nuestro equipo por correo electrónico.",
           "Cloudflare Turnstile, que verifica que los formularios los envíen personas.",
           "Google (Google Analytics, Google Ads y Google Tag Manager), para análisis del sitio, medición de anuncios y publicidad, incluido mostrar nuestros anuncios a personas que visitaron este sitio.",
+          "Meta (Meta Pixel), para medir los anuncios de Facebook e Instagram y mostrar publicidad, incluido mostrar nuestros anuncios a personas que visitaron este sitio.",
           "Microsoft Clarity, que registra cómo se usan nuestras páginas (como clics, desplazamiento y diseño de la página) para mejorarlas.",
         ],
       },

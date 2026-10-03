@@ -2,7 +2,7 @@ import "server-only";
 import { createHash } from "node:crypto";
 import type { OfferLead } from "../offer-validation";
 import type { LeadEmail } from "./lead-delivery";
-import { adClickRows, type AdClickAttribution } from "../ad-click-attribution";
+import { leadAttributionRows, type LeadAttribution } from "../lead-attribution";
 
 function booleanLabel(value: boolean | null) {
   if (value === true) {
@@ -26,9 +26,9 @@ function escapeHtml(value: string) {
 }
 
 function row(label: string, value: string) {
-  return `<tr><td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#475569;font-weight:700;width:190px;">${escapeHtml(
+  return `<tr><td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#475569;font-weight:700;width:38%;vertical-align:top;overflow-wrap:anywhere;">${escapeHtml(
     label,
-  )}</td><td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#0f172a;">${escapeHtml(
+  )}</td><td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;color:#0f172a;vertical-align:top;overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(
     value || "Not provided",
   )}</td></tr>`;
 }
@@ -40,8 +40,8 @@ function buildSubject(lead: OfferLead) {
   return `New cash offer lead: ${vehicle || "Vehicle"}${location}`;
 }
 
-function buildTextEmail(lead: OfferLead, locale: string, attribution: AdClickAttribution) {
-  const adClick = adClickRows(attribution);
+function buildTextEmail(lead: OfferLead, locale: string, submissionId: string, attribution: LeadAttribution) {
+  const attributionRows = leadAttributionRows(attribution);
   return [
     "New cash offer lead",
     "",
@@ -76,12 +76,13 @@ function buildTextEmail(lead: OfferLead, locale: string, attribution: AdClickAtt
     `Airbags deployed: ${booleanLabel(lead.airbagsDeployed)}`,
     `Has keys: ${booleanLabel(lead.hasKeys)}`,
     `Vehicle location: ${lead.access}`,
-    ...(adClick.length ? ["", ...adClick.map(([label, value]) => `${label}: ${value}`)] : []),
+    "", "Request details", `Submission ID: ${submissionId}`,
+    ...(attributionRows.length ? ["", "Lead attribution", ...attributionRows.map(([label, value]) => `${label}: ${value}`)] : []),
   ].join("\n");
 }
 
-function buildHtmlEmail(lead: OfferLead, locale: string, attribution: AdClickAttribution) {
-  const adClick = adClickRows(attribution);
+function buildHtmlEmail(lead: OfferLead, locale: string, submissionId: string, attribution: LeadAttribution) {
+  const attributionRows = leadAttributionRows(attribution);
   const name = [lead.firstName, lead.lastName].filter(Boolean).join(" ");
   const vehicle = [lead.year, lead.make, lead.model, lead.trim]
     .filter(Boolean)
@@ -137,10 +138,14 @@ function buildHtmlEmail(lead: OfferLead, locale: string, attribution: AdClickAtt
             ${row("Airbags deployed", booleanLabel(lead.airbagsDeployed))}
             ${row("Has keys", booleanLabel(lead.hasKeys))}
           </table>
-          ${adClick.length ? `
-          <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Ad click</h2>
-          <table style="width:100%;border-collapse:collapse;font-size:14px;">
-            ${adClick.map(([label, value]) => row(label, value)).join("\n            ")}
+          <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Request details</h2>
+          <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px;">
+            ${row("Submission ID", submissionId)}
+          </table>
+          ${attributionRows.length ? `
+          <h2 style="margin:24px 0 12px;font-size:18px;color:#0f172a;">Lead attribution</h2>
+          <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px;">
+            ${attributionRows.map(([label, value]) => row(label, value)).join("\n            ")}
           </table>` : ""}
         </div>
       </div>
@@ -149,16 +154,16 @@ function buildHtmlEmail(lead: OfferLead, locale: string, attribution: AdClickAtt
 </html>`;
 }
 
-export function formatOfferEmail(lead: OfferLead, locale: "en" | "es", submissionId?: string, attribution: AdClickAttribution = {}): LeadEmail {
+export function formatOfferEmail(lead: OfferLead, locale: "en" | "es", submissionId?: string, attribution: LeadAttribution = {}): LeadEmail {
   // Older pages already open during a deployment do not send an ID. Deduplicate
   // their normalized payload too, without placing seller details in the key.
-  const idempotencyKey = submissionId
-    ? `offer-form/${submissionId}`
-    : `offer-form/legacy/${createHash("sha256").update(JSON.stringify({ lead, locale })).digest("hex")}`;
+  const submissionReference = submissionId
+    || `legacy/${createHash("sha256").update(JSON.stringify({ lead, locale })).digest("hex")}`;
+  const idempotencyKey = `offer-form/${submissionReference}`;
   return {
     subject: buildSubject(lead),
-    html: buildHtmlEmail(lead, locale, attribution),
-    text: buildTextEmail(lead, locale, attribution),
+    html: buildHtmlEmail(lead, locale, submissionReference, attribution),
+    text: buildTextEmail(lead, locale, submissionReference, attribution),
     source: "offer_form",
     idempotencyKey,
     replyTo: lead.email,

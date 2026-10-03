@@ -1,7 +1,7 @@
 import "server-only";
 import type { InquirySubmission, InquiryRunningStatus, InquiryOwnershipStatus } from "../inquiry-validation";
 import type { LeadEmail } from "./lead-delivery";
-import { adClickRows } from "../ad-click-attribution";
+import { leadAttributionRows } from "../lead-attribution";
 
 function escapeHtml(value: string) {
   return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -47,13 +47,13 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
     ["Ownership / title", ownership],
   ];
   const rows = [...contactRows, ...pickupRows, ...vehicleRows, ...(lead.notes ? [["Notes", lead.notes]] : [])];
-  const metadata = [
+  const requestDetails = [
     ["Selection method", selectionMethod],
     ["Page", sourcePath],
     ["Language", locale],
     ["Inquiry ID", submissionId],
-    ...adClickRows(attribution ?? {}),
   ];
+  const attributionRows = leadAttributionRows(attribution ?? {});
   const section = (title: string, entries: string[][]) => `
         <h2 style="margin:22px 0 8px;color:#166534;font-size:12px;line-height:1.5;letter-spacing:0.08em;text-transform:uppercase;">${title}</h2>
         <table style="width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px;line-height:1.6;">
@@ -61,7 +61,11 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
         </table>`;
   return {
     subject: `New lead: ${vehicle} | ${running} | ${ownership} | ${[lead.city, lead.zip].filter(Boolean).join(" ")}`,
-    text: [...rows.map(([label, value]) => `${label}: ${value}`), "", metadata.map(([label, value]) => `${label}: ${value}`).join(" · ")].join("\n"),
+    text: [
+      ...rows.map(([label, value]) => `${label}: ${value}`),
+      "", "Request details", ...requestDetails.map(([label, value]) => `${label}: ${value}`),
+      ...(attributionRows.length ? ["", "Lead attribution", ...attributionRows.map(([label, value]) => `${label}: ${value}`)] : []),
+    ].join("\n"),
     html: `<!doctype html>
 <html lang="en">
   <body style="margin:0;background:#f8fafc;font-family:Arial,Helvetica,sans-serif;">
@@ -75,8 +79,9 @@ export function formatInquiryEmail(submission: InquirySubmission): LeadEmail {
         ${section("Pickup", pickupRows)}
         ${section("Vehicle details", vehicleRows)}
         ${lead.notes ? `<div style="margin-top:22px;padding:14px;background:#f0fdf4;border:1px solid #dcfce7;border-radius:8px;"><h2 style="margin:0 0 6px;color:#166534;font-size:12px;line-height:1.5;letter-spacing:0.08em;text-transform:uppercase;">Notes</h2><p style="margin:0;color:#0f172a;font-size:14px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;">${escapeHtml(lead.notes).replace(/\n/g, "<br />")}</p></div>` : ""}
+        ${section("Request details", requestDetails)}
+        ${attributionRows.length ? section("Lead attribution", attributionRows) : ""}
       </div>
-      <p style="margin:14px 8px 0;font-size:11px;line-height:1.7;color:#64748b;overflow-wrap:anywhere;word-break:break-word;">${metadata.map(([label, value]) => `${escapeHtml(label)}: ${escapeHtml(value)}`).join("<br />")}</p>
     </div>
   </body>
 </html>`,

@@ -1,19 +1,21 @@
 "use client";
 
 import { useEffect, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
+import { captureLeadAttribution } from "../lead-attribution-client";
 import {
   getAdClickAttribution,
   getServerAdClickAttribution,
-  saveAdClickFromUrl,
 } from "../ad-click-attribution";
 
 const subscribeNever = () => () => {};
 
-/** Saves gclid / gbraid / wbraid from the ad landing URL so later pages and visits keep them. */
+/** Capture the entry source before internal navigation removes its campaign parameters. */
 export function AdClickCapture() {
+  const pathname = usePathname();
   useEffect(() => {
-    saveAdClickFromUrl();
-  }, []);
+    captureLeadAttribution();
+  }, [pathname]);
   return null;
 }
 

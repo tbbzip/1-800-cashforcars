@@ -2,7 +2,7 @@ import { formatOfferEmail } from "../../server/offer-email";
 import { getClientIp, sendLeadEmail, verifyTurnstile } from "../../server/lead-delivery";
 import { normalizeOfferSubmissionId, validateOfferLead, type OfferLead } from "../../offer-validation";
 import { normalizeZip } from "../../service-area";
-import { normalizeAdClickAttribution } from "../../ad-click-attribution";
+import { normalizeLeadAttribution } from "../../lead-attribution";
 
 const MAX_STRING_LENGTH = 240;
 const MAX_TOKEN_LENGTH = 2048;
@@ -118,7 +118,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const attribution = normalizeAdClickAttribution(payload.attribution);
+  const attribution = normalizeLeadAttribution(payload.attribution);
   const email = await sendLeadEmail(formatOfferEmail(lead, locale, submissionId, attribution), locale);
 
   if (!email.ok) {
